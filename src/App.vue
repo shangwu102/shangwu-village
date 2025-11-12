@@ -1,9 +1,32 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import { ref, onMounted, onUnmounted } from 'vue'
+
+const headerRef = ref(null)
+
+// 处理滚动事件，添加动画效果
+const handleScroll = () => {
+  const scrollY = window.scrollY
+  if (headerRef.value) {
+    if (scrollY > 50) {
+      headerRef.value.classList.add('scrolled')
+    } else {
+      headerRef.value.classList.remove('scrolled')
+    }
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
 </script>
 
 <template>
-  <header class="header-container">
+  <header class="header-container" ref="headerRef">
     <div class="header-content">
       <!-- Logo -->
       <div class="logo-section">
@@ -47,6 +70,29 @@ import { RouterLink, RouterView } from 'vue-router'
   color: #fff;
   padding: 0 2rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  will-change: transform, box-shadow;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
+}
+
+/* 滚动时的动画效果 */
+.header-container.scrolled {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(0);
+  animation: slideDown 0.3s ease forwards;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-10px);
+    opacity: 0.9;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .header-content {
