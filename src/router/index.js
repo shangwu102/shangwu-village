@@ -10,6 +10,31 @@ const router = createRouter({
       component: HomeView,
     },
     {
+      path: '/map',
+      name: 'map',
+      component: () => import('../views/MapView.vue'),
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: () => import('../views/SearchView.vue'),
+    },
+    {
+      path: '/villages',
+      name: 'villages',
+      component: () => import('../views/VillagesView.vue'),
+    },
+    {
+      path: '/culture',
+      name: 'culture',
+      component: () => import('../views/CultureView.vue'),
+    },
+    {
+      path: '/academic',
+      name: 'academic',
+      component: () => import('../views/AcademicView.vue'),
+    },
+    {
       path: '/about',
       name: 'about',
       component: () => import('../views/AboutView.vue'),

@@ -1,19 +1,40 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+  <header class="header-container">
+    <div class="header-content">
+      <!-- Logo -->
+      <div class="logo-section">
+        <RouterLink to="/" class="logo-link">
+          <span class="logo-text">DCM</span>
+          <span class="logo-title">云行阡陌，找寻记忆中的中国传统村落</span>
+        </RouterLink>
+      </div>
+      
+      <!-- 主导航 -->
+      <nav class="main-nav">
+        <RouterLink to="/map" class="nav-link">地图</RouterLink>
+        <RouterLink to="/search" class="nav-link">搜索</RouterLink>
+        <RouterLink to="/villages" class="nav-link">乡墨</RouterLink>
+        <RouterLink to="/culture" class="nav-link">文创</RouterLink>
+        <RouterLink to="/academic" class="nav-link">学术</RouterLink>
+        <RouterLink to="/about" class="nav-link">关于我们</RouterLink>
       </nav>
+      
+      <!-- 右侧功能区 -->
+      <div class="header-right">
+        <div class="search-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+            <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="language-selector">
+          <span>LANG</span>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -21,65 +42,92 @@ import HelloWorld from './components/HelloWorld.vue'
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+.header-container {
+  background: linear-gradient(90deg, #3a923a 0%, #71b635 100%);
+  color: #fff;
+  padding: 0 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: white;
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-right: 0.5rem;
 }
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
+.logo-title {
+  font-size: 0.9rem;
 }
 
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
+.main-nav {
+  display: flex;
+  gap: 2rem;
 }
 
-nav a:first-of-type {
-  border: 0;
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 0.5rem 0;
+  position: relative;
+  transition: all 0.3s ease;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+.nav-link:hover {
+  opacity: 0.8;
+}
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+.search-icon {
+  cursor: pointer;
+}
 
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
+.language-selector {
+  font-size: 0.8rem;
+  cursor: pointer;
+}
 
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    height: auto;
     padding: 1rem 0;
-    margin-top: 1rem;
+    gap: 1rem;
+  }
+  
+  .main-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .logo-text {
+    font-size: 1.2rem;
+  }
+  
+  .logo-title {
+    font-size: 0.8rem;
   }
 }
 </style>
