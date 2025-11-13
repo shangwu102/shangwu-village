@@ -5,17 +5,16 @@
       <div class="hero-section">
         <div class="hero-content">
           <div class="hero-text">
-            <h1 class="hero-title">数字乡建</h1>
+            <h1 class="hero-title">香溢乡村</h1>
             <p class="hero-description">
-              数字乡建以地域特色为基础，致力于构建可持续发展的数字乡村社区。
-              通过整合数字技术与传统文化，打造乡村数字化服务平台，
-              助力乡村文化传承、经济振兴与社会治理创新。
-              在这里，您可以探索乡村特色产业、了解乡村发展历程，
-              感受数字化赋能下的乡村振兴新活力。
+              香溢乡村，一场寻味自然的旅程。在这里，我们带您漫游田园风光，
+              寻踪乡村记忆，探索自然好物。每一处风景都承载着乡土情怀，
+              每一件好物都凝聚着匠人心血。让我们一起感受乡村的自然之美，
+              品味土地的馈赠，聆听乡野的故事，体验最纯粹的生态生活方式。
             </p>
             <ElButton type="primary" size="large" class="explore-btn" @click="handleExploreClick">
-              向下滚动探索
-            </ElButton>
+                开启香溢之旅
+              </ElButton>
           </div>
         </div>
 

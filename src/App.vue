@@ -38,11 +38,11 @@ onUnmounted(() => {
       
       <!-- 主导航 -->
       <nav class="main-nav">
-        <RouterLink to="/map" class="nav-link">地图</RouterLink>
-        <RouterLink to="/search" class="nav-link">搜索</RouterLink>
-        <RouterLink to="/villages" class="nav-link">乡墨</RouterLink>
-        <RouterLink to="/culture" class="nav-link">文创</RouterLink>
-        <RouterLink to="/academic" class="nav-link">学术</RouterLink>
+        <RouterLink to="/map" class="nav-link">香溢漫游</RouterLink>
+        <RouterLink to="/search" class="nav-link">香溢寻踪</RouterLink>
+        <RouterLink to="/villages" class="nav-link">香溢好物</RouterLink>
+        <RouterLink to="/culture" class="nav-link">乡野艺创</RouterLink>
+        <RouterLink to="/academic" class="nav-link">乡村记忆</RouterLink>
         <RouterLink to="/about" class="nav-link">关于我们</RouterLink>
       </nav>
       
@@ -133,10 +133,28 @@ onUnmounted(() => {
   padding: 0.5rem 0;
   position: relative;
   transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #fef3c7;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
 }
 
 .nav-link:hover {
-  opacity: 0.8;
+  color: #fef3c7;
+  transform: translateY(-2px);
+}
+
+.nav-link:hover::after {
+  width: 100%;
 }
 
 .header-right {
