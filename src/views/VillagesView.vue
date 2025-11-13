@@ -87,24 +87,15 @@ function closeModal() {
     <div class="villages-content">
       <!-- 分类 -->
       <div class="village-categories">
-        <button
-          v-for="c in categories"
-          :key="c"
-          :class="['category-btn', { active: activeCategory === c }]"
-          @click="activeCategory = c; currentPage = 1"
-        >
+        <button v-for="c in categories" :key="c" :class="['category-btn', { active: activeCategory === c }]"
+          @click="activeCategory = c; currentPage = 1">
           {{ c }}
         </button>
       </div>
 
       <!-- 展示 -->
       <div class="villages-showcase">
-        <div
-          v-for="village in displayedVillages"
-          :key="village.id"
-          class="village-card"
-          @click="openVillage(village)"
-        >
+        <div v-for="village in displayedVillages" :key="village.id" class="village-card" @click="openVillage(village)">
           <div class="village-image">
             <div class="image-placeholder">
               <span style="font-size: 2.5rem">{{ village.icon }}</span>
@@ -115,12 +106,10 @@ function closeModal() {
             <h3 class="village-name">{{ village.name }}</h3>
             <div class="village-location">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="#84b854">
-                <path
-                  d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 
                      7-13c0-3.87-3.13-7-7-7zm0 
                      9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 
-                     2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
-                />
+                     2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
               </svg>
               {{ village.location }}
             </div>
@@ -136,13 +125,8 @@ function closeModal() {
       <div class="load-more" v-if="displayedVillages.length < filteredVillages.length">
         <button class="load-more-btn" @click="loadMore">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="#2d8f40">
-            <path
-              d="M12 5v14M5 12l7 7 7-7"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
+            <path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
           </svg>
           加载更多乡村
         </button>
@@ -167,7 +151,197 @@ function closeModal() {
 
 <style scoped>
 /* 乡墨页面样式 */
-.villages-view-container { min-height: calc(100vh - 60px); background-color: #f5f9f2; padding: 2rem; } .page-header { text-align: center; margin-bottom: 2rem; } .page-header h1 { font-size: 2.5rem; color: #2d8f40; margin-bottom: 0.5rem; } .page-header p { color: #666; font-size: 1.1rem; } .villages-content { max-width: 1200px; margin: 0 auto; } .village-categories { display: flex; gap: 1rem; justify-content: center; margin-bottom: 2rem; } .category-btn { padding: 0.75rem 1.5rem; border: none; background: white; color: #666; border-radius: 25px; cursor: pointer; font-size: 1rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; } .category-btn:hover, .category-btn.active { background: linear-gradient(90deg, #2d8f40 0%, #84b854 100%); color: white; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(45, 143, 64, 0.3); } .villages-showcase { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; } .village-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; cursor: pointer; } .village-card:hover { transform: translateY(-5px); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); } .village-image { position: relative; height: 200px; overflow: hidden; } .image-placeholder { width: 100%; height: 100%; background: linear-gradient(135deg, #e8f5e9 0%, #d0f0c0 100%); display: flex; align-items: center; justify-content: center; } .village-tag { position: absolute; top: 1rem; left: 1rem; background: linear-gradient(90deg, #2d8f40 0%, #84b854 100%); color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; font-weight: 500; } .village-info { padding: 1.5rem; } .village-name { font-size: 1.3rem; color: #2d8f40; margin-bottom: 0.5rem; } .village-location { display: flex; align-items: center; gap: 0.5rem; color: #666; font-size: 0.9rem; margin-bottom: 1rem; } .village-description { color: #666; line-height: 1.6; margin-bottom: 1.5rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; } .village-features { display: flex; flex-wrap: wrap; gap: 0.5rem; } .feature-tag { background: #e8f5e9; color: #2d8f40; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; } .load-more { text-align: center; margin-top: 3rem; } .load-more-btn { display: flex; align-items: center; gap: 0.75rem; padding: 1rem 2rem; background: white; border: 2px solid #2d8f40; color: #2d8f40; border-radius: 8px; font-size: 1rem; font-weight: 500; cursor: pointer; transition: all 0.3s ease; } .load-more-btn:hover { background: linear-gradient(90deg, #2d8f40 0%, #84b854 100%); color: white; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(45, 143, 64, 0.3); } @media (max-width: 768px) { .village-categories { flex-wrap: wrap; } .category-btn { padding: 0.6rem 1.2rem; font-size: 0.9rem; } .villages-showcase { grid-template-columns: 1fr; } .page-header h1 { font-size: 2rem; } }
+.villages-view-container {
+  min-height: calc(100vh - 60px);
+  background-color: #f5f9f2;
+  padding: 2rem;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  color: #2d8f40;
+  margin-bottom: 0.5rem;
+}
+
+.page-header p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.villages-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.village-categories {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.category-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  background: white;
+  color: #666;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.category-btn:hover,
+.category-btn.active {
+  background: linear-gradient(90deg, #2d8f40 0%, #84b854 100%);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(45, 143, 64, 0.3);
+}
+
+.villages-showcase {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.village-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.village-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.village-image {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.image-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #e8f5e9 0%, #d0f0c0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.village-tag {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: linear-gradient(90deg, #2d8f40 0%, #84b854 100%);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.village-info {
+  padding: 1.5rem;
+}
+
+.village-name {
+  font-size: 1.3rem;
+  color: #2d8f40;
+  margin-bottom: 0.5rem;
+}
+
+.village-location {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.village-description {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.village-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.feature-tag {
+  background: #e8f5e9;
+  color: #2d8f40;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+}
+
+.load-more {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.load-more-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: white;
+  border: 2px solid #2d8f40;
+  color: #2d8f40;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.load-more-btn:hover {
+  background: linear-gradient(90deg, #2d8f40 0%, #84b854 100%);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(45, 143, 64, 0.3);
+}
+
+@media (max-width: 768px) {
+  .village-categories {
+    flex-wrap: wrap;
+  }
+
+  .category-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  .villages-showcase {
+    grid-template-columns: 1fr;
+  }
+
+  .page-header h1 {
+    font-size: 2rem;
+  }
+}
+
 /* 模态框增强 */
 .modal-overlay {
   position: fixed;
@@ -178,6 +352,7 @@ function closeModal() {
   align-items: center;
   z-index: 99;
 }
+
 .modal {
   background: white;
   border-radius: 12px;
@@ -188,10 +363,19 @@ function closeModal() {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   animation: fadeIn 0.3s ease;
 }
+
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
 .close-btn {
   margin-top: 1.5rem;
   background: #2d8f40;
@@ -202,9 +386,11 @@ function closeModal() {
   cursor: pointer;
   transition: 0.3s;
 }
+
 .close-btn:hover {
   background: #84b854;
 }
+
 .feature-box {
   display: flex;
   flex-wrap: wrap;
