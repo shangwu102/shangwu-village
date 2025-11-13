@@ -31,7 +31,7 @@ onUnmounted(() => {
       <!-- Logo -->
       <div class="logo-section">
         <RouterLink to="/" class="logo-link">
-          <!-- <span class="logo-text">DCM</span> -->
+          <img src="@/assets/logo.svg" alt="乡村记忆" class="logo-image" />
           <span class="logo-title" style="font-weight: bold;">云行阡陌，找寻记忆中的中国传统村落</span>
         </RouterLink>
       </div>
@@ -109,6 +109,13 @@ onUnmounted(() => {
   align-items: center;
   text-decoration: none;
   color: white;
+}
+
+.logo-image {
+  width: 40px;
+  height: 40px;
+  margin-right: 0.8rem;
+  object-fit: contain;
 }
 
 .logo-text {
