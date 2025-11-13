@@ -1,20 +1,86 @@
 <template>
   <div class="slider-container" ref="containerRef">
-    <!-- 第一屏 -->
+    <!-- 第一屏：轮播图和文字内容 -->
     <section class="slider-screen screen-1">
       <div class="hero-section">
         <div class="hero-content">
-          <div class="hero-text">
-            <h1 class="hero-title">香溢乡村</h1>
-            <p class="hero-description">
-              香溢乡村，一场寻味自然的旅程。在这里，我们带您漫游田园风光，
-              寻踪乡村记忆，探索自然好物。每一处风景都承载着乡土情怀，
-              每一件好物都凝聚着匠人心血。让我们一起感受乡村的自然之美，
-              品味土地的馈赠，聆听乡野的故事，体验最纯粹的生态生活方式。
-            </p>
-            <ElButton type="primary" size="large" class="explore-btn" @click="handleExploreClick">
-                开启香溢之旅
-              </ElButton>
+          <!-- 左侧轮播图 -->
+          <div class="hero-carousel" ref="carouselRef">
+            <div class="carousel-slides">
+              <div 
+                v-for="(slide, index) in carouselSlides" 
+                :key="index"
+                :class="['carousel-slide', { active: currentSlide === index }]"
+              >
+                <div class="slide-overlay"></div>
+                <img 
+                  :src="slide.image" 
+                  :alt="slide.title" 
+                  class="carousel-image"
+                >
+              </div>
+            </div>
+            
+            <!-- 轮播指示器 -->
+            <div class="carousel-indicators">
+              <button 
+                v-for="(slide, index) in carouselSlides" 
+                :key="index"
+                :class="['indicator-dot', { active: currentSlide === index }]"
+                @click="goToSlide(index)"
+                :aria-label="`Go to slide ${index + 1}`"
+              ></button>
+            </div>
+            
+            <!-- 轮播控制箭头 -->
+            <button 
+              class="carousel-arrow prev" 
+              @click="prevSlide"
+              aria-label="Previous slide"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24">
+                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+              </svg>
+            </button>
+            <button 
+              class="carousel-arrow next" 
+              @click="nextSlide"
+              aria-label="Next slide"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24">
+                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path>
+              </svg>
+            </button>
+          </div>
+          
+          <!-- 右侧文字内容 -->
+          <div class="hero-text-container">
+            <div class="hero-text">
+              <h1 class="hero-title">探索乡村美景</h1>
+              <div class="hero-subtitle">发现自然与人文的和谐之美</div>
+              <p class="hero-description">
+                欢迎来到我们的乡村旅游平台，这里有美丽的自然风光、丰富的历史文化和独特的乡村体验。
+                通过VR技术，您可以身临其境感受乡村的魅力，探索传统村落，体验农耕文化。
+              </p>
+              
+              <!-- 按钮组 -->
+              <div class="hero-buttons">
+                <ElButton type="primary" size="large" class="explore-btn" @click="handleExploreClick">
+                  开始探索
+                </ElButton>
+                <ElButton size="large" class="secondary-btn">
+                  了解更多
+                </ElButton>
+              </div>
+              
+              <!-- 特色标签 -->
+              <div class="hero-tags">
+                <span class="tag">自然风景</span>
+                <span class="tag">乡村文化</span>
+                <span class="tag">VR体验</span>
+                <span class="tag">田园生活</span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -85,6 +151,62 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import { ElButton } from 'element-plus'
+
+// 直接导入图片资源
+import image1 from '../assets/262.jpg'
+import image2 from '../assets/LNCrwnFGSU.jpg'
+import image3 from '../assets/nkgI8DBXQF.jpg'
+import image4 from '../assets/SyaZvCEVZv.jpg'
+
+// --- 轮播图数据与状态 --- 
+const carouselSlides = ref([
+  {
+    image: image1,
+    title: '乡村风景1'
+  },
+  {
+    image: image2,
+    title: '乡村风景2'
+  },
+  {
+    image: image3,
+    title: '乡村风景3'
+  },
+  {
+    image: image4,
+    title: '乡村风景4'
+  }
+])
+
+const currentSlide = ref(0)
+const carouselRef = ref(null)
+let carouselTimer = null
+
+// --- 轮播图控制逻辑 --- 
+const goToSlide = (index) => {
+  currentSlide.value = index
+}
+
+const nextSlide = () => {
+  currentSlide.value = (currentSlide.value + 1) % carouselSlides.value.length
+}
+
+const prevSlide = () => {
+  currentSlide.value = (currentSlide.value - 1 + carouselSlides.value.length) % carouselSlides.value.length
+}
+
+const startCarousel = () => {
+  carouselTimer = setInterval(() => {
+    nextSlide()
+  }, 5000)
+}
+
+const stopCarousel = () => {
+  if (carouselTimer) {
+    clearInterval(carouselTimer)
+    carouselTimer = null
+  }
+}
 
 // --- 状态与配置 ---
 const currentScreen = ref(0)
@@ -210,7 +332,16 @@ onMounted(() => {
     containerRef.value.addEventListener('wheel', handleWheel, { passive: true })
   }
 
-  // 初始化轮播（使用 slideshowRef 优先）
+  // 初始化主轮播图
+  startCarousel()
+  
+  // 监听轮播图鼠标事件
+  if (carouselRef.value) {
+    carouselRef.value.addEventListener('mouseenter', stopCarousel)
+    carouselRef.value.addEventListener('mouseleave', startCarousel)
+  }
+
+  // 初始化第二屏轮播（使用 slideshowRef 优先）
   const slides = slideshowRef.value
     ? slideshowRef.value.querySelectorAll('img')
     : document.querySelectorAll('.slideshow img')
@@ -230,10 +361,24 @@ onMounted(() => {
 onUnmounted(() => {
   if (containerRef.value) containerRef.value.removeEventListener('wheel', handleWheel)
   window.removeEventListener('resize', handleResize)
+  
+  // 清理轮播图定时器
   if (slideshowTimer) {
     clearInterval(slideshowTimer)
     slideshowTimer = null
   }
+  
+  if (carouselTimer) {
+    clearInterval(carouselTimer)
+    carouselTimer = null
+  }
+  
+  // 移除轮播图事件监听
+  if (carouselRef.value) {
+    carouselRef.value.removeEventListener('mouseenter', stopCarousel)
+    carouselRef.value.removeEventListener('mouseleave', startCarousel)
+  }
+  
   // 恢复默认滚动
   document.documentElement.style.overflow = ''
   document.body.style.overflow = ''
@@ -285,7 +430,7 @@ onUnmounted(() => {
   background-color: #f0f4eb; /* 和你提供的 body 背景一致 */
 }
 
-/* ---------- 第一屏样式保留 ---------- */
+/* ---------- 第一屏样式：左右分栏布局 ---------- */
 .hero-section {
   background: linear-gradient(135deg, #2d8f40 0%, #84b854 50%, #ffcc33 100%);
   height: 100vh;
@@ -296,47 +441,276 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
 }
+
 .hero-content {
   position: relative;
   z-index: 1;
   width: 100%;
   height: 100%;
+  max-width: 1400px;
   padding: 2rem;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
+  margin: 0 auto;
 }
+
+/* 左侧轮播图样式 */
+.hero-carousel {
+  position: relative;
+  width: 55%;
+  height: 80%;
+  max-height: 600px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: fadeInUp 1s ease-out;
+}
+
+.carousel-slides {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transform: scale(1.1);
+  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 0;
+}
+
+.carousel-slide.active {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 1;
+}
+
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slide-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+}
+
+/* 轮播指示器 */
+.carousel-indicators {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.indicator-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicator-dot.active,
+.indicator-dot:hover {
+  background-color: #ffcc33;
+  transform: scale(1.3);
+}
+
+/* 轮播箭头 */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+  backdrop-filter: blur(5px);
+}
+
+.carousel-arrow:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-arrow.prev {
+  left: 20px;
+}
+
+.carousel-arrow.next {
+  right: 20px;
+}
+
+.carousel-arrow svg {
+  fill: currentColor;
+}
+
+/* 右侧文字内容样式 */
+.hero-text-container {
+  width: 40%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  animation: fadeInRight 1s ease-out;
+}
+
 .hero-text {
-  max-width: 600px;
   color: white;
   opacity: 0;
   transform: translateY(30px);
   transition: all 0.8s ease;
+  max-width: 100%;
 }
+
 .hero-text.animate-in {
   opacity: 1;
   transform: translateY(0);
 }
+
 .hero-title {
-  font-size: 3.2rem;
-  font-weight: 700;
+  font-size: 4rem;
+  font-weight: 800;
   margin-bottom: 1rem;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+  line-height: 1.1;
+  background: linear-gradient(90deg, #ffffff, #ffeb99);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #fff9e6;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
 .hero-description {
-  font-size: 1.05rem;
-  line-height: 1.6;
-  margin-bottom: 1.2rem;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+  color: rgba(255, 255, 255, 0.95);
 }
+
+/* 按钮组 */
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
 .explore-btn {
   --el-button-bg-color: #ffcc33;
   --el-button-border-color: #ffcc33;
   --el-button-text-color: #333;
+  --el-button-hover-bg-color: #ffdb66;
+  --el-button-hover-border-color: #ffdb66;
+  border-radius: 50px;
+  font-weight: 700;
+  padding: 0.8rem 2rem;
+  font-size: 1.1rem;
+  box-shadow: 0 10px 20px rgba(255, 204, 51, 0.3);
+  transition: all 0.3s ease;
+}
+
+.explore-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(255, 204, 51, 0.4);
+}
+
+.secondary-btn {
+  --el-button-bg-color: transparent;
+  --el-button-border-color: white;
+  --el-button-text-color: white;
+  --el-button-hover-bg-color: rgba(255, 255, 255, 0.1);
+  --el-button-hover-border-color: white;
   border-radius: 50px;
   font-weight: 600;
-  padding: 0.6rem 1.6rem;
+  padding: 0.8rem 2rem;
+  font-size: 1.1rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.secondary-btn:hover {
+  transform: translateY(-3px);
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* 标签样式 */
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.tag {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.5rem 1.2rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.tag:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* 动画效果 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 /* 滚动提示 */
@@ -471,11 +845,115 @@ onUnmounted(() => {
 }
 
 /* 响应式（保留原 HTML 的 media rules） */
+@media (max-width: 1200px) {
+  .hero-content {
+    padding: 1.5rem;
+  }
+  
+  .hero-title {
+    font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .hero-content {
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    padding: 1rem;
+  }
+  
+  .hero-carousel {
+    width: 90%;
+    height: 50%;
+    max-height: 400px;
+  }
+  
+  .hero-text-container {
+    width: 90%;
+    text-align: center;
+    align-items: center;
+  }
+  
+  .hero-buttons {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .hero-tags {
+    justify-content: center;
+  }
+  
+  .hero-title {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-carousel {
+    width: 95%;
+    height: 45%;
+  }
+  
+  .hero-text-container {
+    width: 95%;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .hero-description {
+    font-size: 1rem;
+  }
+  
+  .explore-btn,
+  .secondary-btn {
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .carousel-arrow {
+    width: 40px;
+    height: 40px;
+  }
+}
+
 @media (max-width: 700px) {
   .multi-container { padding: 24px; }
   .multi-row { flex-direction: column; height: auto; }
   .multi-label { flex: none; width: 100%; padding: 14px 12px; }
   .multi-content { padding: 20px; }
+}
+
+@media (max-width: 480px) {
+  .hero-carousel {
+    width: 100%;
+    height: 40%;
+    border-radius: 15px;
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .carousel-arrow {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .carousel-indicators {
+    bottom: 15px;
+  }
 }
 
 /* 滚动条样式（仅在 text-box 内） */
