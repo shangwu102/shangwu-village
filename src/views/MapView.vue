@@ -57,7 +57,7 @@ onBeforeUnmount(() => {
 }
 </style>
 
-<style>
+<style scoped>
 /* 全局样式，禁止页面滚动 */
 body, html {
   overflow: hidden;
