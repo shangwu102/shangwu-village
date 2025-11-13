@@ -48,7 +48,7 @@ onUnmounted(() => {
       
       <!-- 右侧功能区 -->
       <div class="header-right">
-        <div class="search-icon">
+        <!-- <div class="search-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
             <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
             <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -56,7 +56,7 @@ onUnmounted(() => {
         </div>
         <div class="language-selector">
           <span>LANG</span>
-        </div>
+        </div> -->
       </div>
     </div>
   </header>
