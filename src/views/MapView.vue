@@ -53,5 +53,35 @@ onBeforeUnmount(() => {
   width: 100%;
   height: 100vh;
   background: black;
+  overflow: hidden;
+}
+</style>
+
+<style>
+/* 全局样式，禁止页面滚动 */
+body, html {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* 确保viewer-wrap占满整个视口 */
+.viewer-wrap {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+/* 禁止所有滚动条显示 */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 </style>
