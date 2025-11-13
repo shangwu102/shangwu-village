@@ -271,7 +271,7 @@ function closeModal() {
   margin-bottom: 1rem;
 }
 
-.village-description {
+/* .village-description {
   color: #666;
   line-height: 1.6;
   margin-bottom: 1.5rem;
@@ -280,6 +280,34 @@ function closeModal() {
   line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+} */
+ .village-description {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+
+  /* Chrome / Safari / Edge */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; /* 限制显示 3 行 */
+  overflow: hidden;
+
+  /* 标准写法（未来浏览器可能支持） */
+  line-clamp: 3;
+
+  /* Firefox 兼容 fallback */
+  max-height: calc(1.6em * 3); /* 限制 3 行高度 */
+  position: relative;
+}
+
+/* Firefox 省略号显示 */
+.village-description::after {
+  content: '...';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding-left: 0.5em;
+  background: white; /* 根据背景色调整 */
 }
 
 .village-features {
