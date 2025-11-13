@@ -38,9 +38,9 @@ onUnmounted(() => {
       
       <!-- 主导航 -->
       <nav class="main-nav">
-        <RouterLink to="/map" class="nav-link">香忆漫游</RouterLink>
-        <RouterLink to="/search" class="nav-link">香忆寻踪</RouterLink>
-        <RouterLink to="/culture" class="nav-link">香忆好物</RouterLink>
+        <RouterLink to="/map" class="nav-link">乡忆漫游</RouterLink>
+        <RouterLink to="/search" class="nav-link">乡忆寻踪</RouterLink>
+        <RouterLink to="/culture" class="nav-link">乡忆好物</RouterLink>
         <!-- <RouterLink to="/villages" class="nav-link">乡野艺创</RouterLink>
         <RouterLink to="/academic" class="nav-link">乡村记忆</RouterLink> -->
         <RouterLink to="/about" class="nav-link">关于我们</RouterLink>
