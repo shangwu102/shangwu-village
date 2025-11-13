@@ -1,78 +1,50 @@
 <template>
   <div class="slider-container" ref="containerRef">
-    <!-- 第一屏：轮播图和文字内容 -->
+    <!-- 第一屏 -->
     <section class="slider-screen screen-1">
       <div class="hero-section">
         <div class="hero-content">
-          <!-- 左侧轮播图 -->
-          <div class="hero-carousel" ref="carouselRef">
-            <div class="carousel-slides">
-              <div 
-                v-for="(slide, index) in carouselSlides" 
-                :key="index"
-                :class="['carousel-slide', { active: currentSlide === index }]"
-              >
-                <div class="slide-overlay"></div>
-                <img 
-                  :src="slide.image" 
-                  :alt="slide.title" 
-                  class="carousel-image"
-                >
-              </div>
-            </div>
-            
-            <!-- 轮播指示器 -->
-            <div class="carousel-indicators">
-              <button 
-                v-for="(slide, index) in carouselSlides" 
-                :key="index"
-                :class="['indicator-dot', { active: currentSlide === index }]"
-                @click="goToSlide(index)"
-                :aria-label="`Go to slide ${index + 1}`"
-              ></button>
-            </div>
-            
-            <!-- 轮播控制箭头 -->
-            <button 
-              class="carousel-arrow prev" 
-              @click="prevSlide"
-              aria-label="Previous slide"
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24">
-                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
-              </svg>
-            </button>
-            <button 
-              class="carousel-arrow next" 
-              @click="nextSlide"
-              aria-label="Next slide"
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24">
-                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path>
-              </svg>
-            </button>
+          <!-- 左侧文字内容 -->
+          <div class="hero-text">
+            <h1 class="hero-title">自然乡村</h1>
+            <p class="hero-description">
+              乡村，一场寻味自然的旅程。在这里，我们带您漫游田园风光，
+              寻踪乡村记忆，探索自然好物。每一处风景都承载着乡土情怀，
+              每一件好物都凝聚着匠人心血。让我们一起感受乡村的自然之美，
+              品味土地的馈赠，聆听乡野的故事，体验最纯粹的生态生活方式。
+            </p>
+            <ElButton size="large" class="explore-btn" @click="handleExploreClick">
+                开启乡村之旅
+              </ElButton>
           </div>
           
-          <!-- 右侧文字内容 -->
-          <div class="hero-text-container">
-            <div class="hero-text">
-              <h1 class="hero-title">探索乡村美景</h1>
-              <div class="hero-subtitle">发现自然与人文的和谐之美</div>
-              <p class="hero-description">
-                {{ carouselSlides[currentSlide].description }}
-              </p>
-              
-              <!-- 按钮组 -->
-              <div class="hero-buttons">
-                <ElButton type="primary" size="large" class="explore-btn" @click="handleExploreClick">
-                  开始探索
-                </ElButton>
-                <ElButton size="large" class="secondary-btn">
-                  了解更多
-                </ElButton>
+          <!-- 右侧乡村文创展示区域 -->
+          <div class="creative-right-section">
+            <!-- 左上圆形图片 -->
+            <div class="creative-item top-left">
+              <div class="creative-circle">
+                <img src="../assets/LNCrwnFGSU.jpg" alt="文创扇子" class="creative-image">
               </div>
-              
-              <!-- 特色标签 -->
+            </div>
+            
+            <!-- 右上圆形图片 -->
+            <div class="creative-item top-right">
+              <div class="creative-circle">
+                <img src="../assets/SyaZvCEVZv.jpg" alt="文创T恤" class="creative-image">
+              </div>
+            </div>
+            
+            <!-- 下方圆形图片 -->
+            <div class="creative-item bottom-center">
+              <div class="creative-circle">
+                <img src="../assets/nkgI8DBXQF.jpg" alt="文创书签" class="creative-image">
+              </div>
+            </div>
+            
+            <!-- 文创文字说明 -->
+            <div class="creative-text-overlay">
+              <h3 class="creative-mini-title">乡村文创</h3>
+              <p class="creative-mini-desc">乡村元素的创意产品</p>
             </div>
           </div>
         </div>
@@ -128,82 +100,22 @@
           <div class="multi-label">土特产</div>
           <div class="multi-content">
             <div class="text-box">
-              <!-- <p>这是一段示例说明文字。这里可以展示历史背景、人物故事或展览内容的详细文字介绍。用户可以滚动查看更多内容。</p>
+              <p>这是一段示例说明文字。这里可以展示历史背景、人物故事或展览内容的详细文字介绍。用户可以滚动查看更多内容。</p>
               <p>文字模块支持长文本展示，并可结合其他多媒体模块共同构成完整的信息体验。设计上注重可读性与层次感。</p>
-              <p>在真实项目中，这部分可以接入数据库或后台CMS内容管理系统。</p> -->
+              <p>在真实项目中，这部分可以接入数据库或后台CMS内容管理系统。</p>
             </div>
           </div>
         </div>
 
-        <!-- <div class="multi-footer">网页原型设计 · 大地色生态风格</div> -->
+        <div class="multi-footer">网页原型设计 · 大地色生态风格</div>
       </div>
     </section>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 import { ElButton } from 'element-plus'
-
-// 直接导入图片资源
-import image1 from '../assets/262.jpg'
-import image2 from '../assets/LNCrwnFGSU.jpg'
-import image3 from '../assets/nkgI8DBXQF.jpg'
-import image4 from '../assets/SyaZvCEVZv.jpg'
-
-// --- 轮播图数据与状态 --- 
-const carouselSlides = ref([
-  {
-    image: image1,
-    title: '乡村风景1',
-    description: '这里有连绵起伏的青山绿水，空气清新，环境优美，是逃离都市喧嚣的理想去处。'
-  },
-  {
-    image: image2,
-    title: '乡村风景2',
-    description: '传统村落保存完好，青瓦白墙，小桥流水，展现了中国乡村的独特魅力和历史底蕴。'
-  },
-  {
-    image: image3,
-    title: '乡村风景3',
-    description: '田园风光令人陶醉，金黄的稻田，翠绿的茶园，勾勒出一幅美丽的乡村画卷。'
-  },
-  {
-    image: image4,
-    title: '乡村风景4',
-    description: '通过VR技术，您可以身临其境感受乡村的四季变化，体验农耕文化，了解乡村生活。'
-  }
-])
-
-const currentSlide = ref(0)
-const carouselRef = ref(null)
-let carouselTimer = null
-
-// --- 轮播图控制逻辑 --- 
-const goToSlide = (index) => {
-  currentSlide.value = index
-}
-
-const nextSlide = () => {
-  currentSlide.value = (currentSlide.value + 1) % carouselSlides.value.length
-}
-
-const prevSlide = () => {
-  currentSlide.value = (currentSlide.value - 1 + carouselSlides.value.length) % carouselSlides.value.length
-}
-
-const startCarousel = () => {
-  carouselTimer = setInterval(() => {
-    nextSlide()
-  }, 2000)
-}
-
-const stopCarousel = () => {
-  if (carouselTimer) {
-    clearInterval(carouselTimer)
-    carouselTimer = null
-  }
-}
 
 // --- 状态与配置 ---
 const currentScreen = ref(0)
@@ -216,6 +128,17 @@ const containerRef = ref(null)
 // slideshow timer & ref
 const slideshowRef = ref(null)
 let slideshowTimer = null
+
+// 添加页面元素动画
+const animateElements = async () => {
+  await nextTick()
+  const heroText = document.querySelector('.hero-text')
+  if (heroText) {
+    setTimeout(() => {
+      heroText.classList.add('animate-in')
+    }, 300)
+  }
+}
 
 // 监听容器内滚轮切屏
 const handleWheel = (e) => {
@@ -317,10 +240,9 @@ onMounted(() => {
   document.documentElement.style.overflow = 'hidden'
   document.body.style.overflow = 'hidden'
 
-  // animate in first screen text
-  setTimeout(() => {
-    document.querySelectorAll('.hero-text').forEach((el) => el.classList.add('animate-in'))
-  }, 100)
+  // 触发页面初始化动画
+  animateElements()
+  
   const s1 = document.querySelector('.screen-1')
   if (s1) s1.classList.add('active')
 
@@ -329,16 +251,7 @@ onMounted(() => {
     containerRef.value.addEventListener('wheel', handleWheel, { passive: true })
   }
 
-  // 初始化主轮播图
-  startCarousel()
-  
-  // 监听轮播图鼠标事件
-  if (carouselRef.value) {
-    carouselRef.value.addEventListener('mouseenter', stopCarousel)
-    carouselRef.value.addEventListener('mouseleave', startCarousel)
-  }
-
-  // 初始化第二屏轮播（使用 slideshowRef 优先）
+  // 初始化轮播（使用 slideshowRef 优先）
   const slides = slideshowRef.value
     ? slideshowRef.value.querySelectorAll('img')
     : document.querySelectorAll('.slideshow img')
@@ -358,24 +271,10 @@ onMounted(() => {
 onUnmounted(() => {
   if (containerRef.value) containerRef.value.removeEventListener('wheel', handleWheel)
   window.removeEventListener('resize', handleResize)
-  
-  // 清理轮播图定时器
   if (slideshowTimer) {
     clearInterval(slideshowTimer)
     slideshowTimer = null
   }
-  
-  if (carouselTimer) {
-    clearInterval(carouselTimer)
-    carouselTimer = null
-  }
-  
-  // 移除轮播图事件监听
-  if (carouselRef.value) {
-    carouselRef.value.removeEventListener('mouseenter', stopCarousel)
-    carouselRef.value.removeEventListener('mouseleave', startCarousel)
-  }
-  
   // 恢复默认滚动
   document.documentElement.style.overflow = ''
   document.body.style.overflow = ''
@@ -427,7 +326,7 @@ onUnmounted(() => {
   background-color: #f0f4eb; /* 和你提供的 body 背景一致 */
 }
 
-/* ---------- 第一屏样式：左右分栏布局 ---------- */
+/* ---------- 第一屏样式 ---------- */
 .hero-section {
   background: linear-gradient(135deg, #2d8f40 0%, #84b854 50%, #ffcc33 100%);
   height: 100vh;
@@ -444,146 +343,22 @@ onUnmounted(() => {
   z-index: 1;
   width: 100%;
   height: 100%;
-  max-width: 1400px;
   padding: 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
-  margin: 0 auto;
 }
 
-/* 左侧轮播图样式 */
-.hero-carousel {
-  position: relative;
-  width: 55%;
-  height: 80%;
-  max-height: 600px;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  animation: fadeInUp 1s ease-out;
-}
-
-.carousel-slides {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.carousel-slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transform: scale(1.1);
-  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 0;
-}
-
-.carousel-slide.active {
-  opacity: 1;
-  transform: scale(1);
-  z-index: 1;
-}
-
-.carousel-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.slide-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
-}
-
-/* 轮播指示器 */
-.carousel-indicators {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 10px;
-  z-index: 10;
-}
-
-.indicator-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.5);
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.indicator-dot.active,
-.indicator-dot:hover {
-  background-color: #ffcc33;
-  transform: scale(1.3);
-}
-
-/* 轮播箭头 */
-.carousel-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.3);
-  border: none;
-  color: white;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  z-index: 10;
-  backdrop-filter: blur(5px);
-}
-
-.carousel-arrow:hover {
-  background-color: rgba(255, 255, 255, 0.5);
-  transform: translateY(-50%) scale(1.1);
-}
-
-.carousel-arrow.prev {
-  left: 20px;
-}
-
-.carousel-arrow.next {
-  right: 20px;
-}
-
-.carousel-arrow svg {
-  fill: currentColor;
-}
-
-/* 右侧文字内容样式 */
-.hero-text-container {
-  width: 40%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  flex-direction: column;
-  animation: fadeInRight 1s ease-out;
-}
-
+/* 左侧文字区域 */
 .hero-text {
+  max-width: 50%;
   color: white;
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(-20px);
   transition: all 0.8s ease;
-  max-width: 100%;
+  padding-right: 2rem;
+  margin-bottom: 15rem;
 }
 
 .hero-text.animate-in {
@@ -592,101 +367,158 @@ onUnmounted(() => {
 }
 
 .hero-title {
-  font-size: 4rem;
-  font-weight: 800;
+  font-size: 3.2rem;
+  font-weight: 700;
   margin-bottom: 1rem;
-  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
-  line-height: 1.1;
-  background: linear-gradient(90deg, #ffffff, #ffeb99);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.hero-subtitle {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-  color: #fff9e6;
-  font-weight: 500;
+  text-shadow: 
+    2px 2px 0px rgba(0,0,0,0.3),
+    4px 4px 8px rgba(0,0,0,0.2),
+    0 0 20px rgba(255,255,255,0.3);
+  transform: perspective(500px) rotateX(2deg);
   letter-spacing: 1px;
 }
 
 .hero-description {
-  font-size: 1.1rem;
-  line-height: 1.7;
-  margin-bottom: 2.5rem;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-  color: rgba(255, 255, 255, 0.95);
-}
-
-/* 按钮组 */
-.hero-buttons {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 2.5rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
 }
 
 .explore-btn {
   --el-button-bg-color: #ffcc33;
   --el-button-border-color: #ffcc33;
   --el-button-text-color: #333;
-  --el-button-hover-bg-color: #ffdb66;
-  --el-button-hover-border-color: #ffdb66;
   border-radius: 50px;
-  font-weight: 700;
-  padding: 0.8rem 2rem;
-  font-size: 1.1rem;
-  box-shadow: 0 10px 20px rgba(255, 204, 51, 0.3);
-  transition: all 0.3s ease;
+  font-weight: 600;
+  padding: 0.6rem 1.6rem;
+  transition: background-color 0.3s ease;
 }
 
 .explore-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 30px rgba(255, 204, 51, 0.4);
+  color: #84b854;
+  background-color: #88e25f;
+  /* --el-button-bg-color: #fff7b3; */
+  /* --el-button-border-color: #fff7b3; */
 }
 
-.secondary-btn {
-  --el-button-bg-color: transparent;
-  --el-button-border-color: white;
-  --el-button-text-color: white;
-  --el-button-hover-bg-color: rgba(255, 255, 255, 0.1);
-  --el-button-hover-border-color: white;
-  border-radius: 50px;
-  font-weight: 600;
-  padding: 0.8rem 2rem;
+/* 右侧乡村文创展示区域 */
+.creative-right-section {
+  position: relative;
+  width: 50%;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 圆形图片容器 */
+.creative-item {
+  position: absolute;
+  transition: transform 0.3s ease;
+}
+
+.creative-item:hover {
+  transform: scale(1.05);
+}
+
+/* 右侧区域内的圆形图片位置 */
+.creative-right-section .top-left {
+  top: 10%;
+  left: 15%;
+}
+
+.creative-right-section .top-right {
+  top: 10%;
+  right: 15%;
+}
+
+.creative-right-section .bottom-center {
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* 圆形图片样式 */
+.creative-circle {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 3px solid rgba(255, 255, 255, 0.8);
+}
+
+.creative-circle:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+}
+
+.creative-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  transition: transform 0.5s ease;
+}
+
+.creative-item:hover .creative-image {
+  transform: scale(1.1);
+}
+
+/* 文创文字覆盖层 */
+.creative-text-overlay {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  z-index: 10;
+}
+
+.creative-mini-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  opacity: 0;
+  animation: fadeIn 0.8s ease 0.5s forwards;
+}
+
+.creative-mini-desc {
+  font-size: 1rem;
+  opacity: 0;
+  animation: fadeIn 0.8s ease 0.8s forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 中间文字区域 */
+.creative-text-section {
+  text-align: center;
+  transform: translateY(-50px);
+}
+
+.creative-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #3a3a2e;
+  margin-bottom: 0.8rem;
+}
+
+.creative-description {
   font-size: 1.1rem;
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-}
-
-.secondary-btn:hover {
-  transform: translateY(-3px);
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-
-
-/* 动画效果 */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(50px) scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes fadeInRight {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  color: #7c6b49;
+  line-height: 1.6;
 }
 
 /* 滚动提示 */
@@ -820,116 +652,116 @@ onUnmounted(() => {
   font-size: 14px;
 }
 
-/* 响应式（保留原 HTML 的 media rules） */
-@media (max-width: 1200px) {
-  .hero-content {
-    padding: 1.5rem;
-  }
-  
-  .hero-title {
-    font-size: 3.5rem;
-  }
-}
-
-@media (max-width: 992px) {
+/* 响应式设计 */
+/* 中等屏幕 */
+@media (max-width: 1024px) {
   .hero-content {
     flex-direction: column;
     justify-content: center;
-    gap: 2rem;
-    padding: 1rem;
-  }
-  
-  .hero-carousel {
-    width: 90%;
-    height: 50%;
-    max-height: 400px;
-  }
-  
-  .hero-text-container {
-    width: 90%;
     text-align: center;
-    align-items: center;
   }
   
-  .hero-buttons {
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  
-  .hero-tags {
-    justify-content: center;
+  .hero-text {
+    max-width: 100%;
+    padding-right: 0;
+    padding-bottom: 2rem;
   }
   
   .hero-title {
-    font-size: 3rem;
+    font-size: 2.8rem;
+  }
+  
+  .creative-right-section {
+    width: 100%;
+    max-width: 500px;
+    height: 50vh;
+  }
+  
+  .creative-circle {
+    width: 160px;
+    height: 160px;
   }
 }
 
+/* 小屏幕 */
 @media (max-width: 768px) {
-  .hero-carousel {
-    width: 95%;
-    height: 45%;
-  }
-  
-  .hero-text-container {
-    width: 95%;
-  }
-  
   .hero-title {
-    font-size: 2.5rem;
-  }
-  
-  .hero-subtitle {
-    font-size: 1.1rem;
+    font-size: 2.2rem;
   }
   
   .hero-description {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
   
-  .explore-btn,
-  .secondary-btn {
-    padding: 0.7rem 1.5rem;
-    font-size: 1rem;
+  .creative-right-section .top-left,
+  .creative-right-section .top-right {
+    top: 15%;
   }
   
-  .carousel-arrow {
-    width: 40px;
-    height: 40px;
+  .creative-right-section .top-left {
+    left: 10%;
+  }
+  
+  .creative-right-section .top-right {
+    right: 10%;
+  }
+  
+  .creative-circle {
+    width: 130px;
+    height: 130px;
   }
 }
 
+/* 移动设备 */
+@media (max-width: 480px) {
+  .hero-content {
+    padding: 1rem;
+  }
+  
+  .hero-title {
+    font-size: 1.8rem;
+  }
+  
+  .explore-btn {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.9rem;
+  }
+  
+  .creative-circle {
+    width: 100px;
+    height: 100px;
+    padding: 10px;
+  }
+  
+  .creative-right-section .top-left {
+    top: 20%;
+    left: 5%;
+  }
+  
+  .creative-right-section .top-right {
+    top: 20%;
+    right: 5%;
+  }
+  
+  .creative-right-section .bottom-center {
+    bottom: 25%;
+  }
+  
+  .creative-mini-title {
+    font-size: 1.4rem;
+  }
+  
+  .creative-mini-desc {
+    font-size: 0.85rem;
+  }
+}
+
+/* 第二屏响应式（保留原设计） */
 @media (max-width: 700px) {
   .multi-container { padding: 24px; }
   .multi-row { flex-direction: column; height: auto; }
   .multi-label { flex: none; width: 100%; padding: 14px 12px; }
   .multi-content { padding: 20px; }
-}
-
-@media (max-width: 480px) {
-  .hero-carousel {
-    width: 100%;
-    height: 40%;
-    border-radius: 15px;
-  }
-  
-  .hero-title {
-    font-size: 2rem;
-  }
-  
-  .hero-buttons {
-    flex-direction: column;
-    width: 100%;
-  }
-  
-  .carousel-arrow {
-    width: 35px;
-    height: 35px;
-  }
-  
-  .carousel-indicators {
-    bottom: 15px;
-  }
 }
 
 /* 滚动条样式（仅在 text-box 内） */
