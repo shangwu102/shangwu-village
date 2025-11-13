@@ -11,17 +11,17 @@
     
     <div class="map-content">
       <!-- 地图显示区域 -->
-      <div class="map-container">
+      <!-- <div class="map-container">
         <div class="map-placeholder">
           <svg width="80" height="80" viewBox="0 0 24 24" fill="#2d8f40">
             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
           </svg>
           <p>地图加载中...</p>
         </div>
-      </div>
+      </div> -->
       
       <!-- 侧边栏信息 -->
-      <div class="sidebar">
+      <!-- <div class="sidebar">
         <div class="sidebar-header">
           <h3>地区筛选</h3>
         </div>
@@ -33,7 +33,6 @@
               <option>江苏省</option>
               <option>浙江省</option>
               <option>安徽省</option>
-              <!-- 更多省份选项 -->
             </select>
           </div>
           <div class="filter-item">
@@ -43,7 +42,6 @@
               <option>传统建筑</option>
               <option>民间艺术</option>
               <option>民俗活动</option>
-              <!-- 更多类型选项 -->
             </select>
           </div>
         </div>
@@ -59,10 +57,9 @@
               <span class="spot-name">民俗村落B</span>
               <span class="spot-location">浙江省</span>
             </div>
-            <!-- 更多热门景点 -->
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

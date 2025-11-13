@@ -68,7 +68,7 @@ function closeModal() {
 
     <div class="culture-content">
       <!-- 搜索与分类 -->
-      <div class="search-and-filter">
+      <!-- <div class="search-and-filter">
         <input
           v-model="searchKeyword"
           type="text"
@@ -85,11 +85,11 @@ function closeModal() {
             {{ cat }}
           </button>
         </div>
-      </div>
+      </div> -->
 
       <!-- 产品列表 -->
       <div class="products-section">
-        <h2 class="section-title">精选产品</h2>
+        <!-- <h2 class="section-title">精选产品</h2> -->
         <div class="products-grid">
           <div
             v-for="product in displayedProducts"
@@ -116,17 +116,17 @@ function closeModal() {
         </div>
 
         <!-- 加载更多 -->
-        <div class="load-more" v-if="showCount < filteredProducts.length">
+        <!-- <div class="load-more" v-if="showCount < filteredProducts.length">
           <button class="load-more-btn" @click="loadMore">加载更多</button>
         </div>
         <div v-else-if="filteredProducts.length === 0" class="no-result">
           未找到匹配的产品 😢
-        </div>
+        </div> -->
       </div>
     </div>
 
     <!-- 模态框（查看详情） -->
-    <div v-if="showModal" class="modal-overlay" @click.self="closeModal">
+    <!-- <div v-if="showModal" class="modal-overlay" @click.self="closeModal">
       <div class="modal">
         <h3>{{ selectedProduct?.name }}</h3>
         <p>分类：{{ selectedProduct?.category }}</p>
@@ -134,7 +134,7 @@ function closeModal() {
         <p>这是一款融合传统与现代的文创产品，欢迎了解更多详情！</p>
         <button class="close-btn" @click="closeModal">关闭</button>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 

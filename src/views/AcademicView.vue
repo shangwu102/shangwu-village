@@ -85,13 +85,13 @@ function closeModal() {
   <div class="academic-view-container">
     <!-- 页头 -->
     <div class="page-header">
-      <h1>学术研究</h1>
-      <p>探索乡村振兴与传统文化发展的理论与实践</p>
+      <h1>关于回忆</h1>
+      <p>找寻记忆中的中国传统村落</p>
     </div>
 
     <div class="academic-content">
       <!-- 研究方向 -->
-      <div class="research-directions">
+      <!-- <div class="research-directions">
         <button
           v-for="dir in directions"
           :key="dir"
@@ -100,10 +100,10 @@ function closeModal() {
         >
           {{ dir }}
         </button>
-      </div>
+      </div> -->
 
       <!-- 最新研究成果 -->
-      <div class="latest-research">
+      <!-- <div class="latest-research">
         <h2 class="section-title">最新研究成果</h2>
         <div class="research-papers">
           <div v-for="paper in displayedPapers" :key="paper.id" class="paper-card">
@@ -127,10 +127,10 @@ function closeModal() {
         <div class="load-more" v-if="displayedPapers.length < filteredPapers.length">
           <button class="load-more-btn" @click="loadMore">查看更多研究成果</button>
         </div>
-      </div>
+      </div> -->
 
       <!-- 重点研究项目 -->
-      <div class="research-projects">
+      <!-- <div class="research-projects">
         <h2 class="section-title">重点研究项目</h2>
         <div class="projects-grid">
           <div class="project-card">
@@ -170,10 +170,10 @@ function closeModal() {
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- 学术动态 -->
-      <div class="academic-news">
+      <!-- <div class="academic-news">
         <h2 class="section-title">学术动态</h2>
         <div class="news-list">
           <div class="news-item" v-for="(n, i) in 3" :key="i">
@@ -190,11 +190,11 @@ function closeModal() {
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <!-- 模态框 -->
-    <div v-if="showModal" class="modal-overlay" @click.self="closeModal">
+    <!-- <div v-if="showModal" class="modal-overlay" @click.self="closeModal">
       <div class="modal">
         <h3>{{ selectedPaper?.title }}</h3>
         <p><strong>作者：</strong>{{ selectedPaper?.author }}</p>
@@ -203,13 +203,379 @@ function closeModal() {
         <p style="margin-top: 1rem">{{ selectedPaper?.abstract }}</p>
         <button class="close-btn" @click="closeModal">关闭</button>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <style scoped>
 /* 学术页面样式 */
-.academic-view-container { min-height: calc(100vh - 60px); background-color: #f5f9f2; padding: 2rem; } .page-header { text-align: center; margin-bottom: 2rem; } .page-header h1 { font-size: 2.5rem; color: #2d8f40; margin-bottom: 0.5rem; } .page-header p { color: #666; font-size: 1.1rem; } .academic-content { max-width: 1200px; margin: 0 auto; } .research-directions { display: flex; gap: 1rem; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap; } .direction-btn { padding: 0.75rem 1.5rem; border: none; background: white; color: #666; border-radius: 25px; cursor: pointer; font-size: 1rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; } .direction-btn:hover, .direction-btn.active { background: linear-gradient(90deg, #2d8f40 0%, #84b854 100%); color: white; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(45, 143, 64, 0.3); } .section-title { font-size: 1.8rem; color: #2d8f40; margin-bottom: 1.5rem; text-align: center; } /* 研究成果样式 */ .latest-research { margin-bottom: 3rem; } .research-papers { display: flex; flex-direction: column; gap: 1.5rem; } .paper-card { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; } .paper-card:hover { transform: translateY(-5px); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); } .paper-header { margin-bottom: 1rem; } .paper-title { font-size: 1.3rem; color: #2d8f40; margin-bottom: 0.5rem; line-height: 1.4; } .paper-meta { display: flex; gap: 1.5rem; color: #666; font-size: 0.9rem; } .paper-abstract { color: #666; line-height: 1.6; margin-bottom: 1rem; padding-left: 1rem; border-left: 3px solid #2d8f40; } .paper-actions { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; } .research-area { background: #e8f5e9; color: #2d8f40; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; } .read-paper-btn { background: linear-gradient(90deg, #2d8f40 0%, #84b854 100%); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease; } .read-paper-btn:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(45, 143, 64, 0.3); } /* 加载更多按钮 */ .load-more { text-align: center; margin-top: 2rem; } .load-more-btn { padding: 1rem 2rem; background: white; border: 2px solid #2d8f40; color: #2d8f40; border-radius: 8px; font-size: 1rem; font-weight: 500; cursor: pointer; transition: all 0.3s ease; } .load-more-btn:hover { background: linear-gradient(90deg, #2d8f40 0%, #84b854 100%); color: white; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(45, 143, 64, 0.3); } /* 研究项目样式 */ .research-projects { margin-bottom: 3rem; } .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 2rem; } .project-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: flex; padding: 1.5rem; gap: 1.5rem; transition: all 0.3s ease; } .project-card:hover { transform: translateY(-5px); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); } .project-icon { flex-shrink: 0; width: 80px; height: 80px; background: linear-gradient(135deg, #e8f5e9 0%, #d0f0c0 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; } .project-content { flex: 1; } .project-title { font-size: 1.2rem; color: #2d8f40; margin-bottom: 0.5rem; } .project-description { color: #666; line-height: 1.6; margin-bottom: 1rem; font-size: 0.95rem; } .project-info { display: flex; gap: 1rem; flex-wrap: wrap; } .funding, .duration { background: #f0f0f0; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; color: #666; } .funding { background: linear-gradient(90deg, #ffcc33 0%, #ffb300 100%); color: white; } /* 学术动态样式 */ .academic-news { margin-bottom: 2rem; } .news-list { display: flex; flex-direction: column; gap: 1rem; } .news-item { background: white; border-radius: 12px; padding: 1.5rem; display: flex; gap: 1.5rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; } .news-item:hover { transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15); } .news-date { flex-shrink: 0; min-width: 80px; text-align: center; padding: 0.5rem; background: linear-gradient(135deg, #e8f5e9 0%, #d0f0c0 100%); border-radius: 8px; color: #2d8f40; font-weight: 600; font-size: 0.9rem; } .news-content { flex: 1; display: flex; justify-content: space-between; align-items: center; } .news-title { font-size: 1.1rem; color: #333; margin: 0; flex: 1; } .news-content .read-more { color: #2d8f40; font-weight: 500; text-decoration: none; transition: color 0.3s ease; margin-left: 1rem; } .news-content .read-more:hover { color: #84b854; } @media (max-width: 768px) { .academic-view-container { padding: 1.5rem; } .page-header h1 { font-size: 2rem; } .section-title { font-size: 1.5rem; } .research-directions { flex-wrap: wrap; } .direction-btn { padding: 0.6rem 1.2rem; font-size: 0.9rem; } .paper-title { font-size: 1.1rem; } .paper-meta { flex-direction: column; gap: 0.5rem; } .paper-actions { flex-direction: column; align-items: flex-start; } .projects-grid { grid-template-columns: 1fr; } .project-card { flex-direction: column; align-items: center; text-align: center; } .news-item { flex-direction: column; align-items: center; text-align: center; } .news-content { flex-direction: column; gap: 1rem; } }
+.academic-view-container {
+  min-height: calc(100vh - 60px);
+  background-color: #f5f9f2;
+  padding: 2rem;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  color: #2d8f40;
+  margin-bottom: 0.5rem;
+}
+
+.page-header p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.academic-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.research-directions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.direction-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  background: white;
+  color: #666;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.direction-btn:hover,
+.direction-btn.active {
+  background: linear-gradient(90deg, #2d8f40 0%, #84b854 100%);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(45, 143, 64, 0.3);
+}
+
+.section-title {
+  font-size: 1.8rem;
+  color: #2d8f40;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* 研究成果样式 */
+.latest-research {
+  margin-bottom: 3rem;
+}
+
+.research-papers {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.paper-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.paper-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.paper-header {
+  margin-bottom: 1rem;
+}
+
+.paper-title {
+  font-size: 1.3rem;
+  color: #2d8f40;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.paper-meta {
+  display: flex;
+  gap: 1.5rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.paper-abstract {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+  border-left: 3px solid #2d8f40;
+}
+
+.paper-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.research-area {
+  background: #e8f5e9;
+  color: #2d8f40;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+}
+
+.read-paper-btn {
+  background: linear-gradient(90deg, #2d8f40 0%, #84b854 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.read-paper-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(45, 143, 64, 0.3);
+}
+
+/* 加载更多按钮 */
+.load-more {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.load-more-btn {
+  padding: 1rem 2rem;
+  background: white;
+  border: 2px solid #2d8f40;
+  color: #2d8f40;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.load-more-btn:hover {
+  background: linear-gradient(90deg, #2d8f40 0%, #84b854 100%);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(45, 143, 64, 0.3);
+}
+
+/* 研究项目样式 */
+.research-projects {
+  margin-bottom: 3rem;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 2rem;
+}
+
+.project-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  padding: 1.5rem;
+  gap: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.project-icon {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #e8f5e9 0%, #d0f0c0 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-content {
+  flex: 1;
+}
+
+.project-title {
+  font-size: 1.2rem;
+  color: #2d8f40;
+  margin-bottom: 0.5rem;
+}
+
+.project-description {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.project-info {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.funding,
+.duration {
+  background: #f0f0f0;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.funding {
+  background: linear-gradient(90deg, #ffcc33 0%, #ffb300 100%);
+  color: white;
+}
+
+/* 学术动态样式 */
+.academic-news {
+  margin-bottom: 2rem;
+}
+
+.news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.news-item {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  gap: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.news-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.news-date {
+  flex-shrink: 0;
+  min-width: 80px;
+  text-align: center;
+  padding: 0.5rem;
+  background: linear-gradient(135deg, #e8f5e9 0%, #d0f0c0 100%);
+  border-radius: 8px;
+  color: #2d8f40;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.news-content {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.news-title {
+  font-size: 1.1rem;
+  color: #333;
+  margin: 0;
+  flex: 1;
+}
+
+.news-content .read-more {
+  color: #2d8f40;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  margin-left: 1rem;
+}
+
+.news-content .read-more:hover {
+  color: #84b854;
+}
+
+@media (max-width: 768px) {
+  .academic-view-container {
+    padding: 1.5rem;
+  }
+
+  .page-header h1 {
+    font-size: 2rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .research-directions {
+    flex-wrap: wrap;
+  }
+
+  .direction-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  .paper-title {
+    font-size: 1.1rem;
+  }
+
+  .paper-meta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .paper-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .news-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .news-content {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
 /* 模态框新增 */
 .modal-overlay {
   position: fixed;
@@ -220,6 +586,7 @@ function closeModal() {
   align-items: center;
   z-index: 99;
 }
+
 .modal {
   background: white;
   border-radius: 12px;
@@ -229,6 +596,7 @@ function closeModal() {
   text-align: left;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
+
 .close-btn {
   margin-top: 1rem;
   background: #2d8f40;
@@ -239,6 +607,7 @@ function closeModal() {
   cursor: pointer;
   transition: 0.3s;
 }
+
 .close-btn:hover {
   background: #84b854;
 }

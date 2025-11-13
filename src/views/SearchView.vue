@@ -118,7 +118,7 @@ const changePage = (page) => {
 
     <div class="search-content">
       <!-- 搜索框 -->
-      <div class="search-box-container">
+      <!-- <div class="search-box-container">
         <div class="search-box">
           <input
             v-model="query"
@@ -135,10 +135,10 @@ const changePage = (page) => {
             搜索
           </button>
         </div>
-      </div>
+      </div> -->
 
       <!-- 筛选栏 -->
-      <div class="filter-bar">
+      <!-- <div class="filter-bar">
         <div class="filter-tabs">
           <button
             v-for="tab in ['全部结果','文化遗产','传统村落','民俗活动','非遗文化']"
@@ -157,10 +157,10 @@ const changePage = (page) => {
             <option>时间（最早）</option>
           </select>
         </div>
-      </div>
+      </div> -->
 
       <!-- 搜索结果 -->
-      <div class="search-results">
+      <!-- <div class="search-results">
         <div v-if="loading" class="loading">加载中...</div>
         <div v-else-if="pagedResults.length === 0" class="no-result">
           没有找到相关内容 😢
@@ -185,10 +185,10 @@ const changePage = (page) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- 分页 -->
-      <div class="pagination" v-if="totalPages > 1">
+      <!-- <div class="pagination" v-if="totalPages > 1">
         <button class="page-btn prev" @click="changePage(currentPage - 1)">上一页</button>
         <button
           v-for="page in totalPages"
@@ -200,7 +200,7 @@ const changePage = (page) => {
           {{ page }}
         </button>
         <button class="page-btn next" @click="changePage(currentPage + 1)">下一页</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
