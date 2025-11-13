@@ -31,8 +31,8 @@ onUnmounted(() => {
       <!-- Logo -->
       <div class="logo-section">
         <RouterLink to="/" class="logo-link">
-          <span class="logo-text">DCM</span>
-          <span class="logo-title">云行阡陌，找寻记忆中的中国传统村落</span>
+          <!-- <span class="logo-text">DCM</span> -->
+          <span class="logo-title" style="font-weight: bold;">云行阡陌，找寻记忆中的中国传统村落</span>
         </RouterLink>
       </div>
       
