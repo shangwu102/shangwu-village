@@ -59,8 +59,7 @@
               <h1 class="hero-title">探索乡村美景</h1>
               <div class="hero-subtitle">发现自然与人文的和谐之美</div>
               <p class="hero-description">
-                欢迎来到我们的乡村旅游平台，这里有美丽的自然风光、丰富的历史文化和独特的乡村体验。
-                通过VR技术，您可以身临其境感受乡村的魅力，探索传统村落，体验农耕文化。
+                {{ carouselSlides[currentSlide].description }}
               </p>
               
               <!-- 按钮组 -->
@@ -74,12 +73,6 @@
               </div>
               
               <!-- 特色标签 -->
-              <div class="hero-tags">
-                <span class="tag">自然风景</span>
-                <span class="tag">乡村文化</span>
-                <span class="tag">VR体验</span>
-                <span class="tag">田园生活</span>
-              </div>
             </div>
           </div>
         </div>
@@ -162,19 +155,23 @@ import image4 from '../assets/SyaZvCEVZv.jpg'
 const carouselSlides = ref([
   {
     image: image1,
-    title: '乡村风景1'
+    title: '乡村风景1',
+    description: '这里有连绵起伏的青山绿水，空气清新，环境优美，是逃离都市喧嚣的理想去处。'
   },
   {
     image: image2,
-    title: '乡村风景2'
+    title: '乡村风景2',
+    description: '传统村落保存完好，青瓦白墙，小桥流水，展现了中国乡村的独特魅力和历史底蕴。'
   },
   {
     image: image3,
-    title: '乡村风景3'
+    title: '乡村风景3',
+    description: '田园风光令人陶醉，金黄的稻田，翠绿的茶园，勾勒出一幅美丽的乡村画卷。'
   },
   {
     image: image4,
-    title: '乡村风景4'
+    title: '乡村风景4',
+    description: '通过VR技术，您可以身临其境感受乡村的四季变化，体验农耕文化，了解乡村生活。'
   }
 ])
 
@@ -198,7 +195,7 @@ const prevSlide = () => {
 const startCarousel = () => {
   carouselTimer = setInterval(() => {
     nextSlide()
-  }, 5000)
+  }, 2000)
 }
 
 const stopCarousel = () => {
@@ -667,28 +664,7 @@ onUnmounted(() => {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* 标签样式 */
-.hero-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-}
 
-.tag {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
-  padding: 0.5rem 1.2rem;
-  border-radius: 50px;
-  font-size: 0.9rem;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  transition: all 0.3s ease;
-}
-
-.tag:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
-}
 
 /* 动画效果 */
 @keyframes fadeInUp {
