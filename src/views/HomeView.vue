@@ -1,117 +1,3 @@
-<template>
-  <div class="slider-container" ref="containerRef">
-    <!-- 第一屏 -->
-    <section class="slider-screen screen-1">
-      <div class="hero-section">
-        <div class="hero-content">
-          <!-- 左侧文字内容 -->
-          <div class="hero-text">
-            <h1 class="hero-title">自然乡村</h1>
-            <p class="hero-description">
-              乡村，一场寻味自然的旅程。在这里，我们带您漫游田园风光，
-              寻踪乡村记忆，探索自然好物。每一处风景都承载着乡土情怀，
-              每一件好物都凝聚着匠人心血。让我们一起感受乡村的自然之美，
-              品味土地的馈赠，聆听乡野的故事，体验最纯粹的生态生活方式。
-            </p>
-            <ElButton size="large" class="explore-btn" @click="handleExploreClick">
-                开启乡村之旅
-              </ElButton>
-          </div>
-          
-          <!-- 右侧乡村文创展示区域 -->
-          <div class="creative-right-section">
-            <!-- 左上圆形图片 -->
-            <div class="creative-item top-left">
-              <div class="creative-circle">
-                <img src="../assets/test4.jpg" alt="文创扇子" class="creative-image">
-              </div>
-            </div>
-            
-            <!-- 右上圆形图片 -->
-            <div class="creative-item top-right">
-              <div class="creative-circle">
-                <img src="../assets/test3.jpg" alt="文创T恤" class="creative-image">
-              </div>
-            </div>
-            
-            <!-- 下方圆形图片 -->
-            <div class="creative-item bottom-center">
-              <div class="creative-circle">
-                <img src="../assets/test5.jpg" alt="文创书签" class="creative-image">
-              </div>
-            </div>
-            
-            <!-- 文创文字说明 -->
-            <div class="creative-text-overlay">
-              <h3 class="creative-mini-title">乡村文创</h3>
-              <p class="creative-mini-desc">乡村元素的创意产品</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="slide-indicator">
-          <div class="indicator-text">向下滚动探索更多</div>
-          <div class="indicator-arrow"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 第二屏：多媒体展示（采用你提供的“大地色生态风格”样式） -->
-    <section class="slider-screen screen-2">
-      <div class="multi-container">
-        <!-- 360° -->
-        <div class="multi-row">
-          <div class="multi-label">360°</div>
-          <div class="multi-content">
-            <iframe
-              src="https://app.cloudpano.com/tours/TQl4SzPOaX"
-              allowfullscreen
-              frameborder="0"
-            ></iframe>
-          </div>
-        </div>
-
-        <!-- 老照片 -->
-        <div class="multi-row">
-          <div class="multi-label">老照片</div>
-          <div class="multi-content">
-            <div class="slideshow" ref="slideshowRef">
-              <img src="../assets/test1.jpg" class="active" />
-              <img src="../assets/test2.jpg" />
-              <img src="../assets/test3.jpg" />
-              <img src="../assets/test4.jpg" />
-            </div>
-          </div>
-        </div>
-
-        <!-- 录音 -->
-        <div class="multi-row">
-          <div class="multi-label">录音</div>
-          <div class="multi-content">
-            <audio controls>
-              <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg" />
-              您的浏览器不支持音频播放。
-            </audio>
-          </div>
-        </div>
-
-        <!-- 文字 -->
-        <div class="multi-row">
-          <div class="multi-label">土特产</div>
-          <div class="multi-content">
-            <div class="text-box">
-              <p>这是一段示例说明文字。这里可以展示历史背景、人物故事或展览内容的详细文字介绍。用户可以滚动查看更多内容。</p>
-              <p>文字模块支持长文本展示，并可结合其他多媒体模块共同构成完整的信息体验。设计上注重可读性与层次感。</p>
-              <p>在真实项目中，这部分可以接入数据库或后台CMS内容管理系统。</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- <div class="multi-footer">网页原型设计 · 大地色生态风格</div> -->
-      </div>
-    </section>
-  </div>
-</template>
 
 <script setup>
 import { ref, onMounted, onUnmounted, nextTick } from 'vue'
@@ -280,6 +166,120 @@ onUnmounted(() => {
   document.body.style.overflow = ''
 })
 </script>
+<template>
+  <div class="slider-container" ref="containerRef">
+    <!-- 第一屏 -->
+    <section class="slider-screen screen-1">
+      <div class="hero-section">
+        <div class="hero-content">
+          <!-- 左侧文字内容 -->
+          <div class="hero-text">
+            <h1 class="hero-title">自然乡村</h1>
+            <p class="hero-description">
+              乡村，一场寻味自然的旅程。在这里，我们带您漫游田园风光，
+              寻踪乡村记忆，探索自然好物。每一处风景都承载着乡土情怀，
+              每一件好物都凝聚着匠人心血。让我们一起感受乡村的自然之美，
+              品味土地的馈赠，聆听乡野的故事，体验最纯粹的生态生活方式。
+            </p>
+            <ElButton size="large" class="explore-btn" @click="handleExploreClick">
+                开启乡村之旅
+              </ElButton>
+          </div>
+          
+          <!-- 右侧乡村文创展示区域 -->
+          <div class="creative-right-section">
+            <!-- 左上圆形图片 -->
+            <div class="creative-item top-left">
+              <div class="creative-circle">
+                <img src="../assets/test4.jpg" alt="文创扇子" class="creative-image">
+              </div>
+            </div>
+            
+            <!-- 右上圆形图片 -->
+            <div class="creative-item top-right">
+              <div class="creative-circle">
+                <img src="../assets/test3.jpg" alt="文创T恤" class="creative-image">
+              </div>
+            </div>
+            
+            <!-- 下方圆形图片 -->
+            <div class="creative-item bottom-center">
+              <div class="creative-circle">
+                <img src="../assets/test5.jpg" alt="文创书签" class="creative-image">
+              </div>
+            </div>
+            
+            <!-- 文创文字说明 -->
+            <div class="creative-text-overlay">
+              <h3 class="creative-mini-title">乡村文创</h3>
+              <p class="creative-mini-desc">乡村元素的创意产品</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-indicator">
+          <div class="indicator-text">向下滚动探索更多</div>
+          <div class="indicator-arrow"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 第二屏：多媒体展示（采用你提供的“大地色生态风格”样式） -->
+    <section class="slider-screen screen-2">
+      <div class="multi-container">
+        <!-- 360° -->
+        <div class="multi-row">
+          <div class="multi-label">360°</div>
+          <div class="multi-content">
+            <iframe
+              src="https://app.cloudpano.com/tours/TQl4SzPOaX"
+              allowfullscreen
+              frameborder="0"
+            ></iframe>
+          </div>
+        </div>
+
+        <!-- 老照片 -->
+        <div class="multi-row">
+          <div class="multi-label">老照片</div>
+          <div class="multi-content">
+            <div class="slideshow" ref="slideshowRef">
+              <img src="../assets/test1.jpg" class="active" />
+              <img src="../assets/test2.jpg" />
+              <img src="../assets/test3.jpg" />
+              <img src="../assets/test4.jpg" />
+            </div>
+          </div>
+        </div>
+
+        <!-- 录音 -->
+        <div class="multi-row">
+          <div class="multi-label">录音</div>
+          <div class="multi-content">
+            <audio controls>
+              <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg" />
+              您的浏览器不支持音频播放。
+            </audio>
+          </div>
+        </div>
+
+        <!-- 文字 -->
+        <div class="multi-row">
+          <div class="multi-label">土特产</div>
+          <div class="multi-content">
+            <div class="text-box">
+              <p>这是一段示例说明文字。这里可以展示历史背景、人物故事或展览内容的详细文字介绍。用户可以滚动查看更多内容。</p>
+              <p>文字模块支持长文本展示，并可结合其他多媒体模块共同构成完整的信息体验。设计上注重可读性与层次感。</p>
+              <p>在真实项目中，这部分可以接入数据库或后台CMS内容管理系统。</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="multi-footer">网页原型设计 · 大地色生态风格</div> -->
+      </div>
+    </section>
+  </div>
+</template>
 
 <style scoped>
 /* ---------- 容器、屏幕 ---------- */

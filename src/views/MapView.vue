@@ -1,6 +1,4 @@
-<template>
-  <div ref="container" class="viewer-wrap"></div>
-</template>
+
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
@@ -48,7 +46,9 @@ onBeforeUnmount(() => {
   if (viewer) viewer.destroy()
 })
 </script>
-
+<template>
+  <div ref="container" class="viewer-wrap"></div>
+</template>
 <style scoped>
 .viewer-wrap {
   width: 100%;
