@@ -6,40 +6,53 @@ import { VideoPlugin } from '@photo-sphere-viewer/video-plugin'
 import '@photo-sphere-viewer/core/index.css'
 import '@photo-sphere-viewer/video-plugin/index.css'
 
-// 直接使用绝对路径字符串
 const videoSrc = '/videos/360VR.mp4'
 
 const container = ref(null)
 let viewer = null
+let isViewerReady = false
 
 onMounted(() => {
+  initViewer()
+})
+
+const initViewer = () => {
+  if (!container.value || isViewerReady) return
+
   viewer = new Viewer({
     container: container.value,
     adapter: [EquirectangularVideoAdapter],
     panorama: {
-      source: videoSrc, 
+      source: videoSrc,
     },
     plugins: [
       [VideoPlugin, {
         autoplay: true,
         muted: true,
         loop: true,
-        controls: false,
+        controls: false, // 隐藏控件
       }],
     ],
-    navbar: [], // 隐藏播放条
-    caption: '360° 视频',
+    navbar: [],        // 隐藏工具栏
+    caption: '',
     size: { width: '100%', height: '100vh' },
+    loadingImg: null,
+    loadingTxt: '',
+    loadingSpinner: false,
+    transition: false,
+    loadingDelay: 0,
   })
+
+  isViewerReady = true
 
   viewer.addEventListener('ready', () => {
     const video = viewer.getPlugin(VideoPlugin)?.video
     if (video) {
       video.muted = true
-      video.play().catch(err => console.warn('Autoplay blocked:', err))
+      video.play().catch(() => {})
     }
   })
-})
+}
 
 onBeforeUnmount(() => {
   if (viewer) viewer.destroy()
@@ -47,35 +60,46 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div ref="container" class="viewer-wrap"></div>
+  <div class="viewer-container">
+    <!-- Photo Sphere Viewer 容器 -->
+    <div ref="container" class="viewer-wrap"></div>
+  </div>
 </template>
 
 <style scoped>
-/* 禁止本页面滚动 */
 html, body {
   overflow: hidden;
   margin: 0;
   padding: 0;
+  background: black;
 }
 
-/* 确保 viewer-wrap 占满整个视口 */
-.viewer-wrap {
+/* 容器 */
+.viewer-container {
   width: 100vw;
   height: 100vh;
-  position: fixed;
+  position: relative;
+  background: black;
+}
+
+/* Viewer 容器 */
+.viewer-wrap {
+  position: absolute;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 100%;
   z-index: 1;
   background: black;
   overflow: hidden;
 }
 
-/* 禁止所有滚动条显示（游览器差异） */
+/* 禁止滚动条 */
 * {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 *::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
 }
 </style>

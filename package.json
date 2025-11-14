@@ -14,6 +14,7 @@
   "dependencies": {
     "@photo-sphere-viewer/core": "^5.14.0",
     "@photo-sphere-viewer/equirectangular-video-adapter": "^5.14.0",
+    "@photo-sphere-viewer/markers-plugin": "^5.14.0",
     "@photo-sphere-viewer/video-plugin": "^5.14.0",
     "element-plus": "^2.11.7",
     "three": "^0.181.1",
