@@ -9,6 +9,7 @@ import { EquirectangularVideoAdapter } from '@photo-sphere-viewer/equirectangula
 import { VideoPlugin } from '@photo-sphere-viewer/video-plugin'
 import '@photo-sphere-viewer/core/index.css'
 import '@photo-sphere-viewer/video-plugin/index.css'
+import videoSrc from '@/assets/videos/1715847307882e9z.mp4'
 
 const container = ref(null)
 let viewer = null
@@ -18,7 +19,7 @@ onMounted(() => {
     container: container.value,
     adapter: [EquirectangularVideoAdapter],
     panorama: {
-      source: '/public/videos/1715847307882e9z.mp4', // 可换为你的 360° 视频链接
+      source: videoSrc, // 可换为你的 360° 视频链接
     },
     plugins: [
       [VideoPlugin, {
