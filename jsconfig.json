@@ -1,8 +1,31 @@
 {
   "compilerOptions": {
+    // 设置根路径，用于解析相对路径（例如 @/xxx）
+    "baseUrl": ".",
+
+    // 配置路径别名，@ 指向 src 目录
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+
+    // 使用 Node 方式解析模块（import 时按 Node 规则查找）
+    "moduleResolution": "node",
+
+    // 不生成编译后的文件（Vue 项目通常不需要 TS 输出）
+    "noEmit": true,
+
+    // 跳过库文件（node_modules）的类型检查，提高速度
+    "skipLibCheck": true
   },
-  "exclude": ["node_modules", "dist"]
+
+  // 指定要包含进 TS 检查的文件：所有 .js 和 .vue
+  "include": ["src/**/*.js", "src/**/*.vue"],
+
+  // 排除不需要检查的目录和文件
+  "exclude": [
+    "node_modules",  // 依赖库
+    "dist",          // 打包输出目录
+    "src/test",      // 测试目录
+    "**/*.spec.js"   // 单元测试文件
+  ]
 }
