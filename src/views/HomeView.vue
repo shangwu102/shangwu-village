@@ -107,7 +107,7 @@
           </div>
         </div>
 
-        <div class="multi-footer">网页原型设计 · 大地色生态风格</div>
+        <!-- <div class="multi-footer">网页原型设计 · 大地色生态风格</div> -->
       </div>
     </section>
   </div>
