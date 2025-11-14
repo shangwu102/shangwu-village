@@ -1,8 +1,12 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import { ref, onMounted, onUnmounted } from 'vue'
+import { RouterLink, RouterView, useRouter } from 'vue-router'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 
 const headerRef = ref(null)
+
+// 排除特定路由的过渡动画
+const router = useRouter()
+const isMapView = computed(() => router.currentRoute.value.name === 'map')
 
 // 处理滚动事件，添加动画效果
 const handleScroll = () => {
@@ -61,7 +65,10 @@ onUnmounted(() => {
     </div>
   </header>
 
-  <RouterView />
+  <!-- 页面渲染逻辑 - 使用单一RouterView但控制过渡效果 -->
+  <transition :name="isMapView ? '' : 'page-fade'" mode="out-in">
+    <RouterView />
+  </transition>
 </template>
 <style>
 ::-webkit-scrollbar {
@@ -73,6 +80,21 @@ html, body {
   -ms-overflow-style: none;
 }
 
+  /* 页面过渡动画 - 延长时间使过渡更平滑 */
+  .page-fade-enter-active,
+  .page-fade-leave-active {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  
+  .page-fade-enter-from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  
+  .page-fade-leave-to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
 </style>
 <style scoped>
 .header-container {
