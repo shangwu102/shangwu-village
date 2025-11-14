@@ -110,6 +110,8 @@ const projectGoals = [
 </template>
 
 <style scoped>
+
+
 .about-view-container {
   padding: 2rem;
   max-width: 1200px;

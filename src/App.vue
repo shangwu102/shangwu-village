@@ -63,7 +63,17 @@ onUnmounted(() => {
 
   <RouterView />
 </template>
+<style>
+::-webkit-scrollbar {
+  display: none;
+}
 
+html, body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+</style>
 <style scoped>
 .header-container {
   background: linear-gradient(90deg, #3a923a 0%, #71b635 100%);
