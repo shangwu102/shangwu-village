@@ -23,21 +23,21 @@
             <!-- 左上圆形图片 -->
             <div class="creative-item top-left">
               <div class="creative-circle">
-                <img src="../assets/LNCrwnFGSU.jpg" alt="文创扇子" class="creative-image">
+                <img src="../assets/test4.jpg" alt="文创扇子" class="creative-image">
               </div>
             </div>
             
             <!-- 右上圆形图片 -->
             <div class="creative-item top-right">
               <div class="creative-circle">
-                <img src="../assets/SyaZvCEVZv.jpg" alt="文创T恤" class="creative-image">
+                <img src="../assets/test3.jpg" alt="文创T恤" class="creative-image">
               </div>
             </div>
             
             <!-- 下方圆形图片 -->
             <div class="creative-item bottom-center">
               <div class="creative-circle">
-                <img src="../assets/nkgI8DBXQF.jpg" alt="文创书签" class="creative-image">
+                <img src="../assets/test5.jpg" alt="文创书签" class="creative-image">
               </div>
             </div>
             
@@ -76,10 +76,10 @@
           <div class="multi-label">老照片</div>
           <div class="multi-content">
             <div class="slideshow" ref="slideshowRef">
-              <img src="../assets/262.jpg" class="active" />
-              <img src="../assets/LNCrwnFGSU.jpg" />
-              <img src="../assets/nkgI8DBXQF.jpg" />
-              <img src="../assets/SyaZvCEVZv.jpg" />
+              <img src="../assets/test1.jpg" class="active" />
+              <img src="../assets/test2.jpg" />
+              <img src="../assets/test3.jpg" />
+              <img src="../assets/test4.jpg" />
             </div>
           </div>
         </div>
