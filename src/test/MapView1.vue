@@ -1123,6 +1123,7 @@ html, body {
   outline: none;
   cursor: pointer;
   -webkit-appearance: none;
+  appearance: none
 }
 
 .speed-slider::-webkit-slider-thumb {

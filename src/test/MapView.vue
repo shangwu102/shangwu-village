@@ -1,151 +1,146 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
-
-// --- PhotoSphereViewer v6 ---
+import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { Viewer } from '@photo-sphere-viewer/core'
-import { EquirectangularAdapter } from '@photo-sphere-viewer/equirectangular-adapter'
 import { EquirectangularVideoAdapter } from '@photo-sphere-viewer/equirectangular-video-adapter'
-import { MarkersPlugin } from '@photo-sphere-viewer/markers'
-import { VideoPlugin } from '@photo-sphere-viewer/video'
-
+import { VideoPlugin } from '@photo-sphere-viewer/video-plugin'
 import '@photo-sphere-viewer/core/index.css'
-import '@photo-sphere-viewer/markers/index.css'
-import '@photo-sphere-viewer/video/index.css'
+import '@photo-sphere-viewer/video-plugin/index.css'
 
-const container = ref(null)
-let viewer = null
-
-// 多场景列表
-const scenes = {
-  scene1: '/pano/pano1.jpg',
-  scene2: '/pano/pano2.jpg',
-  scene3: '/pano/pano3.jpg',
-}
-
-// 视频文件
+// 直接使用绝对路径字符串
 const videoSrc = '/videos/360VR.mp4'
 
-// 预加载视频
-const videoEl = document.createElement('video')
-videoEl.src = videoSrc
-videoEl.preload = 'auto'
-videoEl.muted = true
-videoEl.loop = true
-videoEl.playsInline = true
-videoEl.crossOrigin = 'anonymous'
+const container = ref(null)
+const nativeVideo = ref(null)
+let viewer = null
+let isViewerReady = false
 
+onMounted(async () => {
+  // 确保原生视频立即播放
+  await nextTick()
+  if (nativeVideo.value) {
+    nativeVideo.value.play().catch(() => {
+      // 忽略自动播放限制错误
+    })
+  }
 
-onMounted(() => {
-  viewer = new Viewer({
-    container: container.value,
-    adapter: [EquirectangularAdapter],
-
-    // 默认场景
-    panorama: scenes.scene1,
-
-    plugins: [
-      [MarkersPlugin, {}],
-      [VideoPlugin, {}],
-    ],
-
-    navbar: [],
-  })
-
-  const markers = viewer.getPlugin(MarkersPlugin)
-
-  // ========== 1. 热点：点击切换场景 ==========
-  markers.addMarker({
-    id: 'goto_scene2',
-    longitude: 0,
-    latitude: 0,
-    image: '/icons/arrow.png',
-    width: 48,
-    height: 48,
-    tooltip: '前往场景 2',
-  })
-
-  viewer.on('select-marker', (e, marker) => {
-    if (marker.id === 'goto_scene2') {
-      viewer.setPanorama(scenes.scene2)
-    }
-  })
-
-
-  // ========== 2. 点击 marker 播放 360 视频 ==========
-  markers.addMarker({
-    id: 'play_video',
-    longitude: 1.2,
-    latitude: -0.1,
-    image: '/icons/play.png',
-    width: 64,
-    height: 64,
-    tooltip: '播放 360° 视频',
-  })
-
-  viewer.on('select-marker', (e, marker) => {
-    if (marker.id === 'play_video') {
-      viewer.setPanorama({
-        source: videoEl,
-        options: {
-          autoplay: true,
-          muted: true,
-          loop: true,
-          controls: false,
-        },
-      }, {
-        transition: false,  // 立即切换不卡顿
-      })
-
-      videoEl.play().catch(() => {})
-    }
-  })
-
-
-  // ========== 3. 自定义 HTML Marker ==========
-  markers.addMarker({
-    id: 'html_marker',
-    longitude: -1.0,
-    latitude: 0.2,
-    html: `<div class="custom-marker">INFO</div>`,
-    anchor: 'bottom center',
-    tooltip: '自定义 HTML 热点',
-  })
-
-  // HTML 样式
-  const style = document.createElement('style')
-  style.innerHTML = `
-    .custom-marker {
-      padding: 6px 10px;
-      background: rgba(255,255,255,0.9);
-      border-radius: 6px;
-      color: #000;
-      font-weight: bold;
-      border: 2px solid #333;
-    }
-  `
-  document.head.appendChild(style)
-
-
-
-  // ========== 4. 悬停显示 tooltip 已默认支持 ==========
-  // marker 添加 tooltip 字段即可自动启用
-
+  // 延迟初始化Photo Sphere Viewer，让视频先播放
+  setTimeout(() => {
+    initViewer()
+  }, 500)
 })
 
+const initViewer = () => {
+  if (!container.value || isViewerReady) return
+
+  viewer = new Viewer({
+    container: container.value,
+    adapter: [EquirectangularVideoAdapter],
+    panorama: {
+      source: videoSrc,
+    },
+    plugins: [
+      [VideoPlugin, {
+        autoplay: true,
+        muted: true,
+        loop: true,
+        controls: false,
+      }],
+    ],
+    navbar: [],
+    caption: '',
+    size: { width: '100%', height: '100vh' },
+    loadingImg: null,
+    loadingTxt: '',
+    loadingSpinner: false,
+    transition: false,
+    loadingDelay: 0,
+  })
+
+  isViewerReady = true
+
+  // Viewer准备好后隐藏原生视频
+  viewer.addEventListener('ready', () => {
+    if (nativeVideo.value) {
+      nativeVideo.value.style.opacity = '0'
+      setTimeout(() => {
+        if (nativeVideo.value) {
+          nativeVideo.value.style.display = 'none'
+        }
+      }, 300)
+    }
+
+    const video = viewer.getPlugin(VideoPlugin)?.video
+    if (video) {
+      video.muted = true
+      video.play().catch(() => { })
+    }
+  })
+}
+
 onBeforeUnmount(() => {
-  viewer?.destroy()
+  if (viewer) viewer.destroy()
 })
 </script>
 
-
 <template>
-  <div ref="container" class="viewer"></div>
+  <div class="viewer-container">
+    <!-- 原生视频元素 - 优先显示 -->
+    <video ref="nativeVideo" class="native-video" src="/videos/360VR.mp4" autoplay muted loop playsinline></video>
+    <!-- Photo Sphere Viewer容器 -->
+    <div ref="container" class="viewer-wrap"></div>
+  </div>
 </template>
 
 <style scoped>
-.viewer {
+/* 禁止本页面滚动 */
+html,
+body {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background: black;
+}
+
+/* 容器样式 */
+.viewer-container {
   width: 100vw;
   height: 100vh;
-  background: #000;
+  position: relative;
+  background: black;
+}
+
+/* 原生视频 - 优先显示，全屏 */
+.native-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: 2;
+  /* 比viewer高，确保先显示 */
+  transition: opacity 0.3s ease;
+}
+
+/* Photo Sphere Viewer容器 */
+.viewer-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background: black;
+  overflow: hidden;
+}
+
+/* 禁止所有滚动条显示 */
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
 }
 </style>
