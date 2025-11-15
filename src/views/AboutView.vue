@@ -1,5 +1,9 @@
 <script setup>
 import { ref } from 'vue'
+import { usePageView } from '@/composables/usePageView'
+
+// 使用页面访问量追踪
+const { currentPageViews, isLoading } = usePageView('about')
 
 // 团队成员数据
 const teamMembers = [
@@ -52,7 +56,9 @@ const projectGoals = [
     <!-- 页头 -->
     <div class="page-header">
       <h1>关于我们</h1>
-      <p>用数字之云，守护乡土之根；以品牌之术，打通振兴之路</p>
+      <p>用数字之云，守护乡土之根；以品牌之术,打通振兴之路</p>
+          
+
     </div>
 
     <!-- 简介部分 -->
@@ -107,6 +113,14 @@ const projectGoals = [
         </div>
       </div>
     </div>
+          <!-- 访问量统计 -->
+      <div class="page-views-counter">
+        <el-icon class="view-icon"><View /></el-icon>
+        <span class="view-count">
+          {{ isLoading ? '...' : currentPageViews.toLocaleString() }}
+        </span>
+        <span class="view-text">次访问</span>
+      </div>
   </div>
 </template>
 
@@ -137,6 +151,43 @@ const projectGoals = [
 .page-header p {
   font-size: 1.2rem;
   color: #666;
+  margin-bottom: 1.5rem;
+}
+
+/* 访问量统计样式 */
+.page-views-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.page-views-counter:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.view-icon {
+  font-size: 1.3rem;
+}
+
+.view-count {
+  font-weight: bold;
+  font-size: 1.2rem;
+  min-width: 40px;
+  text-align: center;
+}
+
+.view-text {
+  font-size: 0.95rem;
+  opacity: 0.95;
 }
 
 /* 通用部分样式 */

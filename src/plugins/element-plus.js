@@ -9,9 +9,13 @@ import {
   ElDialog,
   ElMessageBox,
   ElMessage,
-  ElNotification
+  ElNotification,
+  ElIcon
   // 可以根据项目需要添加更多组件
 } from 'element-plus'
+
+// 导入图标
+import { View } from '@element-plus/icons-vue'
 
 // 导入组件样式（按需引入时也需要导入对应的样式）
 import 'element-plus/es/components/button/style/css'
@@ -22,6 +26,7 @@ import 'element-plus/es/components/dialog/style/css'
 import 'element-plus/es/components/message-box/style/css'
 import 'element-plus/es/components/message/style/css'
 import 'element-plus/es/components/notification/style/css'
+import 'element-plus/es/components/icon/style/css'
 
 /**
  * 安装Element Plus组件
@@ -34,6 +39,10 @@ export function setupElementPlus(app) {
   app.use(ElSelect)
   app.use(ElOption)
   app.use(ElDialog)
+  app.use(ElIcon)
+  
+  // 全局注册图标组件
+  app.component('View', View)
   
   // 挂载消息类组件到全局属性
   app.config.globalProperties.$msgbox = ElMessageBox
@@ -59,5 +68,7 @@ export {
   ElDialog,
   ElMessageBox,
   ElMessage,
-  ElNotification
+  ElNotification,
+  ElIcon,
+  View
 }
