@@ -3,139 +3,82 @@ import { ref, computed } from "vue"
 
 // 模拟产品数据
 const allProducts = ref([
-  { id: 1, name: "传统竹编工艺灯罩", category: "传统工艺", price: 199 },
-  { id: 2, name: "手绘青花瓷笔记本套装", category: "创意设计", price: 128 },
-  { id: 3, name: "乡村风情纯棉抱枕套", category: "生活用品", price: 89 },
-  { id: 4, name: "手工刺绣书签礼盒", category: "文创礼品", price: 68 },
-  { id: 5, name: "徽州木雕笔筒", category: "传统工艺", price: 299 },
-  { id: 6, name: "江南风手绘帆布袋", category: "创意设计", price: 158 },
-  { id: 7, name: "茶香文创礼盒", category: "文创礼品", price: 229 },
-  { id: 8, name: "竹艺茶具套装", category: "生活用品", price: 189 },
+  { id: 1, name: "外婆米香", tags: ["外婆的味道"], image: "test1.jpg", hasStory: true },
+  { id: 2, name: "老槐树茶", tags: ["季节限定"], image: "test2.jpg", hasStory: true },
+  { id: 3, name: "手工竹编", tags: ["爷爷的手艺"], image: "test3.jpg", hasStory: true },
+  { id: 4, name: "竹制风车", tags: ["童年的玩具"], image: "test4.jpg", hasStory: true },
+  { id: 5, name: "手工布鞋", tags: ["外婆的味道", "季节限定"], image: "test5.jpg", hasStory: true },
+  { id: 6, name: "草编蚂蚱", tags: ["童年的玩具", "爷爷的手艺"], image: "test1.jpg", hasStory: true },
+  { id: 7, name: "桂花糕", tags: ["外婆的味道", "季节限定"], image: "test2.jpg", hasStory: true },
+  { id: 8, name: "木雕摆件", tags: ["爷爷的手艺"], image: "test3.jpg", hasStory: true },
 ])
 
-// 分类标签
-const categories = ["全部产品", "传统工艺", "创意设计", "生活用品", "文创礼品"]
-const activeCategory = ref("全部产品")
-
-// 搜索关键词
-const searchKeyword = ref("")
-
-// 分页逻辑
-const itemsPerPage = 4
-const currentPage = ref(1)
-const showCount = computed(() => currentPage.value * itemsPerPage)
+// 情感标签
+const emotionTags = ["全部", "外婆的味道", "童年的玩具", "爷爷的手艺", "季节限定"]
+const activeEmotionTag = ref("全部")
 
 // 过滤逻辑
 const filteredProducts = computed(() => {
   return allProducts.value.filter((p) => {
-    const matchCategory =
-      activeCategory.value === "全部产品" || p.category === activeCategory.value
-    const matchKeyword = p.name.includes(searchKeyword.value.trim())
-    return matchCategory && matchKeyword
+    return activeEmotionTag.value === "全部" || p.tags.includes(activeEmotionTag.value)
   })
 })
 
-// 显示当前页的产品
-const displayedProducts = computed(() =>
-  filteredProducts.value.slice(0, showCount.value)
-)
-
-// 加载更多
-function loadMore() {
-  if (showCount.value < filteredProducts.value.length) {
-    currentPage.value++
-  }
-}
-
-// 模态框查看详情
-const selectedProduct = ref(null)
-const showModal = ref(false)
-function viewDetails(product) {
-  selectedProduct.value = product
-  showModal.value = true
-}
-function closeModal() {
-  showModal.value = false
+// 故事按钮点击事件
+function handleStoryClick(product) {
+  // 这里可以实现查看产品故事的逻辑
+  console.log('查看产品故事:', product.name)
 }
 </script>
 
 <template>
   <div class="culture-view-container">
     <div class="page-header">
-      <h1>文创产品</h1>
-      <p>传统工艺与现代设计的完美融合</p>
+      <h1>文创商城</h1>
     </div>
 
     <div class="culture-content">
-      <!-- 搜索与分类 -->
-      <!-- <div class="search-and-filter">
-        <input
-          v-model="searchKeyword"
-          type="text"
-          placeholder="搜索产品名称..."
-          class="search-input"
-        />
-        <div class="culture-categories">
+      <!-- A区 - 情感标签筛选 -->
+      <div class="emotion-filter-section">
+        <div class="emotion-tags">
           <button
-            v-for="cat in categories"
-            :key="cat"
-            :class="['category-btn', { active: activeCategory === cat }]"
-            @click="activeCategory = cat; currentPage = 1"
+            v-for="tag in emotionTags"
+            :key="tag"
+            :class="['emotion-tag-btn', { active: activeEmotionTag === tag }]"
+            @click="activeEmotionTag = tag"
           >
-            {{ cat }}
+            {{ tag }}
           </button>
         </div>
-      </div> -->
+      </div>
 
-      <!-- 产品列表 -->
-      <div class="products-section">
-        <!-- <h2 class="section-title">精选产品</h2> -->
-        <div class="products-grid">
+      <!-- B区 - 产品画廊(瀑布流) -->
+      <div class="product-gallery-section">
+        <div class="product-gallery">
           <div
-            v-for="product in displayedProducts"
+            v-for="product in filteredProducts"
             :key="product.id"
-            class="product-card"
-            @click="viewDetails(product)"
+            class="gallery-item"
           >
-            <div class="product-image">
-              <div class="image-placeholder">
-                <svg width="50" height="50" viewBox="0 0 24 24" fill="#2d8f40">
-                  <path
-                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 
-                     9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                  />
-                </svg>
-              </div>
+            <div class="gallery-image-container">
+              <img 
+                :src="`/src/assets/${product.image}`" 
+                :alt="product.name"
+                class="gallery-image"
+              />
             </div>
-            <div class="product-info">
-              <h3 class="product-name">{{ product.name }}</h3>
-              <div class="product-category">{{ product.category }}</div>
-              <div class="product-price">¥{{ product.price.toFixed(2) }}</div>
+            <div class="gallery-item-info">
+              <h4 class="gallery-item-name">{{ product.name }}</h4>
+              <button v-if="product.hasStory" class="story-btn" @click="handleStoryClick(product)">
+                故事▶
+              </button>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- 加载更多 -->
-        <!-- <div class="load-more" v-if="showCount < filteredProducts.length">
-          <button class="load-more-btn" @click="loadMore">加载更多</button>
-        </div>
-        <div v-else-if="filteredProducts.length === 0" class="no-result">
-          未找到匹配的产品 😢
-        </div> -->
       </div>
     </div>
-
-    <!-- 模态框（查看详情） -->
-    <!-- <div v-if="showModal" class="modal-overlay" @click.self="closeModal">
-      <div class="modal">
-        <h3>{{ selectedProduct?.name }}</h3>
-        <p>分类：{{ selectedProduct?.category }}</p>
-        <p>价格：¥{{ selectedProduct?.price.toFixed(2) }}</p>
-        <p>这是一款融合传统与现代的文创产品，欢迎了解更多详情！</p>
-        <button class="close-btn" @click="closeModal">关闭</button>
-      </div>
-    </div> -->
-  </div>
 </template>
 
 <style scoped>
@@ -147,16 +90,58 @@ function closeModal() {
 
 /* header */
 .page-header {
-  text-align: center;
+  text-align: left;
   margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e0e0e0;
 }
 .page-header h1 {
-  font-size: 2.4rem;
-  color: #2d8f40;
+  font-size: 1.8rem;
+  color: #333;
+  margin: 0;
 }
-.page-header p {
+
+/* A区情感标签筛选 */
+.emotion-filter-section {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+.emotion-filter-section h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 1rem;
+  font-weight: normal;
+}
+.emotion-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-left: 0.5rem;
+}
+.emotion-tag-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: transparent;
   color: #666;
-  font-size: 1.1rem;
+  cursor: pointer;
+  position: relative;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+.emotion-tag-btn:hover {
+  color: #333;
+}
+.emotion-tag-btn.active {
+  color: #ff4757;
+  font-weight: 500;
+}
+.emotion-tag-btn.active::before {
+  content: '✓';
+  color: #ff4757;
+  position: absolute;
+  left: -1rem;
+  font-size: 0.8rem;
 }
 
 /* 搜索框 + 分类 */
@@ -200,107 +185,109 @@ function closeModal() {
   color: white;
 }
 
-/* 产品网格 */
-.products-section {
+/* B区产品画廊瀑布流 */
+.product-gallery-section {
+  margin-top: 2rem;
+}
+.product-gallery-section h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-weight: normal;
+}
+.product-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
 }
-.section-title {
-  font-size: 1.8rem;
-  color: #2d8f40;
-  text-align: center;
-  margin-bottom: 1.5rem;
+.gallery-item {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
 }
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1.5rem;
+.gallery-item:hover {
+  transform: translateY(-2px);
 }
-.product-card {
-  background: white;
-  border-radius: 12px;
+.gallery-image-container {
+  background: #ffffff;
+  border: 1px solid #d0d0d0;
+  margin-bottom: 0.8rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
   overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: 0.3s;
-  cursor: pointer;
 }
-.product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+.gallery-item:hover .gallery-image-container {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
-.image-placeholder {
-  height: 180px;
+.gallery-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.gallery-item:hover .gallery-image {
+  transform: scale(1.02);
+}
+.gallery-item-info {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #e8f5e9;
+  flex-direction: column;
+  gap: 0.5rem;
 }
-.product-info {
-  padding: 1.2rem;
+.gallery-item-name {
+  font-size: 1.05rem;
+  color: #333;
+  margin: 0;
+  font-weight: 500;
+  transition: color 0.3s ease;
 }
-.product-name {
-  font-size: 1.1rem;
-  color: #2d8f40;
-  margin-bottom: 0.3rem;
+.gallery-item:hover .gallery-item-name {
+  color: #ff4757;
 }
-.product-category {
-  font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 0.5rem;
-}
-.product-price {
-  font-weight: bold;
-  color: #ff6b00;
-}
-
-/* 加载更多 */
-.load-more {
-  text-align: center;
-  margin-top: 2rem;
-}
-.load-more-btn {
-  padding: 0.8rem 2rem;
-  border: 2px solid #2d8f40;
-  color: #2d8f40;
-  background: white;
-  border-radius: 8px;
+.story-btn {
+  align-self: flex-start;
+  background: transparent;
+  border: 1px solid #ff4757;
+  color: #ff4757;
+  font-size: 0.85rem;
   cursor: pointer;
-  transition: 0.3s;
-}
-.load-more-btn:hover {
-  background: linear-gradient(90deg, #2d8f40, #84b854);
-  color: white;
-}
-.no-result {
-  text-align: center;
-  color: #666;
-  margin-top: 2rem;
-}
-
-/* 模态框 */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.modal {
-  background: white;
-  padding: 2rem;
+  padding: 0.3rem 0.8rem;
   border-radius: 12px;
-  width: 90%;
-  max-width: 400px;
-  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: all 0.3s ease;
+  font-weight: 500;
 }
-.close-btn {
-  margin-top: 1rem;
-  background: #2d8f40;
+.story-btn:hover {
+  background: #ff4757;
   color: white;
-  border: none;
-  padding: 0.8rem 1.5rem;
-  border-radius: 8px;
-  cursor: pointer;
+  text-decoration: none;
+  transform: translateX(2px);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .product-gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  .gallery-image {
+    height: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-gallery {
+    grid-template-columns: 1fr;
+  }
+  .emotion-tags {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .emotion-tag-btn {
+    text-align: left;
+  }
 }
 </style>
