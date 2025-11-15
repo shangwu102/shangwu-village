@@ -21,26 +21,18 @@ const initViewer = () => {
 
   viewer = new Viewer({
     container: container.value,
-    adapter: [EquirectangularVideoAdapter],
+    adapter: [EquirectangularVideoAdapter,],
     panorama: {
       source: videoSrc,
     },
     plugins: [
-      [VideoPlugin, {
-        autoplay: true,
-        muted: true,
-        loop: true,
-        controls: false, // 隐藏控件
-      }],
+      [VideoPlugin],
     ],
     navbar: [],        // 隐藏工具栏
     caption: '',
     size: { width: '100%', height: '100vh' },
     loadingImg: null,
     loadingTxt: '',
-    loadingSpinner: false,
-    transition: false,
-    loadingDelay: 0,
   })
 
   isViewerReady = true

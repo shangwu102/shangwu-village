@@ -22,7 +22,20 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      // 确保所有Three.js导入都使用同一个实例
+      'three': fileURLToPath(new URL('./node_modules/three', import.meta.url))
     },
+  },
+  // 优化依赖，防止重复导入Three.js
+  optimizeDeps: {
+    include: [
+      'three',
+      '@photo-sphere-viewer/core',
+      '@photo-sphere-viewer/equirectangular-video-adapter',
+      '@photo-sphere-viewer/video-plugin',
+      '@photo-sphere-viewer/markers-plugin'
+    ],
+    exclude: ['three/addons']
   },
 })
