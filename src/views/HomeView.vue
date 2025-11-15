@@ -1,4 +1,3 @@
-
 <script setup>
 import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 import { ElButton } from 'element-plus'
@@ -128,7 +127,7 @@ onMounted(() => {
 
   // 触发页面初始化动画
   animateElements()
-  
+
   const s1 = document.querySelector('.screen-1')
   if (s1) s1.classList.add('active')
 
@@ -174,18 +173,20 @@ onUnmounted(() => {
         <div class="hero-content">
           <!-- 左侧文字内容 -->
           <div class="hero-text">
-            <h1 class="hero-title">自然乡村</h1>
+            <h1 class="hero-title">忆脉乡传</h1>
             <p class="hero-description">
-              乡村，一场寻味自然的旅程。在这里，我们带您漫游田园风光，
-              寻踪乡村记忆，探索自然好物。每一处风景都承载着乡土情怀，
-              每一件好物都凝聚着匠人心血。让我们一起感受乡村的自然之美，
-              品味土地的馈赠，聆听乡野的故事，体验最纯粹的生态生活方式。
+              每一座传统村落，都是一部镌刻在山水之间的厚重史书，承载着绵延千年的烟火气与人情味。
+              然而，时代的洪流奔涌向前，这些散落在阡陌交错的记忆瑰宝，正悄然淡出我们的视野。
+              为此，云行阡陌应运而生。在这里，每一次相逢，都藏着与乡土的心意相通——您品尝的是一方水土的滋味，
+              您触摸的是一件器物承载的匠心，您听到的是一段被时光打磨的往事。在乡忆寻踪里，发现失落的坐标；
+              在乡忆漫游中，沉浸于田园的诗意；在乡忆好物间，带走一份有故事的温暖。
+              让我们一起“忆脉乡传”，开启乡忆之旅。
             </p>
-            <ElButton size="large" class="explore-btn" @click="handleExploreClick">
-                开启乡村之旅
-              </ElButton>
+            <!-- <ElButton size="large" class="explore-btn" @click="handleExploreClick">
+              开启乡村之旅
+            </ElButton> -->
           </div>
-          
+
           <!-- 右侧乡村文创展示区域 -->
           <div class="creative-right-section">
             <!-- 左上圆形图片 -->
@@ -194,21 +195,21 @@ onUnmounted(() => {
                 <img src="../assets/test4.jpg" alt="文创扇子" class="creative-image">
               </div>
             </div>
-            
+
             <!-- 右上圆形图片 -->
             <div class="creative-item top-right">
               <div class="creative-circle">
                 <img src="../assets/test3.jpg" alt="文创T恤" class="creative-image">
               </div>
             </div>
-            
+
             <!-- 下方圆形图片 -->
             <div class="creative-item bottom-center">
               <div class="creative-circle">
                 <img src="../assets/test5.jpg" alt="文创书签" class="creative-image">
               </div>
             </div>
-            
+
             <!-- 文创文字说明 -->
             <div class="creative-text-overlay">
               <h3 class="creative-mini-title">乡村文创</h3>
@@ -231,11 +232,7 @@ onUnmounted(() => {
         <div class="multi-row">
           <div class="multi-label">360°</div>
           <div class="multi-content">
-            <iframe
-              src="https://app.cloudpano.com/tours/TQl4SzPOaX"
-              allowfullscreen
-              frameborder="0"
-            ></iframe>
+            <iframe src="https://app.cloudpano.com/tours/TQl4SzPOaX" allowfullscreen frameborder="0"></iframe>
           </div>
         </div>
 
@@ -293,6 +290,7 @@ onUnmounted(() => {
   -webkit-tap-highlight-color: transparent;
   touch-action: none;
 }
+
 .slider-container.animating {
   pointer-events: none;
 }
@@ -318,12 +316,14 @@ onUnmounted(() => {
 .screen-2 {
   transform: translateY(100vh);
   opacity: 0.95;
-  overflow: auto; /* 允许第二屏内部滚动 */
+  overflow: auto;
+  /* 允许第二屏内部滚动 */
   -webkit-overflow-scrolling: touch;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  background-color: #f0f4eb; /* 和你提供的 body 背景一致 */
+  background-color: #f0f4eb;
+  /* 和你提供的 body 背景一致 */
 }
 
 /* ---------- 第一屏样式 ---------- */
@@ -370,19 +370,20 @@ onUnmounted(() => {
   font-size: 3.2rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  text-shadow: 
-    2px 2px 0px rgba(0,0,0,0.3),
-    4px 4px 8px rgba(0,0,0,0.2),
-    0 0 20px rgba(255,255,255,0.3);
+  text-shadow:
+    2px 2px 0px rgba(0, 0, 0, 0.3),
+    4px 4px 8px rgba(0, 0, 0, 0.2),
+    0 0 20px rgba(255, 255, 255, 0.3);
   transform: perspective(500px) rotateX(2deg);
   letter-spacing: 1px;
 }
 
 .hero-description {
   font-size: 1.05rem;
-  line-height: 1.6;
+  line-height: 2;
   margin-bottom: 1.2rem;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
+  text-indent: 2em; /* 添加首行缩进 */
 }
 
 .explore-btn {
@@ -479,7 +480,7 @@ onUnmounted(() => {
   transform: translate(-50%, -50%);
   text-align: center;
   color: white;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   z-index: 10;
 }
 
@@ -498,8 +499,15 @@ onUnmounted(() => {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* 中间文字区域 */
@@ -533,16 +541,38 @@ onUnmounted(() => {
   pointer-events: none;
   z-index: 100;
 }
-.indicator-text { color: rgba(255,255,255,0.9); margin-bottom:8px; font-size:14px; }
+
+.indicator-text {
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
 .indicator-arrow {
-  width: 20px; height: 20px; border:2px solid rgba(255,255,255,0.85);
-  border-left: none; border-top: none; transform: rotate(45deg);
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  border-left: none;
+  border-top: none;
+  transform: rotate(45deg);
   animation: scrollIndicator 1.5s infinite ease-in-out;
 }
+
 @keyframes scrollIndicator {
-  0% { transform: translateY(0) rotate(45deg); opacity:0.7; }
-  50% { transform: translateY(10px) rotate(45deg); opacity:1; }
-  100% { transform: translateY(0) rotate(45deg); opacity:0.7; }
+  0% {
+    transform: translateY(0) rotate(45deg);
+    opacity: 0.7;
+  }
+
+  50% {
+    transform: translateY(10px) rotate(45deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(0) rotate(45deg);
+    opacity: 0.7;
+  }
 }
 
 /* ---------- 第二屏：多媒体样式（基于你提供的 HTML/CSS） ---------- */
@@ -552,7 +582,8 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding: 60px; /* 保留你原始的页面 padding（放在内部容器） */
+  padding: 60px;
+  /* 保留你原始的页面 padding（放在内部容器） */
   box-sizing: border-box;
   color: #3a3a2e;
 }
@@ -567,6 +598,7 @@ onUnmounted(() => {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   height: 100px;
 }
+
 .multi-row:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 20px rgba(74, 60, 45, 0.2);
@@ -614,16 +646,19 @@ onUnmounted(() => {
   border-radius: 8px;
   background-color: #f5f4e1;
 }
+
 .slideshow img {
   position: absolute;
   width: 100%;
   height: 100%;
   object-fit: contain;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   opacity: 0;
   transform: scale(1.1);
   transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
 }
+
 .slideshow img.active {
   opacity: 1;
   transform: scale(1);
@@ -660,23 +695,23 @@ onUnmounted(() => {
     justify-content: center;
     text-align: center;
   }
-  
+
   .hero-text {
     max-width: 100%;
     padding-right: 0;
     padding-bottom: 2rem;
   }
-  
+
   .hero-title {
     font-size: 2.8rem;
   }
-  
+
   .creative-right-section {
     width: 100%;
     max-width: 500px;
     height: 50vh;
   }
-  
+
   .creative-circle {
     width: 160px;
     height: 160px;
@@ -688,24 +723,24 @@ onUnmounted(() => {
   .hero-title {
     font-size: 2.2rem;
   }
-  
+
   .hero-description {
     font-size: 0.95rem;
   }
-  
+
   .creative-right-section .top-left,
   .creative-right-section .top-right {
     top: 15%;
   }
-  
+
   .creative-right-section .top-left {
     left: 10%;
   }
-  
+
   .creative-right-section .top-right {
     right: 10%;
   }
-  
+
   .creative-circle {
     width: 130px;
     height: 130px;
@@ -717,40 +752,40 @@ onUnmounted(() => {
   .hero-content {
     padding: 1rem;
   }
-  
+
   .hero-title {
     font-size: 1.8rem;
   }
-  
+
   .explore-btn {
     padding: 0.5rem 1.2rem;
     font-size: 0.9rem;
   }
-  
+
   .creative-circle {
     width: 100px;
     height: 100px;
     padding: 10px;
   }
-  
+
   .creative-right-section .top-left {
     top: 20%;
     left: 5%;
   }
-  
+
   .creative-right-section .top-right {
     top: 20%;
     right: 5%;
   }
-  
+
   .creative-right-section .bottom-center {
     bottom: 25%;
   }
-  
+
   .creative-mini-title {
     font-size: 1.4rem;
   }
-  
+
   .creative-mini-desc {
     font-size: 0.85rem;
   }
@@ -758,18 +793,34 @@ onUnmounted(() => {
 
 /* 第二屏响应式（保留原设计） */
 @media (max-width: 700px) {
-  .multi-container { padding: 24px; }
-  .multi-row { flex-direction: column; height: auto; }
-  .multi-label { flex: none; width: 100%; padding: 14px 12px; }
-  .multi-content { padding: 20px; }
+  .multi-container {
+    padding: 24px;
+  }
+
+  .multi-row {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .multi-label {
+    flex: none;
+    width: 100%;
+    padding: 14px 12px;
+  }
+
+  .multi-content {
+    padding: 20px;
+  }
 }
 
 /* 滚动条样式（仅在 text-box 内） */
 .multi-container .text-box::-webkit-scrollbar {
-  width: 8px; height: 8px;
+  width: 8px;
+  height: 8px;
 }
+
 .multi-container .text-box::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,0.12);
+  background: rgba(0, 0, 0, 0.12);
   border-radius: 6px;
 }
 </style>
