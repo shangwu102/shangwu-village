@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
-
+import music from '@/test/music/天后.mp3'
+import imageUrl from '@/assets/shouye1.png'
 // 子栏目导航数据
 const subCategories = ref([
   { id: 'history', name: '🔊口述历史' },
@@ -19,48 +20,48 @@ const contentData = ref({
       title: '我记忆中的村口大榕树...',
       duration: '25:30',
       type: 'audio',
-      imageUrl: '/src/assets/test1.jpg',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' // 使用示例音频URL
+      imageUrl: imageUrl,
+      audioUrl: music // 使用示例音频URL
     },
     {
       id: 2,
       title: '我记忆中的村口大榕树...',
       duration: '25:30',
       type: 'audio',
-      imageUrl: '/src/assets/test1.jpg',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' // 使用示例音频URL
+      imageUrl: imageUrl,
+      audioUrl: music // 使用示例音频URL
     },
     {
       id: 3,
       title: '我记忆中的村口大榕树...',
       duration: '25:30',
       type: 'audio',
-      imageUrl: '/src/assets/test1.jpg',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' // 使用示例音频URL
+      imageUrl: imageUrl,
+      audioUrl: music // 使用示例音频URL
     },
     {
       id: 4,
       title: '我记忆中的村口大榕树...',
       duration: '25:30',
       type: 'audio',
-      imageUrl: '/src/assets/test1.jpg',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' // 使用示例音频URL
+      imageUrl: imageUrl,
+      audioUrl: music // 使用示例音频URL
     },
     {
       id: 5,
       title: '我记忆中的村口大榕树...',
       duration: '25:30',
       type: 'audio',
-      imageUrl: '/src/assets/test1.jpg',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' // 使用示例音频URL
+      imageUrl: imageUrl,
+      audioUrl: music // 使用示例音频URL
     },
     {
       id: 6,
       title: '我记忆中的村口大榕树...',
       duration: '25:30',
       type: 'audio',
-      imageUrl: '/src/assets/test1.jpg',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' // 使用示例音频URL
+      imageUrl: imageUrl,
+      audioUrl: music // 使用示例音频URL
     }
   ],
   // 老照片馆内容
@@ -69,37 +70,37 @@ const contentData = ref({
       id: 1,
       year: '1980',
       title: '村口',
-      imageUrl: '/src/assets/test2.jpg'
+      imageUrl: imageUrl
     },
     {
       id: 2,
       year: '1995',
       title: '祠堂',
-      imageUrl: '/src/assets/test3.jpg'
+      imageUrl: imageUrl
     },
     {
       id: 3,
       year: '2008',
       title: '老街',
-      imageUrl: '/src/assets/test4.jpg'
+      imageUrl: imageUrl
     },
     {
       id: 4,
       year: '2024',
       title: '新貌',
-      imageUrl: '/src/assets/test5.jpg'
+      imageUrl: imageUrl
     },
     {
       id: 5,
       year: '2024',
       title: '新貌',
-      imageUrl: '/src/assets/test5.jpg'
+      imageUrl: imageUrl
     },
     {
       id: 6,
       year: '2024',
       title: '新貌',
-      imageUrl: '/src/assets/test5.jpg'
+      imageUrl: imageUrl
     }
   ],
   // 风物志内容
@@ -108,37 +109,37 @@ const contentData = ref({
       id: 1,
       title: '乡村自然风光',
       description: '记录乡村四季变换的美丽风景',
-      imageUrl: '/src/assets/test1.jpg'
+      imageUrl: 'imageUrl'
     },
     {
       id: 2,
       title: '乡村自然风光',
       description: '记录乡村四季变换的美丽风景',
-      imageUrl: '/src/assets/test1.jpg'
+      imageUrl: 'imageUrl'
     },
     {
       id: 3,
       title: '乡村自然风光',
       description: '记录乡村四季变换的美丽风景',
-      imageUrl: '/src/assets/test1.jpg'
+      imageUrl: 'imageUrl'
     },
     {
       id: 4,
       title: '乡村自然风光',
       description: '记录乡村四季变换的美丽风景',
-      imageUrl: '/src/assets/test1.jpg'
+      imageUrl: 'imageUrl'
     },
     {
       id: 5,
       title: '乡村自然风光',
       description: '记录乡村四季变换的美丽风景',
-      imageUrl: '/src/assets/test1.jpg'
+      imageUrl: 'imageUrl'
     },
     {
       id: 6,
       title: '乡村自然风光',
       description: '记录乡村四季变换的美丽风景',
-      imageUrl: '/src/assets/test1.jpg'
+      imageUrl: 'imageUrl'
     }
   ],
   // 村民日记内容
@@ -225,23 +226,23 @@ const duration = ref({})
 const toggleAudio = (id, audioUrl) => {
   if (!audioPlayers.value[id]) {
     audioPlayers.value[id] = new Audio(audioUrl)
-    
+
     // 监听播放结束事件
     audioPlayers.value[id].onended = () => {
       isPlaying.value[id] = false
     }
-    
+
     // 监听音频元数据加载完成事件
     audioPlayers.value[id].onloadedmetadata = () => {
       duration.value[id] = audioPlayers.value[id].duration
     }
-    
+
     // 监听时间更新事件，更新进度条
     audioPlayers.value[id].ontimeupdate = () => {
       currentTime.value[id] = audioPlayers.value[id].currentTime
     }
   }
-  
+
   const player = audioPlayers.value[id]
   if (isPlaying.value[id]) {
     player.pause()
@@ -254,13 +255,13 @@ const toggleAudio = (id, audioUrl) => {
 // 处理进度条点击事件，跳转到指定位置
 const handleProgressClick = (event, id) => {
   if (!audioPlayers.value[id]) return
-  
+
   const progressBar = event.currentTarget
   const rect = progressBar.getBoundingClientRect()
   const clickX = event.clientX - rect.left
   const percentage = clickX / rect.width
   const newTime = percentage * (duration.value[id] || 0)
-  
+
   audioPlayers.value[id].currentTime = newTime
   currentTime.value[id] = newTime
 }
@@ -268,10 +269,10 @@ const handleProgressClick = (event, id) => {
 // 格式化时间为 MM:SS 格式
 const formatTime = (timeInSeconds) => {
   if (!timeInSeconds || isNaN(timeInSeconds)) return '00:00'
-  
+
   const minutes = Math.floor(timeInSeconds / 60)
   const seconds = Math.floor(timeInSeconds % 60)
-  
+
   return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
 }
 
@@ -290,12 +291,9 @@ onUnmounted(() => {
     <!-- A区 - 子栏目导航(标签式) -->
     <div class="category-section">
       <div class="category-tabs">
-        <button
-          v-for="category in subCategories"
-          :key="category.id"
+        <button v-for="category in subCategories" :key="category.id"
           :class="['category-tab', { active: selectedCategory === category.id }]"
-          @click="handleCategoryChange(category.id)"
-        >
+          @click="handleCategoryChange(category.id)">
           <span class="tab-icon">
             {{ category.id === 'history' ? '🎵' : category.name.charAt(0) }}
           </span>
@@ -313,15 +311,7 @@ onUnmounted(() => {
           <div class="audio-cards">
             <div v-for="item in currentContent" :key="item.id" class="audio-card">
               <div class="audio-card-content">
-                <!-- 音频播放按钮 -->
-                <!-- <button 
-                  class="audio-placeholder audio-button"
-                  @click="toggleAudio(item.id, item.audioUrl)"
-                >
-                  11
-                </button> -->
-                <img src="../assets/test1.jpg" alt="" class="audio-placeholder audio-button">
-                
+                <img :src="item.imageUrl" alt="" class="audio-placeholder audio-button">
                 <div class="audio-info">
                   <div class="audio-title">老信纸样式音频卡片</div>
                   <div class="audio-description">"{{ item.title }}"</div>
@@ -330,14 +320,9 @@ onUnmounted(() => {
                       {{ isPlaying[item.id] ? '⏸️' : '▶️' }}
                     </button>
                     <!-- 音频进度条 -->
-                    <div 
-                      class="progress-container" 
-                      @click="handleProgressClick($event, item.id)"
-                    >
-                      <div 
-                        class="progress-bar" 
-                        :style="{ width: `${(currentTime[item.id] / (duration[item.id] || 1)) * 100}%` }"
-                      ></div>
+                    <div class="progress-container" @click="handleProgressClick($event, item.id)">
+                      <div class="progress-bar"
+                        :style="{ width: `${(currentTime[item.id] / (duration[item.id] || 1)) * 100}%` }"></div>
                     </div>
                     <!-- 时间显示 -->
                     <div class="time-display">
@@ -356,10 +341,7 @@ onUnmounted(() => {
       <!-- 老照片馆内容 -->
       <div v-else-if="selectedCategory === 'photos'" class="photos-content">
         <div class="timeline-nav">
-          <button
-            class="timeline-control"
-            @click="toggleTimeline"
-          >
+          <button class="timeline-control" @click="toggleTimeline">
             时间轴导航
           </button>
         </div>
@@ -523,7 +505,7 @@ onUnmounted(() => {
   transition: all 0.3s ease;
   border: 1px solid #d8ddc9;
   /* 添加榕树主题的纸质纹理 */
-  background-image: 
+  background-image:
     linear-gradient(rgba(45, 143, 64, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(45, 143, 64, 0.03) 1px, transparent 1px),
     linear-gradient(#f7f9f1 1px, transparent 1px),
@@ -531,7 +513,7 @@ onUnmounted(() => {
   background-size: 15px 15px, 15px 15px, 5px 5px, 5px 5px;
   background-position: -1px -1px, -1px -1px, -0.5px -0.5px, -0.5px -0.5px;
   /* 添加榕树叶子的微妙图案 */
-  background-image: 
+  background-image:
     radial-gradient(circle at 25px 25px, rgba(45, 143, 64, 0.05) 2px, transparent 0),
     radial-gradient(circle at 75px 75px, rgba(45, 143, 64, 0.05) 2px, transparent 0),
     radial-gradient(circle at 125px 125px, rgba(45, 143, 64, 0.05) 2px, transparent 0);
@@ -678,11 +660,10 @@ onUnmounted(() => {
   top: 0;
   bottom: 0;
   width: 3px;
-  background: linear-gradient(to bottom, 
-    rgba(45, 143, 64, 0.1), 
-    rgba(45, 143, 64, 0.8), 
-    rgba(45, 143, 64, 0.1)
-  );
+  background: linear-gradient(to bottom,
+      rgba(45, 143, 64, 0.1),
+      rgba(45, 143, 64, 0.8),
+      rgba(45, 143, 64, 0.1));
   border-radius: 2px;
   box-shadow: 0 0 0 1px rgba(45, 143, 64, 0.1);
 }
@@ -848,11 +829,11 @@ onUnmounted(() => {
   .photo-gallery {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .category-tabs {
     gap: 1rem;
   }
-  
+
   .category-tab {
     font-size: 1rem;
   }
@@ -862,47 +843,54 @@ onUnmounted(() => {
   .photo-gallery {
     grid-template-columns: 1fr;
   }
-  
+
   .timeline-nav {
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .audio-card-content {
     flex-direction: column;
     text-align: center;
   }
 }
+
 .page-header {
   text-align: center;
   margin-bottom: 2rem;
 }
+
 .page-header h1 {
   font-size: 2.5rem;
   color: #5f8ccf;
 }
+
 .page-header p {
   color: #666;
   font-size: 1.1rem;
 }
+
 .search-content {
   max-width: 1200px;
   margin: 0 auto;
 }
+
 .search-box {
   display: flex;
   max-width: 800px;
   margin: 0 auto 2rem;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
 }
+
 .search-input {
   flex: 1;
   padding: 1rem 1.5rem;
   border: none;
   font-size: 1.1rem;
 }
+
 .search-button {
   background: linear-gradient(90deg, #5f8ccf, #84b854);
   color: white;
@@ -915,10 +903,12 @@ onUnmounted(() => {
   font-weight: 500;
   transition: all .3s ease;
 }
+
 .search-button:hover {
   opacity: .9;
   transform: translateX(2px);
 }
+
 .filter-bar {
   background: white;
   padding: 1rem 1.5rem;
@@ -927,13 +917,15 @@ onUnmounted(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
+
 .filter-tabs {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
 }
+
 .filter-tab {
   padding: .5rem 1rem;
   border: none;
@@ -943,17 +935,20 @@ onUnmounted(() => {
   border-radius: 4px;
   transition: all .3s;
 }
+
 .filter-tab.active,
 .filter-tab:hover {
   background: #e8f5e9;
   color: #5f8ccf;
 }
+
 .search-results {
   background: white;
   border-radius: 8px;
   padding: 1.5rem;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
+
 .search-result-item {
   display: flex;
   gap: 1.5rem;
@@ -961,13 +956,16 @@ onUnmounted(() => {
   border-bottom: 1px solid #eee;
   transition: all .3s;
 }
+
 .search-result-item:hover {
   transform: translateX(5px);
 }
+
 .result-thumbnail {
   width: 120px;
   height: 120px;
 }
+
 .thumbnail-placeholder {
   width: 100%;
   height: 100%;
@@ -977,18 +975,22 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
 }
+
 .result-content {
   flex: 1;
 }
+
 .result-title {
   font-size: 1.3rem;
   color: #5f8ccf;
   cursor: pointer;
   margin-bottom: .5rem;
 }
+
 .result-title:hover {
   color: #84b854;
 }
+
 .result-description {
   color: #666;
   margin-bottom: 1rem;
@@ -999,24 +1001,28 @@ onUnmounted(() => {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
 .result-meta {
   display: flex;
   gap: 1rem;
   font-size: .9rem;
   color: #888;
 }
+
 .result-type {
   background: #e8f5e9;
   color: #5f8ccf;
   padding: .25rem .75rem;
   border-radius: 12px;
 }
+
 .pagination {
   display: flex;
   justify-content: center;
   margin-top: 2rem;
   gap: .5rem;
 }
+
 .page-btn {
   padding: .5rem 1rem;
   border: 1px solid #ddd;
@@ -1024,14 +1030,106 @@ onUnmounted(() => {
   cursor: pointer;
   background: white;
 }
+
 .page-btn.active,
 .page-btn:hover {
   background: #5f8ccf;
   color: white;
 }
-.loading, .no-result {
+
+.loading,
+.no-result {
   text-align: center;
   padding: 2rem;
   color: #888;
+}
+
+.audio-player {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.play-button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.play-button:hover {
+  background-color: rgba(95, 140, 207, 0.1);
+  transform: scale(1.1);
+}
+
+/* 音频进度条样式 */
+.progress-container {
+  flex: 1;
+  height: 6px;
+  background-color: rgba(95, 140, 207, 0.2);
+  border-radius: 3px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.progress-container:hover {
+  background-color: rgba(95, 140, 207, 0.3);
+  height: 8px;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #5f8ccf, #84b854);
+  border-radius: 3px;
+  transition: width 0.1s ease;
+  position: relative;
+}
+
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(50%, -50%);
+  width: 12px;
+  height: 12px;
+  background-color: #5f8ccf;
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 4px rgba(95, 140, 207, 0.5);
+}
+
+.progress-container:hover .progress-bar::after {
+  opacity: 1;
+  transform: translate(50%, -50%) scale(1);
+}
+
+.time-display {
+  font-size: 0.85rem;
+  color: #666;
+  min-width: 80px;
+  text-align: right;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.current-time,
+.total-time {
+  transition: color 0.3s ease;
+}
+
+.time-display:hover .current-time {
+  color: #5f8ccf;
 }
 </style>
