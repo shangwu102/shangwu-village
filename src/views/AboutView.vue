@@ -130,7 +130,7 @@ const projectGoals = [
 
 .page-header h1 {
   font-size: 2.5rem;
-  color: #2d8f40;
+  color: #5f8ccf;
   margin-bottom: 1rem;
 }
 
@@ -150,7 +150,7 @@ const projectGoals = [
 }
 
 .section-content h2 {
-  color: #2d8f40;
+  color: #5f8ccf;
   margin-bottom: 2rem;
   font-size: 1.8rem;
   padding-left: 0;
@@ -187,7 +187,7 @@ const projectGoals = [
 .goal-icon {
   width: 60px;
   height: 60px;
-  background: linear-gradient(90deg, #2d8f40 0%, #84b854 100%);
+  background: linear-gradient(90deg, #5f8ccf 0%, #84b854 100%);
   color: white;
   border-radius: 50%;
   display: flex;
@@ -234,7 +234,7 @@ const projectGoals = [
 .member-avatar {
   width: 80px;
   height: 80px;
-  background: linear-gradient(90deg, #2d8f40 0%, #84b854 100%);
+  background: linear-gradient(90deg, #5f8ccf 0%, #84b854 100%);
   color: white;
   border-radius: 50%;
   display: flex;
@@ -252,7 +252,7 @@ const projectGoals = [
 }
 
 .member-position {
-  color: #2d8f40;
+  color: #5f8ccf;
   font-weight: 500;
   margin-bottom: 0.5rem;
 }

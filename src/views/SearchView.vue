@@ -464,7 +464,7 @@ onUnmounted(() => {
 }
 
 .category-tab.active .tab-icon {
-  background: linear-gradient(135deg, #2d8f40, #84b854);
+  background: linear-gradient(135deg, #5f8ccf, #84b854);
   color: white;
   box-shadow: 0 4px 8px rgba(45, 143, 64, 0.3);
 }
@@ -474,21 +474,21 @@ onUnmounted(() => {
 }
 
 .category-tab:hover .tab-text {
-  color: #2d8f40;
+  color: #5f8ccf;
 }
 
 .category-tab.active .tab-text {
-  color: #2d8f40;
+  color: #5f8ccf;
   font-weight: 600;
 }
 
 .category-tab:hover {
-  color: #2d8f40;
+  color: #5f8ccf;
   background-color: rgba(45, 143, 64, 0.05);
 }
 
 .category-tab.active {
-  color: #2d8f40;
+  color: #5f8ccf;
   font-weight: 600;
   background-color: rgba(45, 143, 64, 0.05);
 }
@@ -501,7 +501,7 @@ onUnmounted(() => {
   transform: translateX(-50%);
   width: 30px;
   height: 3px;
-  background-color: #2d8f40;
+  background-color: #5f8ccf;
   border-radius: 2px;
 }
 
@@ -597,7 +597,7 @@ onUnmounted(() => {
 .audio-title {
   font-weight: 600;
   margin-bottom: 0.8rem;
-  color: #2c5e2e;
+  color: #78adad;
   font-family: 'Microsoft YaHei', sans-serif;
   font-size: 1.1rem;
   position: relative;
@@ -635,17 +635,17 @@ onUnmounted(() => {
 }
 
 .year-btn:hover {
-  background-color: #2d8f40;
+  background-color: #5f8ccf;
   color: white;
-  border-color: #2d8f40;
+  border-color: #5f8ccf;
   transform: translateY(-2px);
   box-shadow: 0 3px 8px rgba(45, 143, 64, 0.2);
 }
 
 .year-btn.active {
-  background-color: #2d8f40;
+  background-color: #5f8ccf;
   color: white;
-  border-color: #2d8f40;
+  border-color: #5f8ccf;
   box-shadow: 0 3px 8px rgba(45, 143, 64, 0.2);
 }
 
@@ -694,7 +694,7 @@ onUnmounted(() => {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: radial-gradient(circle, #4caf50, #2d8f40);
+  background: radial-gradient(circle, #4caf50, #5f8ccf);
   border: 4px solid white;
   box-shadow: 0 0 0 2px rgba(45, 143, 64, 0.3), 0 2px 5px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
@@ -734,7 +734,7 @@ onUnmounted(() => {
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #2d8f40, #84b854);
+  background: linear-gradient(90deg, #5f8ccf, #84b854);
 }
 
 .photo-card:hover {
@@ -760,7 +760,7 @@ onUnmounted(() => {
 
 .photo-year {
   font-size: 0.9rem;
-  color: #2d8f40;
+  color: #5f8ccf;
   font-weight: 600;
   margin-bottom: 0.5rem;
   background-color: rgba(45, 143, 64, 0.05);
@@ -791,7 +791,7 @@ onUnmounted(() => {
 }
 
 .scenery-card-content h4 {
-  color: #2d8f40;
+  color: #5f8ccf;
   margin-top: 0;
   margin-bottom: 0.8rem;
 }
@@ -879,7 +879,7 @@ onUnmounted(() => {
 }
 .page-header h1 {
   font-size: 2.5rem;
-  color: #2d8f40;
+  color: #5f8ccf;
 }
 .page-header p {
   color: #666;
@@ -904,7 +904,7 @@ onUnmounted(() => {
   font-size: 1.1rem;
 }
 .search-button {
-  background: linear-gradient(90deg, #2d8f40, #84b854);
+  background: linear-gradient(90deg, #5f8ccf, #84b854);
   color: white;
   border: none;
   padding: 0 2rem;
@@ -946,7 +946,7 @@ onUnmounted(() => {
 .filter-tab.active,
 .filter-tab:hover {
   background: #e8f5e9;
-  color: #2d8f40;
+  color: #5f8ccf;
 }
 .search-results {
   background: white;
@@ -982,7 +982,7 @@ onUnmounted(() => {
 }
 .result-title {
   font-size: 1.3rem;
-  color: #2d8f40;
+  color: #5f8ccf;
   cursor: pointer;
   margin-bottom: .5rem;
 }
@@ -1007,7 +1007,7 @@ onUnmounted(() => {
 }
 .result-type {
   background: #e8f5e9;
-  color: #2d8f40;
+  color: #5f8ccf;
   padding: .25rem .75rem;
   border-radius: 12px;
 }
@@ -1026,7 +1026,7 @@ onUnmounted(() => {
 }
 .page-btn.active,
 .page-btn:hover {
-  background: #2d8f40;
+  background: #5f8ccf;
   color: white;
 }
 .loading, .no-result {

@@ -142,7 +142,7 @@ html, body {
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: #2c5e1a;
+  color: #5f8ccf;
 }
 
 .logo-image {
@@ -185,13 +185,13 @@ html, body {
   left: 50%;
   width: 0;
   height: 2px;
-  background-color: #2c5e1a;
+  background-color: #5f8ccf;
   transition: all 0.3s ease;
   transform: translateX(-50%);
 }
 
 .nav-link:hover {
-  color: #2c5e1a;
+  color: #5f8ccf;
   transform: translateY(-2px);
   text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
 }

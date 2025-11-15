@@ -149,7 +149,7 @@ function handleStoryClick(product) {
 }
 
 .emotion-tag-btn.active .tag-icon {
-  background: linear-gradient(135deg, #2d8f40, #84b854);
+  background: linear-gradient(135deg, #5f8ccf, #84b854);
   color: white;
   box-shadow: 0 4px 8px rgba(45, 143, 64, 0.3);
 }
@@ -159,21 +159,21 @@ function handleStoryClick(product) {
 }
 
 .emotion-tag-btn:hover .tag-text {
-  color: #2d8f40;
+  color: #5f8ccf;
 }
 
 .emotion-tag-btn.active .tag-text {
-  color: #2d8f40;
+  color: #5f8ccf;
   font-weight: 600;
 }
 
 .emotion-tag-btn:hover {
-  color: #2d8f40;
+  color: #5f8ccf;
   background-color: rgba(45, 143, 64, 0.05);
 }
 
 .emotion-tag-btn.active {
-  color: #2d8f40;
+  color: #5f8ccf;
   font-weight: 600;
   background-color: rgba(45, 143, 64, 0.05);
 }
@@ -186,7 +186,7 @@ function handleStoryClick(product) {
   transform: translateX(-50%);
   width: 20px;
   height: 3px;
-  background: linear-gradient(90deg, #2d8f40, #84b854);
+  background: linear-gradient(90deg, #5f8ccf, #84b854);
   border-radius: 3px;
 }
 
@@ -210,7 +210,7 @@ function handleStoryClick(product) {
   margin-bottom: 1rem;
 }
 .search-input:focus {
-  border-color: #2d8f40;
+  border-color: #5f8ccf;
 }
 .culture-categories {
   display: flex;
@@ -223,14 +223,14 @@ function handleStoryClick(product) {
   border: none;
   border-radius: 25px;
   background: white;
-  color: #2d8f40;
+  color: #5f8ccf;
   cursor: pointer;
   transition: 0.3s;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 .category-btn.active,
 .category-btn:hover {
-  background: linear-gradient(90deg, #2d8f40, #84b854);
+  background: linear-gradient(90deg, #5f8ccf, #84b854);
   color: white;
 }
 
