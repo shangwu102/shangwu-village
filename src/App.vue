@@ -35,7 +35,7 @@ onUnmounted(() => {
       <!-- Logo -->
       <div class="logo-section">
         <RouterLink to="/" class="logo-link">
-          <img src="@/assets/logo.svg" alt="乡村记忆" class="logo-image" />
+          <img src="@/assets/image.png" alt="乡村记忆" class="logo-image" />
           <span class="logo-title" style="font-weight: bold;">云行阡陌 —— 找寻记忆中的中国传统村落</span>
         </RouterLink>
       </div>
@@ -100,8 +100,8 @@ html, body {
 </style>
 <style scoped>
 .header-container {
-  background: linear-gradient(90deg, #3a923a 0%, #71b635 100%);
-  color: #fff;
+  background: linear-gradient(135deg, #87CEEB 0%, #E0F7FA 30%, #F5F5DC 60%, #DEB887 100%);
+  color: #3a3a2e;
   padding: 0 2rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: sticky;
@@ -142,7 +142,7 @@ html, body {
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: white;
+  color: #2c5e1a;
 }
 
 .logo-image {
@@ -160,6 +160,7 @@ html, body {
 
 .logo-title {
   font-size: 0.9rem;
+  color: #3a3a2e;
 }
 
 .main-nav {
@@ -168,7 +169,7 @@ html, body {
 }
 
 .nav-link {
-  color: white;
+  color: #3a3a2e;
   text-decoration: none;
   font-size: 0.9rem;
   padding: 0.5rem 0;
@@ -184,14 +185,15 @@ html, body {
   left: 50%;
   width: 0;
   height: 2px;
-  background-color: #fef3c7;
+  background-color: #2c5e1a;
   transition: all 0.3s ease;
   transform: translateX(-50%);
 }
 
 .nav-link:hover {
-  color: #fef3c7;
+  color: #2c5e1a;
   transform: translateY(-2px);
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
 }
 
 .nav-link:hover::after {

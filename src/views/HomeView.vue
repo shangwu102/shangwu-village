@@ -177,10 +177,9 @@ onUnmounted(() => {
             <p class="hero-description">
               每一座传统村落，都是一部镌刻在山水之间的厚重史书，承载着绵延千年的烟火气与人情味。
               然而，时代的洪流奔涌向前，这些散落在阡陌交错的记忆瑰宝，正悄然淡出我们的视野。
-              为此，云行阡陌应运而生。在这里，每一次相逢，都藏着与乡土的心意相通——您品尝的是一方水土的滋味，
+              为此，云行阡陌应运而生。在这里，每一次消费都不再是简单的买卖——您品尝的是一方水土的滋味，
               您触摸的是一件器物承载的匠心，您听到的是一段被时光打磨的往事。在乡忆寻踪里，发现失落的坐标；
-              在乡忆漫游中，沉浸于田园的诗意；在乡忆好物间，带走一份有故事的温暖。
-              让我们一起“忆脉乡传”，开启乡忆之旅。
+              在乡忆漫游中，沉浸于田园的诗意；在乡忆好物间，带走一份有故事的温暖。让我们一起“忆脉乡传”，开启乡忆之旅。
             </p>
             <!-- <ElButton size="large" class="explore-btn" @click="handleExploreClick">
               开启乡村之旅
@@ -323,12 +322,11 @@ onUnmounted(() => {
   justify-content: center;
   align-items: flex-start;
   background-color: #f0f4eb;
-  /* 和你提供的 body 背景一致 */
 }
 
 /* ---------- 第一屏样式 ---------- */
 .hero-section {
-  background: linear-gradient(135deg, #2d8f40 0%, #84b854 50%, #ffcc33 100%);
+  background: linear-gradient(135deg, #87CEEB 0%, #E0F7FA 30%, #F5F5DC 60%, #DEB887 100%);
   height: 100vh;
   width: 100vw;
   position: relative;
@@ -336,6 +334,22 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.4) 0%, transparent 30%),
+    radial-gradient(circle at 70% 25%, rgba(255, 255, 255, 0.3) 0%, transparent 40%),
+    radial-gradient(circle at 50% 80%, rgba(160, 82, 45, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 85% 75%, rgba(34, 139, 34, 0.15) 0%, transparent 30%);
+  opacity: 0.7;
+  z-index: 0;
 }
 
 .hero-content {
@@ -353,7 +367,7 @@ onUnmounted(() => {
 /* 左侧文字区域 */
 .hero-text {
   max-width: 50%;
-  color: white;
+  color: #3a3a2e;
   opacity: 0;
   transform: translateY(-20px);
   transition: all 0.8s ease;
@@ -367,23 +381,26 @@ onUnmounted(() => {
 }
 
 .hero-title {
+  color: #049dda;
   font-size: 3.2rem;
   font-weight: 700;
   margin-bottom: 1rem;
   text-shadow:
-    2px 2px 0px rgba(0, 0, 0, 0.3),
-    4px 4px 8px rgba(0, 0, 0, 0.2),
-    0 0 20px rgba(255, 255, 255, 0.3);
+    1px 1px 2px rgba(0, 0, 0, 0.2),
+    2px 2px 4px rgba(0, 0, 0, 0.1);
   transform: perspective(500px) rotateX(2deg);
   letter-spacing: 1px;
 }
 
 .hero-description {
-  font-size: 1.05rem;
+  font-size: 1.2rem;
   line-height: 2;
   margin-bottom: 1.2rem;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
-  text-indent: 2em; /* 添加首行缩进 */
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+  text-indent: 2em;
+  /* 添加首行缩进 */
+  color: #3a3a2e;
+  font-weight: 500;
 }
 
 .explore-btn {
@@ -479,8 +496,8 @@ onUnmounted(() => {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  color: #2c5e1a;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7);
   z-index: 10;
 }
 
@@ -490,12 +507,15 @@ onUnmounted(() => {
   margin-bottom: 0.5rem;
   opacity: 0;
   animation: fadeIn 0.8s ease 0.5s forwards;
+  color: #2c5e1a;
 }
 
 .creative-mini-desc {
   font-size: 1rem;
   opacity: 0;
   animation: fadeIn 0.8s ease 0.8s forwards;
+  color: #3a3a2e;
+  font-weight: 500;
 }
 
 @keyframes fadeIn {
