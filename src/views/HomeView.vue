@@ -175,9 +175,10 @@ onUnmounted(() => {
           <div class="hero-text">
             <h1 class="hero-title">忆脉乡传</h1>
             <p class="hero-description">
+              忆脉乡传
               每一座传统村落，都是一部镌刻在山水之间的厚重史书，承载着绵延千年的烟火气与人情味。
               然而，时代的洪流奔涌向前，这些散落在阡陌交错的记忆瑰宝，正悄然淡出我们的视野。
-              为此，云行阡陌应运而生。在这里，每一次消费都不再是简单的买卖——您品尝的是一方水土的滋味，
+              为此，云行阡陌应运而生。在这里，每一次相逢，都藏着与乡土的心意相通——您品尝的是一方水土的滋味，
               您触摸的是一件器物承载的匠心，您听到的是一段被时光打磨的往事。在乡忆寻踪里，发现失落的坐标；
               在乡忆漫游中，沉浸于田园的诗意；在乡忆好物间，带走一份有故事的温暖。让我们一起“忆脉乡传”，开启乡忆之旅。
             </p>
@@ -191,43 +192,42 @@ onUnmounted(() => {
             <!-- 左上圆形图片 -->
             <div class="creative-item top-left">
               <div class="creative-circle">
-                <img src="../assets/test4.jpg" alt="文创扇子" class="creative-image">
+                <img src="../assets/shouye1.png" alt="文创扇子" class="creative-image">
               </div>
             </div>
 
             <!-- 右上圆形图片 -->
             <div class="creative-item top-right">
               <div class="creative-circle">
-                <img src="../assets/test3.jpg" alt="文创T恤" class="creative-image">
+                <img src="../assets/shouye2.png" alt="文创T恤" class="creative-image">
               </div>
             </div>
 
             <!-- 下方圆形图片 -->
             <div class="creative-item bottom-center">
               <div class="creative-circle">
-                <img src="../assets/test5.jpg" alt="文创书签" class="creative-image">
+                <img src="../assets/shouye3.png" alt="文创书签" class="creative-image">
               </div>
             </div>
 
             <!-- 文创文字说明 -->
             <div class="creative-text-overlay">
-              <h3 class="creative-mini-title">乡村文创</h3>
-              <p class="creative-mini-desc">乡村元素的创意产品</p>
+              <h3 class="creative-mini-title">乡村味道</h3>
+              <p class="creative-mini-desc">封存于方寸之间</p>
             </div>
           </div>
         </div>
 
-        <div class="slide-indicator">
+        <!-- <div class="slide-indicator">
           <div class="indicator-text">向下滚动探索更多</div>
           <div class="indicator-arrow"></div>
-        </div>
+        </div> -->
       </div>
     </section>
 
     <!-- 第二屏：多媒体展示（采用你提供的“大地色生态风格”样式） -->
-    <section class="slider-screen screen-2">
+    <!-- <section class="slider-screen screen-2">
       <div class="multi-container">
-        <!-- 360° -->
         <div class="multi-row">
           <div class="multi-label">360°</div>
           <div class="multi-content">
@@ -235,7 +235,6 @@ onUnmounted(() => {
           </div>
         </div>
 
-        <!-- 老照片 -->
         <div class="multi-row">
           <div class="multi-label">老照片</div>
           <div class="multi-content">
@@ -247,8 +246,6 @@ onUnmounted(() => {
             </div>
           </div>
         </div>
-
-        <!-- 录音 -->
         <div class="multi-row">
           <div class="multi-label">录音</div>
           <div class="multi-content">
@@ -258,8 +255,6 @@ onUnmounted(() => {
             </audio>
           </div>
         </div>
-
-        <!-- 文字 -->
         <div class="multi-row">
           <div class="multi-label">土特产</div>
           <div class="multi-content">
@@ -270,10 +265,8 @@ onUnmounted(() => {
             </div>
           </div>
         </div>
-
-        <!-- <div class="multi-footer">网页原型设计 · 大地色生态风格</div> -->
       </div>
-    </section>
+    </section> -->
   </div>
 </template>
 
@@ -459,15 +452,15 @@ onUnmounted(() => {
 
 /* 圆形图片样式 */
 .creative-circle {
-  width: 180px;
-  height: 180px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.9);
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  padding: 15px;
+  /* 移除内边距，让图片完全填满圆形 */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   border: 3px solid rgba(255, 255, 255, 0.8);
 }
@@ -480,7 +473,8 @@ onUnmounted(() => {
 .creative-image {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  /* 修改为cover使图片填满容器 */
   border-radius: 50%;
   transition: transform 0.5s ease;
 }
@@ -507,7 +501,7 @@ onUnmounted(() => {
   margin-bottom: 0.5rem;
   opacity: 0;
   animation: fadeIn 0.8s ease 0.5s forwards;
-  color: #2c5e1a;
+  color: #c5c090;
 }
 
 .creative-mini-desc {
@@ -785,7 +779,7 @@ onUnmounted(() => {
   .creative-circle {
     width: 100px;
     height: 100px;
-    padding: 10px;
+    /* 移除内边距，让图片完全填满圆形 */
   }
 
   .creative-right-section .top-left {
