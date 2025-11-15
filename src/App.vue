@@ -65,10 +65,12 @@ onUnmounted(() => {
     </div>
   </header>
 
-  <!-- 页面渲染逻辑 - 使用单一RouterView但控制过渡效果 -->
+  <router-view v-slot="{ Component }">
   <transition :name="isMapView ? '' : 'page-fade'" mode="out-in">
-    <RouterView />
+    <component :is="Component" />
   </transition>
+</router-view>
+
 </template>
 <style>
 ::-webkit-scrollbar {
