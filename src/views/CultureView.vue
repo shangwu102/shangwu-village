@@ -33,9 +33,6 @@ function handleStoryClick(product) {
 
 <template>
   <div class="culture-view-container">
-    <div class="page-header">
-      <h1>文创商城</h1>
-    </div>
 
     <div class="culture-content">
       <!-- A区 - 情感标签筛选 -->
@@ -47,7 +44,8 @@ function handleStoryClick(product) {
             :class="['emotion-tag-btn', { active: activeEmotionTag === tag }]"
             @click="activeEmotionTag = tag"
           >
-            {{ tag }}
+            <span class="tag-icon">•</span>
+            <span class="tag-text">{{ tag }}</span>
           </button>
         </div>
       </div>
@@ -103,9 +101,12 @@ function handleStoryClick(product) {
 
 /* A区情感标签筛选 */
 .emotion-filter-section {
+  background-color: #ffffff;
+  padding: 1.5rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   margin-bottom: 2rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid #e0e0e0;
+  border: none;
 }
 .emotion-filter-section h3 {
   font-size: 1.2rem;
@@ -115,35 +116,83 @@ function handleStoryClick(product) {
 }
 .emotion-tags {
   display: flex;
+  gap: 2rem;
   flex-wrap: wrap;
-  gap: 1rem;
-  padding-left: 0.5rem;
+  justify-content: center;
+  padding-left: 0;
 }
 .emotion-tag-btn {
-  padding: 0.5rem 1rem;
+  background: none;
   border: none;
-  background: transparent;
+  padding: 0.7rem 1.2rem;
+  font-size: 1.1rem;
   color: #666;
   cursor: pointer;
   position: relative;
-  font-size: 1rem;
-  transition: color 0.3s;
-}
-.emotion-tag-btn:hover {
-  color: #333;
-}
-.emotion-tag-btn.active {
-  color: #ff4757;
-  font-weight: 500;
-}
-.emotion-tag-btn.active::before {
-  content: '✓';
-  color: #ff4757;
-  position: absolute;
-  left: -1rem;
-  font-size: 0.8rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
 }
 
+.tag-icon {
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background: linear-gradient(135deg, #e8f5e9, #ffffff);
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.emotion-tag-btn.active .tag-icon {
+  background: linear-gradient(135deg, #2d8f40, #84b854);
+  color: white;
+  box-shadow: 0 4px 8px rgba(45, 143, 64, 0.3);
+}
+
+.tag-text {
+  transition: all 0.3s ease;
+}
+
+.emotion-tag-btn:hover .tag-text {
+  color: #2d8f40;
+}
+
+.emotion-tag-btn.active .tag-text {
+  color: #2d8f40;
+  font-weight: 600;
+}
+
+.emotion-tag-btn:hover {
+  color: #2d8f40;
+  background-color: rgba(45, 143, 64, 0.05);
+}
+
+.emotion-tag-btn.active {
+  color: #2d8f40;
+  font-weight: 600;
+  background-color: rgba(45, 143, 64, 0.05);
+}
+
+.emotion-tag-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 3px;
+  background: linear-gradient(90deg, #2d8f40, #84b854);
+  border-radius: 3px;
+}
+
+.emotion-tag-btn.active::before {
+  display: none;
+}
 /* 搜索框 + 分类 */
 .search-and-filter {
   text-align: center;
