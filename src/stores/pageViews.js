@@ -38,20 +38,22 @@ export const usePageViewsStore = defineStore('pageViews', () => {
       const response = await incrementPageViewAPI(pageName)
       
       if (response.success && response.data) {
-        // 更新本地状态
+        // 更新本地状态（后端返回的字段是 viewCount）
         if (pageViews.value.hasOwnProperty(pageName)) {
-          pageViews.value[pageName] = response.data.count || response.data.views
+          pageViews.value[pageName] = response.data.viewCount
         }
+        
+        console.log('访问量更新成功:', pageName, '当前值:', response.data.viewCount)
         
         return {
           success: true,
           data: {
             page: pageName,
-            views: pageViews.value[pageName]
+            viewCount: pageViews.value[pageName]
           }
         }
       } else {
-        throw new Error(response.error || '增加访问量失败')
+        throw new Error(response.message || '增加访问量失败')
       }
     } catch (error) {
       console.error('增加访问量失败:', error)

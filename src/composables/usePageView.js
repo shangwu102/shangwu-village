@@ -22,17 +22,13 @@ export function usePageView(pageName) {
       // 调用后端API增加访问量
       const response = await pageViewsStore.incrementPageView(pageName)
       
-      if (response.success) {
-        // 从后端获取最新访问量
-        const viewResponse = await getPageViewsAPI(pageName)
-        if (viewResponse.success && viewResponse.data) {
-          currentPageViews.value = viewResponse.data.count || viewResponse.data.views || 0
-        } else {
-          // 如果后端获取失败，使用 store 中的数据
-          currentPageViews.value = pageViewsStore.getPageViews(pageName)
-        }
+      if (response.success && response.data) {
+        // 从响应中获取访问量（后端返回的字段是 viewCount）
+        currentPageViews.value = response.data.viewCount || 0
+        console.log(`页面 ${pageName} 访问量:`, currentPageViews.value)
       } else {
-        throw new Error(response.error || '增加访问量失败')
+        // 如果增加失败，尝试从 store 中获取
+        currentPageViews.value = pageViewsStore.getPageViews(pageName)
       }
     } catch (err) {
       error.value = err.message
