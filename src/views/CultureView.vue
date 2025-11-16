@@ -1,16 +1,16 @@
 <script setup>
 import { ref, computed } from "vue"
-
+import imageUrl from "@/assets/shouye1.png"
 // 模拟产品数据
 const allProducts = ref([
-  { id: 1, name: "外婆米香", tags: ["外婆的味道"], image: "../assets/shouye1.png", hasStory: true },
-  { id: 2, name: "老槐树茶", tags: ["季节限定"], image: "../assets/shouye2.png", hasStory: true },
-  { id: 3, name: "手工竹编", tags: ["爷爷的手艺"], image: "../assets/shouye3.png", hasStory: true },
-  { id: 4, name: "竹制风车", tags: ["童年的玩具"], image: "../assets/shouye3.png", hasStory: true },
-  { id: 5, name: "手工布鞋", tags: ["外婆的味道", "季节限定"], image: "../assets/shouye2.png", hasStory: true },
-  { id: 6, name: "草编蚂蚱", tags: ["童年的玩具", "爷爷的手艺"], image: "../assets/shouye1.png", hasStory: true },
-  { id: 7, name: "桂花糕", tags: ["外婆的味道", "季节限定"], image: "../assets/shouye1.png", hasStory: true },
-  { id: 8, name: "木雕摆件", tags: ["爷爷的手艺"], image: "../assets/shouye2.png", hasStory: true },
+  { id: 1, name: "外婆米香", tags: ["外婆的味道"], image: imageUrl, hasStory: true },
+  { id: 2, name: "老槐树茶", tags: ["季节限定"], image: imageUrl, hasStory: true },
+  { id: 3, name: "手工竹编", tags: ["爷爷的手艺"], image: imageUrl, hasStory: true },
+  { id: 4, name: "竹制风车", tags: ["童年的玩具"], image: imageUrl, hasStory: true },
+  { id: 5, name: "手工布鞋", tags: ["外婆的味道", "季节限定"], image: imageUrl, hasStory: true },
+  { id: 6, name: "草编蚂蚱", tags: ["童年的玩具", "爷爷的手艺"], image: imageUrl, hasStory: true },
+  { id: 7, name: "桂花糕", tags: ["外婆的味道", "季节限定"], image: imageUrl, hasStory: true },
+  { id: 8, name: "木雕摆件", tags: ["爷爷的手艺"], image: imageUrl, hasStory: true },
 ])
 
 // 情感标签
@@ -60,7 +60,7 @@ function handleStoryClick(product) {
           >
             <div class="gallery-image-container">
               <img 
-                :src="`/src/assets/${product.image}`" 
+                :src="`${product.image}`" 
                 :alt="product.name"
                 class="gallery-image"
               />
