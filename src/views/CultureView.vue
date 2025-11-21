@@ -197,64 +197,65 @@ const handleClose = () => {
 </script>
 
 <template>
-  <div class="culture-view-container">
+  <div class="culture-view-wrapper">
+    <div class="culture-view-container">
 
-    <div class="culture-content">
-      <!-- A区 - 情感标签筛选 -->
-      <div class="emotion-filter-section">
-        <div class="emotion-tags">
-          <button
-            v-for="tag in emotionTags"
-            :key="tag"
-            :class="['emotion-tag-btn', { active: activeEmotionTag === tag }]"
-            @click="activeEmotionTag = tag"
-          >
-            <span class="tag-icon">•</span>
-            <span class="tag-text">{{ tag }}</span>
-          </button>
+      <div class="culture-content">
+        <!-- A区 - 情感标签筛选 -->
+        <div class="emotion-filter-section">
+          <div class="emotion-tags">
+            <button
+              v-for="tag in emotionTags"
+              :key="tag"
+              :class="['emotion-tag-btn', { active: activeEmotionTag === tag }]"
+              @click="activeEmotionTag = tag"
+            >
+              <span class="tag-icon">•</span>
+              <span class="tag-text">{{ tag }}</span>
+            </button>
+          </div>
         </div>
-      </div>
 
-      <!-- B区 - 产品画廊(瀑布流) -->
-      <div class="product-gallery-section">
-        <div class="product-gallery">
-          <div
-            v-for="product in filteredProducts"
-            :key="product.id"
-            class="gallery-item"
-          >
-            <div class="gallery-image-container">
-              <img 
-                :src="`${product.image}`" 
-                :alt="product.name"
-                class="gallery-image"
-                @click="handleStoryClick(product)"
-                style="cursor: pointer;"
-              />
-            </div>
-            <div class="gallery-item-info">
-              <h4 class="gallery-item-name">{{ product.name }}</h4>
-              <button v-if="product.story" class="story-btn" @click="handleStoryClick(product)">
-                故事▶
-              </button>
+        <!-- B区 - 产品画廊(瀑布流) -->
+        <div class="product-gallery-section">
+          <div class="product-gallery">
+            <div
+              v-for="product in filteredProducts"
+              :key="product.id"
+              class="gallery-item"
+            >
+              <div class="gallery-image-container">
+                <img 
+                  :src="`${product.image}`" 
+                  :alt="product.name"
+                  class="gallery-image"
+                  @click="handleStoryClick(product)"
+                  style="cursor: pointer;"
+                />
+              </div>
+              <div class="gallery-item-info">
+                <h4 class="gallery-item-name">{{ product.name }}</h4>
+                <button v-if="product.story" class="story-btn" @click="handleStoryClick(product)">
+                  故事▶
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
       </div>
-  </div>
+    </div>
 
-  <!-- 故事弹窗组件 -->
-  <ElDialog
-    v-model="dialogVisible"
-    :title="currentStory ? `产品故事：${currentStory.title}` : '产品背后的故事'"
-    width="80%"
-    :before-close="handleClose"
-    top="15vh"
-    append-to-body
-    custom-class="story-dialog"
-  >
+    <!-- 故事弹窗组件 -->
+    <ElDialog
+      v-model="dialogVisible"
+      :title="currentStory ? `产品故事：${currentStory.title}` : '产品背后的故事'"
+      width="80%"
+      :before-close="handleClose"
+      top="15vh"
+      append-to-body
+      custom-class="story-dialog"
+    >
     <div v-if="currentStory" class="story-content">
       <h2 class="story-title">{{ currentStory.title }}</h2>
       <ElDivider />
@@ -273,6 +274,7 @@ const handleClose = () => {
       </ElButton>
     </template>
   </ElDialog>
+  </div>
 </template>
 
 <style scoped>
