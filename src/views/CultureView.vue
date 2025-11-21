@@ -1,16 +1,19 @@
 <script setup>
 import { ref, computed } from "vue"
-import imageUrl from "@/assets/shouye1.png"
+import imageUrl1 from "@/assets/culture/1.jpg"
+import imageUrl2 from "@/assets/culture/2.jpg"
+import imageUrl3 from "@/assets/culture/3.jpg"
+import imageUrl4 from "@/assets/culture/4.webp"
+import imageUrl5 from "@/assets/culture/5.jpg"
+import imageUrl6 from "@/assets/culture/6.jpg"
 // 模拟产品数据
 const allProducts = ref([
-  { id: 1, name: "外婆米香", tags: ["外婆的味道"], image: imageUrl, hasStory: true },
-  { id: 2, name: "老槐树茶", tags: ["季节限定"], image: imageUrl, hasStory: true },
-  { id: 3, name: "手工竹编", tags: ["爷爷的手艺"], image: imageUrl, hasStory: true },
-  { id: 4, name: "竹制风车", tags: ["童年的玩具"], image: imageUrl, hasStory: true },
-  { id: 5, name: "手工布鞋", tags: ["外婆的味道", "季节限定"], image: imageUrl, hasStory: true },
-  { id: 6, name: "草编蚂蚱", tags: ["童年的玩具", "爷爷的手艺"], image: imageUrl, hasStory: true },
-  { id: 7, name: "桂花糕", tags: ["外婆的味道", "季节限定"], image: imageUrl, hasStory: true },
-  { id: 8, name: "木雕摆件", tags: ["爷爷的手艺"], image: imageUrl, hasStory: true },
+  { id: 1, name: "外婆米香", tags: ["外婆的味道"], image: imageUrl1, hasStory: true },
+  { id: 2, name: "老槐树茶", tags: ["季节限定"], image: imageUrl2, hasStory: true },
+  { id: 3, name: "手工竹编", tags: ["爷爷的手艺"], image: imageUrl3, hasStory: true },
+  { id: 4, name: "竹制风车", tags: ["童年的玩具"], image: imageUrl4, hasStory: true },
+  { id: 5, name: "手工布鞋", tags: ["外婆的味道", "季节限定"], image: imageUrl5, hasStory: true },
+  { id: 6, name: "草编蚂蚱", tags: ["童年的玩具", "爷爷的手艺"], image: imageUrl6, hasStory: true },
 ])
 
 // 情感标签

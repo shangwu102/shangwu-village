@@ -1,7 +1,32 @@
 <script setup>
 import { ref, computed } from 'vue'
 import music from '@/test/music/天后.mp3'
-import imageUrl from '@/assets/shouye1.png'
+import imageUrl from '@/assets/search/1/1.jpg'
+import imageUrl1 from '@/assets/search/1/1.jpg'
+import imageUrl2 from '@/assets/search/1/2.jpg'
+import imageUrl3 from '@/assets/search/1/3.jpg'
+import imageUrl4 from '@/assets/search/1/4.jpg'
+import imageUrl5 from '@/assets/search/1/5.jpg'
+import imageUrl6 from '@/assets/search/1/6.webp'
+
+import photos1 from '@/assets/search/2/1.jpg'
+import photos2 from '@/assets/search/2/2.webp'
+import photos3 from '@/assets/search/2/3.jpg'
+import photos4 from '@/assets/search/2/4.webp'
+import photos5 from '@/assets/search/2/5.webp'
+import photos6 from '@/assets/search/2/6.webp'
+import photos7 from '@/assets/search/2/7.jpg'
+import photos8 from '@/assets/search/2/8.jpg'
+
+
+import scenery1 from '@/assets/search/3/1.jpg'
+import scenery2 from '@/assets/search/3/2.webp'
+import scenery3 from '@/assets/search/3/3.jpg'
+import scenery4 from '@/assets/search/3/4.jpg'
+import scenery5 from '@/assets/search/3/5.jpg'
+import scenery6 from '@/assets/search/3/6.webp'
+
+
 // 子栏目导航数据
 const subCategories = ref([
   { id: 'history', name: '🔊口述历史' },
@@ -17,50 +42,50 @@ const contentData = ref({
   history: [
     {
       id: 1,
-      title: '我记忆中的村口大榕树...',
-      duration: '25:30',
+      title: '老茶亭里的故事与回忆',
+      duration: '18:45',
       type: 'audio',
-      imageUrl: imageUrl,
+      imageUrl: imageUrl1,
       audioUrl: music // 使用示例音频URL
     },
     {
       id: 2,
-      title: '我记忆中的村口大榕树...',
-      duration: '25:30',
+      title: '村里的老匠人讲述传统手工艺',
+      duration: '22:10',
       type: 'audio',
-      imageUrl: imageUrl,
+      imageUrl: imageUrl2,
       audioUrl: music // 使用示例音频URL
     },
     {
       id: 3,
-      title: '我记忆中的村口大榕树...',
+      title: '回忆公社时期的集体劳动生活',
       duration: '25:30',
       type: 'audio',
-      imageUrl: imageUrl,
+      imageUrl: imageUrl3,
       audioUrl: music // 使用示例音频URL
     },
     {
       id: 4,
-      title: '我记忆中的村口大榕树...',
-      duration: '25:30',
+      title: '村头老榕树见证的百年变迁',
+      duration: '19:20',
       type: 'audio',
-      imageUrl: imageUrl,
+      imageUrl: imageUrl4,
       audioUrl: music // 使用示例音频URL
     },
     {
       id: 5,
-      title: '我记忆中的村口大榕树...',
-      duration: '25:30',
+      title: '传统节日习俗与庆典活动',
+      duration: '28:15',
       type: 'audio',
-      imageUrl: imageUrl,
+      imageUrl: imageUrl5,
       audioUrl: music // 使用示例音频URL
     },
     {
       id: 6,
-      title: '我记忆中的村口大榕树...',
-      duration: '25:30',
+      title: '乡村教师讲述教育变迁历程',
+      duration: '23:50',
       type: 'audio',
-      imageUrl: imageUrl,
+      imageUrl: imageUrl6,
       audioUrl: music // 使用示例音频URL
     }
   ],
@@ -69,122 +94,122 @@ const contentData = ref({
     {
       id: 1,
       year: '1980',
-      title: '村口',
-      imageUrl: imageUrl
+      title: '公社时期的村部办公楼',
+      imageUrl: photos1
     },
     {
       id: 2,
       year: '1995',
-      title: '祠堂',
-      imageUrl: imageUrl
+      title: '老祠堂重修竣工典礼',
+      imageUrl: photos2
     },
     {
       id: 3,
       year: '2008',
-      title: '老街',
-      imageUrl: imageUrl
+      title: '改革开放后的老街改造',
+      imageUrl: photos3
     },
     {
       id: 4,
       year: '2024',
-      title: '新貌',
-      imageUrl: imageUrl
+      title: '乡村振兴后的文化广场',
+      imageUrl: photos4
     },
     {
       id: 5,
       year: '2024',
-      title: '新貌',
-      imageUrl: imageUrl
+      title: '现代化农业示范基地',
+      imageUrl: photos5
     },
     {
       id: 6,
       year: '2024',
-      title: '新貌',
-      imageUrl: imageUrl
+      title: '村道硬化工程完工仪式',
+      imageUrl: photos6
     }
   ],
   // 风物志内容
   scenery: [
     {
       id: 1,
-      title: '乡村自然风光',
-      description: '记录乡村四季变换的美丽风景',
-      imageUrl: 'imageUrl'
+      title: '春日油菜花海',
+      description: '每年三月，村庄周围的油菜花盛开，形成金色的海洋，吸引众多游客前来观赏。',
+      imageUrl: scenery1
     },
     {
       id: 2,
-      title: '乡村自然风光',
-      description: '记录乡村四季变换的美丽风景',
-      imageUrl: 'imageUrl'
+      title: '古桥流水人家',
+      description: '村里的老石桥始建于清朝，见证了数百年的历史变迁，桥下溪水常年流淌。',
+      imageUrl: scenery2
     },
     {
       id: 3,
-      title: '乡村自然风光',
-      description: '记录乡村四季变换的美丽风景',
-      imageUrl: 'imageUrl'
+      title: '梯田层层叠叠',
+      description: '村庄周围的梯田随山势蜿蜒，四季景色各异，是摄影爱好者的天堂。',
+      imageUrl: scenery3
     },
     {
       id: 4,
-      title: '乡村自然风光',
-      description: '记录乡村四季变换的美丽风景',
-      imageUrl: 'imageUrl'
+      title: '千年古樟参天',
+      description: '村东头的古樟树已有1200年历史，树围10米，被村民视为镇村之宝。',
+      imageUrl: scenery4
     },
     {
       id: 5,
-      title: '乡村自然风光',
-      description: '记录乡村四季变换的美丽风景',
-      imageUrl: 'imageUrl'
+      title: '秋意红叶满山',
+      description: '每到深秋，村后的山林层林尽染，红叶与绿叶交织，景色如画。',
+      imageUrl: scenery5
     },
     {
       id: 6,
-      title: '乡村自然风光',
-      description: '记录乡村四季变换的美丽风景',
-      imageUrl: 'imageUrl'
+      title: '传统村落建筑群',
+      description: '保存完好的明清时期建筑群，青瓦白墙，飞檐翘角，展现了传统村落的独特魅力。',
+      imageUrl: scenery6
     }
   ],
   // 村民日记内容
   diary: [
     {
       id: 1,
-      title: '村民日常生活记录',
-      date: '2024-05-20',
-      author: '张三',
-      content: '今天村里来了考察团...'
+      title: '春耕播种的第一天',
+      date: '2024-03-15',
+      author: '李老根',
+      content: '今天是春耕的第一天，天气很好，我和老伴儿很早就到地里开始播种。今年打算多种些优质水稻品种，希望能有个好收成。下午村长还来地里指导我们科学种植方法。'
     },
     {
       id: 2,
-      title: '村民日常生活记录',
-      date: '2024-05-20',
-      author: '张三',
-      content: '今天村里来了考察团...'
+      title: '农家乐迎来第一批游客',
+      date: '2024-04-02',
+      author: '王巧珍',
+      content: '我家的农家乐今天正式开业了！第一批客人是来自城里的三口之家，他们对我们做的农家菜赞不绝口，特别是我亲手做的腊肉和土鸡汤。希望以后生意越来越好。'
     },
     {
       id: 3,
-      title: '村民日常生活记录',
-      date: '2024-05-20',
-      author: '张三',
-      content: '今天村里来了考察团...'
+      title: '村里的文化活动中心建成',
+      date: '2024-04-28',
+      author: '张文书',
+      content: '期盼已久的村文化活动中心今天终于建成了！这是乡村振兴项目的一部分，里面有图书室、棋牌室和健身器材。以后村里的老人们终于有个好去处了，孩子们也有了学习的地方。'
     },
     {
       id: 4,
-      title: '村民日常生活记录',
-      date: '2024-05-20',
-      author: '张三',
-      content: '今天村里来了考察团...'
+      title: '传统手工艺培训班',
+      date: '2024-05-10',
+      author: '刘桂花',
+      content: '今天参加了镇上组织的传统手工艺培训班，学习编织竹制品。老师是省里来的非遗传承人，教得很仔细。我打算学会后在家开个小工作室，既能传承手艺又能增加收入。'
     },
     {
       id: 5,
-      title: '村民日常生活记录',
-      date: '2024-05-20',
-      author: '张三',
-      content: '今天村里来了考察团...'
+      title: '村道硬化工程完工',
+      date: '2024-05-25',
+      author: '陈明生',
+      content: '困扰我们多年的泥巴路终于变成了水泥路！再也不用担心下雨天出门一身泥了。这要感谢政府的乡村振兴政策，现在不仅出行方便了，连快递都能直接送到家门口。'
     },
     {
       id: 6,
-      title: '村民日常生活记录',
-      date: '2024-05-20',
-      author: '张三',
-      content: '今天村里来了考察团...'
+      title: '孙子放假回乡帮忙',
+      date: '2024-06-01',
+      author: '赵奶奶',
+      content: '今天孙子从城里放假回来了，说是要帮我干农活。别看他平时在城里读书，干起活来倒也像模像样的。他还教我用智能手机拍视频，说要帮我把农家果园宣传到网上去。'
     }
   ]
 })
@@ -313,7 +338,7 @@ onUnmounted(() => {
               <div class="audio-card-content">
                 <img :src="item.imageUrl" alt="" class="audio-placeholder audio-button">
                 <div class="audio-info">
-                  <div class="audio-title">老信纸样式音频卡片</div>
+                  <!-- <div class="audio-title">老信纸样式音频卡片</div> -->
                   <div class="audio-description">"{{ item.title }}"</div>
                   <div class="audio-player">
                     <button @click="toggleAudio(item.id, item.audioUrl)" class="play-button">
@@ -367,6 +392,7 @@ onUnmounted(() => {
               <div class="scenery-card-content">
                 <h4>{{ item.title }}</h4>
                 <p>{{ item.description }}</p>
+                <img :src="item.imageUrl" width="300" height="200" :alt="item.title" class="scenery-image" />
               </div>
             </div>
           </div>
