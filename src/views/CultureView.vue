@@ -188,7 +188,6 @@ const handleStoryClick = (product) => {
     dialogVisible.value = true
   }
 }
-
 // 处理弹窗关闭事件
 const handleClose = () => {
   dialogVisible.value = false
@@ -215,11 +214,12 @@ const handleClose = () => {
             </button>
           </div>
         </div>
+        
 
         <!-- B区 - 产品画廊(瀑布流) -->
         <div class="product-gallery-section">
-          <div class="product-gallery">
-            <div
+            <div class="product-gallery category-content">
+              <div
               v-for="product in filteredProducts"
               :key="product.id"
               class="gallery-item"
@@ -309,6 +309,19 @@ const handleClose = () => {
   margin-bottom: 20px;
   color: #2c3e50;
   text-align: center;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: unifiedTitleTransition 0.6s ease-out;
+}
+
+@keyframes unifiedTitleTransition {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .story-meta {
@@ -414,6 +427,18 @@ const handleClose = () => {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   margin-bottom: 2rem;
   border: none;
+  animation: slideDownFadeIn 0.6s ease-out;
+}
+
+@keyframes slideDownFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 .emotion-filter-section h3 {
   font-size: 1.2rem;
@@ -427,6 +452,16 @@ const handleClose = () => {
   flex-wrap: wrap;
   justify-content: center;
   padding-left: 0;
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 .emotion-tag-btn {
   background: none;
@@ -440,7 +475,19 @@ const handleClose = () => {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  overflow: hidden;
+}
+
+.emotion-tag-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(45, 143, 64, 0.1), transparent);
+  transition: left 2s ease;
 }
 
 .tag-icon {
@@ -459,10 +506,16 @@ const handleClose = () => {
   background: linear-gradient(135deg, #5f8ccf, #84b854);
   color: white;
   box-shadow: 0 4px 8px rgba(45, 143, 64, 0.3);
+  transform: scale(1.05);
 }
 
 .tag-text {
   transition: all 0.3s ease;
+}
+
+.tag-text {
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
 }
 
 .emotion-tag-btn:hover .tag-text {
@@ -472,17 +525,40 @@ const handleClose = () => {
 .emotion-tag-btn.active .tag-text {
   color: #5f8ccf;
   font-weight: 600;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.emotion-tag-btn {
+  transition: all 0.3s ease;
 }
 
 .emotion-tag-btn:hover {
   color: #5f8ccf;
   background-color: rgba(45, 143, 64, 0.05);
+  transform: translateY(-2px);
+}
+
+.emotion-tag-btn:hover::before {
+  left: 100%;
 }
 
 .emotion-tag-btn.active {
   color: #5f8ccf;
   font-weight: 600;
   background-color: rgba(45, 143, 64, 0.05);
+  animation: tabActivate 0.3s ease-out;
+}
+
+@keyframes tabActivate {
+  0% {
+    transform: scale(0.95);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .emotion-tag-btn.active::after {
@@ -491,10 +567,20 @@ const handleClose = () => {
   bottom: -5px;
   left: 50%;
   transform: translateX(-50%);
-  width: 20px;
+  width: 30px;
   height: 3px;
-  background: linear-gradient(90deg, #5f8ccf, #84b854);
-  border-radius: 3px;
+  background-color: #5f8ccf;
+  border-radius: 2px;
+  animation: slideInUnderline 0.4s ease-out;
+}
+
+@keyframes slideInUnderline {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 30px;
+  }
 }
 
 .emotion-tag-btn.active::before {
@@ -544,7 +630,20 @@ const handleClose = () => {
 /* B区产品画廊瀑布流 */
 .product-gallery-section {
   margin-top: 2rem;
+  animation: contentFadeIn 0.5s ease-out;
 }
+
+@keyframes contentFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .product-gallery-section h3 {
   font-size: 1.2rem;
   color: #333;
@@ -557,6 +656,23 @@ const handleClose = () => {
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* 内容切换动画 */
+.category-content {
+  animation: tabContentSwap 0.5s ease-out;
+}
+
+@keyframes tabContentSwap {
+  0% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 .gallery-item {
   display: flex;
@@ -590,16 +706,19 @@ const handleClose = () => {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-}
-.gallery-item-name {
-  font-size: 1.05rem;
+ }
+ .gallery-item-name {
+  font-size: 1.1rem;
   color: #333;
   margin: 0;
   font-weight: 500;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
+  animation: unifiedTitleTransition 0.6s ease-out;
 }
+
 .gallery-item:hover .gallery-item-name {
-  color: #ff4757;
+  color: #5f8ccf;
+  transition: all 0.3s ease;
 }
 .story-btn {
   align-self: flex-start;
@@ -646,4 +765,5 @@ const handleClose = () => {
     text-align: left;
   }
 }
+
 </style>

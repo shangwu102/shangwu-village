@@ -328,7 +328,7 @@ onUnmounted(() => {
     <!-- B区 - 内容展示区(时间轴+卡片) -->
     <div class="content-section">
       <!-- 口述历史内容 -->
-      <div v-if="selectedCategory === 'history'" class="history-content">
+      <div v-if="selectedCategory === 'history'" class="history-content category-content">
         <div class="timeline-container">
           <div class="timeline-axis"></div>
           <div class="audio-cards">
@@ -362,7 +362,7 @@ onUnmounted(() => {
       </div>
 
       <!-- 老照片馆内容 -->
-      <div v-else-if="selectedCategory === 'photos'" class="photos-content">
+      <div v-else-if="selectedCategory === 'photos'" class="photos-content category-content">
         <div class="timeline-nav">
           <button class="timeline-control" @click="toggleTimeline">
             时间轴导航
@@ -382,7 +382,7 @@ onUnmounted(() => {
       </div>
 
       <!-- 风物志内容 -->
-      <div v-else-if="selectedCategory === 'scenery'" class="scenery-content">
+      <div v-else-if="selectedCategory === 'scenery'" class="scenery-content category-content">
         <div class="timeline-container">
           <div class="timeline-axis"></div>
           <div class="scenery-cards">
@@ -398,7 +398,7 @@ onUnmounted(() => {
       </div>
 
       <!-- 村民日记内容 -->
-      <div v-else-if="selectedCategory === 'diary'" class="diary-content">
+      <div v-else-if="selectedCategory === 'diary'" class="diary-content category-content">
         <div class="timeline-container">
           <div class="timeline-axis"></div>
           <div class="diary-entries">
@@ -433,6 +433,18 @@ onUnmounted(() => {
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   margin-bottom: 2rem;
+  animation: slideDownFadeIn 0.6s ease-out;
+}
+
+@keyframes slideDownFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .category-tabs {
@@ -440,6 +452,16 @@ onUnmounted(() => {
   gap: 2rem;
   flex-wrap: wrap;
   justify-content: center;
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .category-tab {
@@ -454,7 +476,19 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  overflow: hidden;
+}
+
+.category-tab::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(45, 143, 64, 0.1), transparent);
+  transition: left 2s ease;
 }
 
 .tab-icon {
@@ -467,16 +501,19 @@ onUnmounted(() => {
   background: linear-gradient(135deg, #e8f5e9, #ffffff);
   border-radius: 50%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .category-tab.active .tab-icon {
   background: linear-gradient(135deg, #5f8ccf, #84b854);
   color: white;
   box-shadow: 0 4px 8px rgba(45, 143, 64, 0.3);
+  transform: scale(1.05);
 }
 
 .tab-text {
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
 }
 
 .category-tab:hover .tab-text {
@@ -491,12 +528,30 @@ onUnmounted(() => {
 .category-tab:hover {
   color: #5f8ccf;
   background-color: rgba(45, 143, 64, 0.05);
+  transform: translateY(-2px);
+}
+
+.category-tab:hover::before {
+  left: 100%;
 }
 
 .category-tab.active {
   color: #5f8ccf;
   font-weight: 600;
   background-color: rgba(45, 143, 64, 0.05);
+  animation: tabActivate 0.3s ease-out;
+}
+
+@keyframes tabActivate {
+  0% {
+    transform: scale(0.95);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .category-tab.active::after {
@@ -509,6 +564,32 @@ onUnmounted(() => {
   height: 3px;
   background-color: #5f8ccf;
   border-radius: 2px;
+  animation: slideInUnderline 0.4s ease-out;
+}
+
+@keyframes slideInUnderline {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 30px;
+  }
+}
+
+/* 内容切换动画 */
+.category-content {
+  animation: tabContentSwap 0.5s ease-out;
+}
+
+@keyframes tabContentSwap {
+  0% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 /* B区 - 内容展示区样式 */
@@ -517,6 +598,18 @@ onUnmounted(() => {
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  animation: contentFadeIn 0.5s ease-out;
+}
+
+@keyframes contentFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .audio-card {
@@ -598,6 +691,19 @@ onUnmounted(() => {
 
 .audio-info {
   flex: 1;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: unifiedTitleTransition 0.6s ease-out;
+}
+
+@keyframes unifiedTitleTransition {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .audio-title {
@@ -627,6 +733,17 @@ onUnmounted(() => {
   font-style: italic;
   font-family: 'SimSun', serif;
   line-height: 1.6;
+  transition: all 0.3s ease;
+}
+
+.audio-card-title {
+  transition: all 0.3s ease;
+  animation: unifiedTitleTransition 0.6s ease-out;
+}
+
+.audio-card:hover .audio-description {
+  color: #5f8ccf;
+  transition: all 0.3s ease;
 }
 
 .year-btn {
@@ -887,6 +1004,19 @@ onUnmounted(() => {
 .page-header h1 {
   font-size: 2.5rem;
   color: #5f8ccf;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: unifiedTitleTransition 0.6s ease-out;
+}
+
+@keyframes unifiedTitleTransition {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .page-header p {
