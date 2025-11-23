@@ -7,6 +7,9 @@ import photos4 from '@/assets/search/2/4.webp'
 import photos5 from '@/assets/search/2/5.webp'
 import photos6 from '@/assets/search/2/6.webp'
 
+// 加载状态，用于页面内容的淡入动画
+const isLoaded = ref(false)
+
 // 3D画廊图片数据
 const galleryData = [
   {
@@ -73,8 +76,8 @@ const previousImage = () => {
     // 延迟一小段时间再重置动画状态，确保动画完全播放
     setTimeout(() => {
       isAnimating.value = false
-    }, 50)
-  }, 450)
+    }, 100)
+  }, 500)
 }
 
 // 切换到下一张
@@ -89,8 +92,8 @@ const nextImage = () => {
     // 延迟一小段时间再重置动画状态，确保动画完全播放
     setTimeout(() => {
       isAnimating.value = false
-    }, 50)
-  }, 450)
+    }, 100)
+  }, 500)
 }
 
 // 跳转到指定图片
@@ -106,8 +109,8 @@ const goToImage = (index) => {
     // 延迟一小段时间再重置动画状态，确保动画完全播放
     setTimeout(() => {
       isAnimating.value = false
-    }, 25)
-  }, 45)
+    }, 100)
+  }, 500)
 }
 
 // 处理鼠标移动，实现3D效果
@@ -183,15 +186,20 @@ watch(autoPlay, (newVal) => {
   }
 })
 
-// 组件挂载时启动自动轮播
+// 组件挂载时启动自动轮播和淡入动画
 onMounted(() => {
+  // 触发页面淡入动画
+  setTimeout(() => {
+    isLoaded.value = true
+  }, 100)
+  
   startAutoPlay()
 })
 </script>
 
 <template>
   <!-- 3D画廊容器 -->
-  <div class="gallery-container" @mouseenter="stopAutoPlay" @mouseleave="startAutoPlay">
+  <div class="gallery-container" :class="{ 'fade-in': isLoaded }" @mouseenter="stopAutoPlay" @mouseleave="startAutoPlay">
       <!-- 左侧预览 -->
       <div class="gallery-side left-side">
         <div class="side-preview" @click="previousImage">
@@ -212,7 +220,7 @@ onMounted(() => {
         </div>
         
         <div class="main-image-container" @mousemove="handleMouseMove" @mouseleave="reset3D">
-          <div class="image-wrapper" :style="imageTransformStyle">
+          <div class="image-wrapper" :style="imageTransformStyle" :class="{ 'is-animating': isAnimating }">
             <img 
               :src="currentImage.imageUrl" 
               :alt="currentImage.title"
@@ -278,6 +286,15 @@ onMounted(() => {
   background-color: #ffffff;
   /* padding: 2rem; */
   font-family: 'Arial', sans-serif;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 页面加载时的淡入动画 */
+.gallery-container.fade-in {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* 画廊容器样式已合并到上面 */
@@ -397,29 +414,35 @@ onMounted(() => {
 
 /* 图片切换动画 */
 .main-image {
-  transition: all 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
-  will-change: transform, opacity;
+  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity, filter;
 }
 
+/* 增强的进入动画 - 从右侧 */
 .main-image.animate-in-right {
   opacity: 0;
-  transform: translateX(80px) scale(0.95);
+  transform: translateX(120px) scale(0.9) rotateY(-5deg);
+  filter: brightness(0.8) saturate(0.8);
 }
 
+/* 增强的进入动画 - 从左侧 */
 .main-image.animate-in-left {
   opacity: 0;
-  transform: translateX(-80px) scale(0.95);
+  transform: translateX(-120px) scale(0.9) rotateY(5deg);
+  filter: brightness(0.8) saturate(0.8);
 }
 
 /* 确保图片切换时的初始状态 */
 .main-image:not(.animate-in-right):not(.animate-in-left) {
   opacity: 1;
-  transform: translateX(0) scale(1);
+  transform: translateX(0) scale(1) rotateY(0);
+  filter: brightness(1) saturate(1);
 }
 
-/* 图片说明文字过渡动画 */
-.gallery-caption {
-  transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+/* 添加图片切换时的缩放效果 */
+.image-wrapper {
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), 
+              box-shadow 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* 确保3D变换和过渡效果正常工作 */
@@ -437,6 +460,15 @@ onMounted(() => {
   z-index: 10;
   text-align: left;
   color: white;
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 图片切换时文字的淡出效果 */
+.is-animating .gallery-caption {
+  opacity: 0;
+  transform: translateY(20px);
 }
 
 .image-title {
@@ -444,6 +476,7 @@ onMounted(() => {
   font-weight: 700;
   margin: 0 0 0.5rem 0;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
 }
 
 .image-subtitle {
@@ -452,6 +485,7 @@ onMounted(() => {
   margin: 0;
   opacity: 0.9;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
 }
 
 /* 控制按钮和分页 */
@@ -465,6 +499,15 @@ onMounted(() => {
   justify-content: center;
   gap: 2rem;
   z-index: 10;
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 图片切换时分页控件的淡出效果 */
+.is-animating .gallery-controls {
+  opacity: 0;
+  transform: translateY(10px);
 }
 
 .nav-button {
@@ -532,6 +575,12 @@ onMounted(() => {
   .image-title {
     font-size: 1.2rem;
   }
+  
+  /* 中等屏幕的动画调整 */
+  .main-image.animate-in-right,
+  .main-image.animate-in-left {
+    transform: translateX(calc(80px * var(--screen-ratio, 1))) scale(0.93);
+  }
 }
 
 @media (max-width: 768px) {
@@ -541,6 +590,8 @@ onMounted(() => {
   
   .gallery-container {
     height: 50vh;
+    /* 调整动画持续时间以适应移动设备 */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
   }
   
   .gallery-side {
@@ -573,11 +624,26 @@ onMounted(() => {
     width: 35px;
     height: 35px;
   }
+  
+  /* 小屏幕的动画调整 */
+  .main-image.animate-in-right,
+  .main-image.animate-in-left {
+    transform: translateX(calc(60px * var(--screen-ratio, 1))) scale(0.95);
+    filter: brightness(0.9) saturate(0.9);
+    transition: all 0.7s ease-out;
+  }
+  
+  /* 减少文字动画的移动距离 */
+  .is-animating .gallery-caption {
+    transform: translateY(15px);
+  }
 }
 
 @media (max-width: 480px) {
   .gallery-container {
     height: 40vh;
+    /* 进一步简化动画以适应手机性能 */
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
   }
   
   .gallery-title {
@@ -605,6 +671,23 @@ onMounted(() => {
   .pagination-dot.active {
     width: 10px;
     height: 6px;
+  }
+  
+  /* 手机屏幕的动画调整 */
+  .main-image.animate-in-right,
+  .main-image.animate-in-left {
+    transform: translateX(calc(40px * var(--screen-ratio, 1))) scale(0.97);
+    filter: none;
+    transition: all 0.6s ease-out;
+  }
+  
+  /* 简化文字和导航的动画 */
+  .is-animating .gallery-caption {
+    transform: translateY(10px);
+  }
+  
+  .is-animating .gallery-controls {
+    transform: translateY(5px);
   }
 }
 </style>
