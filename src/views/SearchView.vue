@@ -15,8 +15,6 @@ import photos3 from '@/assets/search/2/3.jpg'
 import photos4 from '@/assets/search/2/4.webp'
 import photos5 from '@/assets/search/2/5.webp'
 import photos6 from '@/assets/search/2/6.webp'
-import photos7 from '@/assets/search/2/7.jpg'
-import photos8 from '@/assets/search/2/8.jpg'
 
 
 import scenery1 from '@/assets/search/3/1.jpg'
@@ -29,10 +27,10 @@ import scenery6 from '@/assets/search/3/6.webp'
 
 // 子栏目导航数据
 const subCategories = ref([
-  { id: 'history', name: '🔊口述历史' },
-  { id: 'photos', name: '📼老照片馆' },
-  { id: 'scenery', name: '🏞️风物志' },
-  { id: 'diary', name: '📝村民日记' }
+  { id: 'history', name: '口述历史',icon:'🔊' },
+  { id: 'photos', name: '老照片馆',icon:'📸' },
+  { id: 'scenery', name: '风物志',icon:'🏞️' },
+  { id: 'diary', name: '村民日记',icon:'📝' }
 ])
 const selectedCategory = ref('history')
 
@@ -320,9 +318,9 @@ onUnmounted(() => {
           :class="['category-tab', { active: selectedCategory === category.id }]"
           @click="handleCategoryChange(category.id)">
           <span class="tab-icon">
-            {{ category.id === 'history' ? '🎵' : category.name.charAt(0) }}
+                {{ category.icon }}
           </span>
-          <span class="tab-text">{{ category.name.substring(2) }}</span>
+          <span class="tab-text">{{ category.name }}</span>
         </button>
       </div>
     </div>

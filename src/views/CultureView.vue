@@ -210,7 +210,7 @@ const handleClose = () => {
               :class="['emotion-tag-btn', { active: activeEmotionTag === tag }]"
               @click="activeEmotionTag = tag"
             >
-              <span class="tag-icon">•</span>
+              <!-- <span class="tag-icon">•</span> -->
               <span class="tag-text">{{ tag }}</span>
             </button>
           </div>
