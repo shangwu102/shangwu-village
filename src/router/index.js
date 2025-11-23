@@ -21,11 +21,11 @@ const router = createRouter({
     },
     {
       path: '/search',
-      name: 'search',
       component: () => import('../views/SearchView.vue'),
       children: [
         {
           path: '',
+          name: 'search',
           redirect: 'history'
         },
         {
