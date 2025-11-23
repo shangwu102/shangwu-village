@@ -24,19 +24,7 @@ const handleCategoryChange = (categoryId) => {
   router.push(`/search/${categoryId}`)
 }
 
-// 监听路由变化，更新页面标题
-watch(() => route.meta.title, (newTitle) => {
-  if (newTitle) {
-    document.title = `${newTitle} - 乡村文化搜索`
-  }
-}, { immediate: true })
 
-onMounted(() => {
-  // 初始化页面标题
-  if (route.meta.title) {
-    document.title = `${route.meta.title} - 乡村文化搜索`
-  }
-})
 </script>
 
 <template>

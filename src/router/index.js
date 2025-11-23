@@ -32,25 +32,21 @@ const router = createRouter({
           path: 'history',
           name: 'search-history',
           component: HistoryView,
-          meta: { title: '口述历史' }
         },
         {
           path: 'photos',
           name: 'search-photos',
           component: PhotosView,
-          meta: { title: '老照片馆' }
         },
         {
           path: 'scenery',
           name: 'search-scenery',
           component: SceneryView,
-          meta: { title: '风物志' }
         },
         {
           path: 'diary',
           name: 'search-diary',
           component: DiaryView,
-          meta: { title: '村民日记' }
         }
       ]
     },
@@ -82,5 +78,4 @@ const router = createRouter({
     },
   ],
 })
-
 export default router
