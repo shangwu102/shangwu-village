@@ -32,30 +32,7 @@ const navigateToCategory = (categoryId) => {
 <template>
   <section class="slider-screen screen-3 search-screen">
     <div class="search-screen-container">
-      <!-- 页面标题 -->
-      <div class="search-screen-header">
-        <h1 class="search-screen-title">探索乡村记忆</h1>
-        <p class="search-screen-subtitle">穿越时光的隧道，寻找属于乡村的珍贵印记</p>
-      </div>
-      
-      <!-- 搜索框 -->
-      <div class="search-box-container">
-        <div class="search-input-wrapper">
-          <input 
-            type="text" 
-            placeholder="搜索关键词，探索乡村故事..."
-            class="search-input"
-          />
-          <button class="search-button">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9 17C13.4183 17 17 13.4183 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M19 19L14.65 14.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span>搜索</span>
-          </button>
-        </div>
-      </div>
-      
+    
       <!-- 分类卡片网格 -->
       <div class="search-categories-grid">
         <div 
@@ -75,26 +52,7 @@ const navigateToCategory = (categoryId) => {
           </div>
         </div>
       </div>
-      
-      <!-- 统计数据 -->
-      <div class="search-stats">
-        <div class="stat-item">
-          <div class="stat-number">100+</div>
-          <div class="stat-label">口述历史</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">500+</div>
-          <div class="stat-label">老照片</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">80+</div>
-          <div class="stat-label">风物志</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">30+</div>
-          <div class="stat-label">手艺传承</div>
-        </div>
-      </div>
+
     </div>
   </section>
 </template>
@@ -110,7 +68,7 @@ const navigateToCategory = (categoryId) => {
   will-change: transform, opacity;
   transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.8s ease;
   overflow: hidden;
-  background: linear-gradient(135deg, #172d33 0%, #546c12 40%, #131413 100%);
+  background: linear-gradient(135deg, #66acc0 0%, #8fad3e 40%, #2ebe2e 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -240,16 +198,15 @@ const navigateToCategory = (categoryId) => {
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
   width: 100%;
-  margin-bottom: 4rem;
   animation: floatUp 0.8s ease-out 0.6s forwards;
   opacity: 0;
 }
 
 .category-card {
+  padding: 1rem;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
   border-radius: 16px;
-  padding: 2.5rem;
   cursor: pointer;
   transition: all 0.4s ease;
   border: 1px solid rgba(255, 255, 255, 0.1);
