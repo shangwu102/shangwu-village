@@ -1,311 +1,41 @@
 <script setup>
-import { ref, computed } from 'vue'
-import music from '@/test/music/天后.mp3'
-import imageUrl from '@/assets/search/1/1.jpg'
-import imageUrl1 from '@/assets/search/1/1.jpg'
-import imageUrl2 from '@/assets/search/1/2.jpg'
-import imageUrl3 from '@/assets/search/1/3.jpg'
-import imageUrl4 from '@/assets/search/1/4.jpg'
-import imageUrl5 from '@/assets/search/1/5.jpg'
-import imageUrl6 from '@/assets/search/1/6.webp'
-
-import photos1 from '@/assets/search/2/1.jpg'
-import photos2 from '@/assets/search/2/2.webp'
-import photos3 from '@/assets/search/2/3.jpg'
-import photos4 from '@/assets/search/2/4.webp'
-import photos5 from '@/assets/search/2/5.webp'
-import photos6 from '@/assets/search/2/6.webp'
-
-
-import scenery1 from '@/assets/search/3/1.jpg'
-import scenery2 from '@/assets/search/3/2.webp'
-import scenery3 from '@/assets/search/3/3.jpg'
-import scenery4 from '@/assets/search/3/4.jpg'
-import scenery5 from '@/assets/search/3/5.jpg'
-import scenery6 from '@/assets/search/3/6.webp'
-
+import { ref, computed, onMounted, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 // 子栏目导航数据
 const subCategories = ref([
-  { id: 'history', name: '口述历史',icon:'🔊' },
-  { id: 'photos', name: '老照片馆',icon:'📸' },
-  { id: 'scenery', name: '风物志',icon:'🏞️' },
-  { id: 'diary', name: '村民日记',icon:'📝' }
+  { id: 'history', name: '口述历史', icon: '🔊' },
+  { id: 'photos', name: '老照片馆', icon: '📸' },
+  { id: 'scenery', name: '风物志', icon: '🏞️' },
+  { id: 'diary', name: '手艺传承', icon: '📝' }
 ])
-const selectedCategory = ref('history')
 
-// 模拟数据源 - 针对不同子栏目的内容
-const contentData = ref({
-  // 口述历史内容
-  history: [
-    {
-      id: 1,
-      title: '老茶亭里的故事与回忆',
-      duration: '18:45',
-      type: 'audio',
-      imageUrl: imageUrl1,
-      audioUrl: music // 使用示例音频URL
-    },
-    {
-      id: 2,
-      title: '村里的老匠人讲述传统手工艺',
-      duration: '22:10',
-      type: 'audio',
-      imageUrl: imageUrl2,
-      audioUrl: music // 使用示例音频URL
-    },
-    {
-      id: 3,
-      title: '回忆公社时期的集体劳动生活',
-      duration: '25:30',
-      type: 'audio',
-      imageUrl: imageUrl3,
-      audioUrl: music // 使用示例音频URL
-    },
-    {
-      id: 4,
-      title: '村头老榕树见证的百年变迁',
-      duration: '19:20',
-      type: 'audio',
-      imageUrl: imageUrl4,
-      audioUrl: music // 使用示例音频URL
-    },
-    {
-      id: 5,
-      title: '传统节日习俗与庆典活动',
-      duration: '28:15',
-      type: 'audio',
-      imageUrl: imageUrl5,
-      audioUrl: music // 使用示例音频URL
-    },
-    {
-      id: 6,
-      title: '乡村教师讲述教育变迁历程',
-      duration: '23:50',
-      type: 'audio',
-      imageUrl: imageUrl6,
-      audioUrl: music // 使用示例音频URL
-    }
-  ],
-  // 老照片馆内容
-  photos: [
-    {
-      id: 1,
-      year: '1980',
-      title: '公社时期的村部办公楼',
-      imageUrl: photos1
-    },
-    {
-      id: 2,
-      year: '1995',
-      title: '老祠堂重修竣工典礼',
-      imageUrl: photos2
-    },
-    {
-      id: 3,
-      year: '2008',
-      title: '改革开放后的老街改造',
-      imageUrl: photos3
-    },
-    {
-      id: 4,
-      year: '2024',
-      title: '乡村振兴后的文化广场',
-      imageUrl: photos4
-    },
-    {
-      id: 5,
-      year: '2024',
-      title: '现代化农业示范基地',
-      imageUrl: photos5
-    },
-    {
-      id: 6,
-      year: '2024',
-      title: '村道硬化工程完工仪式',
-      imageUrl: photos6
-    }
-  ],
-  // 风物志内容
-  scenery: [
-    {
-      id: 1,
-      title: '春日油菜花海',
-      description: '每年三月，村庄周围的油菜花盛开，形成金色的海洋，吸引众多游客前来观赏。',
-      imageUrl: scenery1
-    },
-    {
-      id: 2,
-      title: '古桥流水人家',
-      description: '村里的老石桥始建于清朝，见证了数百年的历史变迁，桥下溪水常年流淌。',
-      imageUrl: scenery2
-    },
-    {
-      id: 3,
-      title: '梯田层层叠叠',
-      description: '村庄周围的梯田随山势蜿蜒，四季景色各异，是摄影爱好者的天堂。',
-      imageUrl: scenery3
-    },
-    {
-      id: 4,
-      title: '千年古樟参天',
-      description: '村东头的古樟树已有1200年历史，树围10米，被村民视为镇村之宝。',
-      imageUrl: scenery4
-    },
-    {
-      id: 5,
-      title: '秋意红叶满山',
-      description: '每到深秋，村后的山林层林尽染，红叶与绿叶交织，景色如画。',
-      imageUrl: scenery5
-    },
-    {
-      id: 6,
-      title: '传统村落建筑群',
-      description: '保存完好的明清时期建筑群，青瓦白墙，飞檐翘角，展现了传统村落的独特魅力。',
-      imageUrl: scenery6
-    }
-  ],
-  // 村民日记内容
-  diary: [
-    {
-      id: 1,
-      title: '春耕播种的第一天',
-      date: '2024-03-15',
-      author: '李老根',
-      content: '今天是春耕的第一天，天气很好，我和老伴儿很早就到地里开始播种。今年打算多种些优质水稻品种，希望能有个好收成。下午村长还来地里指导我们科学种植方法。'
-    },
-    {
-      id: 2,
-      title: '农家乐迎来第一批游客',
-      date: '2024-04-02',
-      author: '王巧珍',
-      content: '我家的农家乐今天正式开业了！第一批客人是来自城里的三口之家，他们对我们做的农家菜赞不绝口，特别是我亲手做的腊肉和土鸡汤。希望以后生意越来越好。'
-    },
-    {
-      id: 3,
-      title: '村里的文化活动中心建成',
-      date: '2024-04-28',
-      author: '张文书',
-      content: '期盼已久的村文化活动中心今天终于建成了！这是乡村振兴项目的一部分，里面有图书室、棋牌室和健身器材。以后村里的老人们终于有个好去处了，孩子们也有了学习的地方。'
-    },
-    {
-      id: 4,
-      title: '传统手工艺培训班',
-      date: '2024-05-10',
-      author: '刘桂花',
-      content: '今天参加了镇上组织的传统手工艺培训班，学习编织竹制品。老师是省里来的非遗传承人，教得很仔细。我打算学会后在家开个小工作室，既能传承手艺又能增加收入。'
-    },
-    {
-      id: 5,
-      title: '村道硬化工程完工',
-      date: '2024-05-25',
-      author: '陈明生',
-      content: '困扰我们多年的泥巴路终于变成了水泥路！再也不用担心下雨天出门一身泥了。这要感谢政府的乡村振兴政策，现在不仅出行方便了，连快递都能直接送到家门口。'
-    },
-    {
-      id: 6,
-      title: '孙子放假回乡帮忙',
-      date: '2024-06-01',
-      author: '赵奶奶',
-      content: '今天孙子从城里放假回来了，说是要帮我干农活。别看他平时在城里读书，干起活来倒也像模像样的。他还教我用智能手机拍视频，说要帮我把农家果园宣传到网上去。'
-    }
-  ]
+const route = useRoute()
+const router = useRouter()
+
+// 根据当前路由确定选中的分类
+const selectedCategory = computed(() => {
+  const path = route.path.split('/').pop() || 'history'
+  return subCategories.value.find(c => c.id === path)?.id || 'history'
 })
 
-// 筛选年份（老照片馆特有）
-const selectedYear = ref('all')
-const years = ['1980', '1995', '2008', '2024']
-
-// 当前显示的内容
-const currentContent = computed(() => {
-  return contentData.value[selectedCategory.value] || []
-})
-
-// 筛选后的照片内容
-const filteredPhotos = computed(() => {
-  if (selectedCategory.value !== 'photos') return []
-  if (selectedYear.value === 'all') return contentData.value.photos
-  return contentData.value.photos.filter(photo => photo.year === selectedYear.value)
-})
-
-/* 时间轴切换函数 */
-const timelineVisible = ref(false)
-const toggleTimeline = () => {
-  timelineVisible.value = !timelineVisible.value
-}
-
-// 分类切换
+// 分类切换，使用路由导航
 const handleCategoryChange = (categoryId) => {
-  selectedCategory.value = categoryId
+  router.push(`/search/${categoryId}`)
 }
 
-// 音频播放状态管理
-const audioPlayers = ref({})
-const isPlaying = ref({})
-const currentTime = ref({})
-const duration = ref({})
-
-// 播放/暂停音频
-const toggleAudio = (id, audioUrl) => {
-  if (!audioPlayers.value[id]) {
-    audioPlayers.value[id] = new Audio(audioUrl)
-
-    // 监听播放结束事件
-    audioPlayers.value[id].onended = () => {
-      isPlaying.value[id] = false
-    }
-
-    // 监听音频元数据加载完成事件
-    audioPlayers.value[id].onloadedmetadata = () => {
-      duration.value[id] = audioPlayers.value[id].duration
-    }
-
-    // 监听时间更新事件，更新进度条
-    audioPlayers.value[id].ontimeupdate = () => {
-      currentTime.value[id] = audioPlayers.value[id].currentTime
-    }
+// 监听路由变化，更新页面标题
+watch(() => route.meta.title, (newTitle) => {
+  if (newTitle) {
+    document.title = `${newTitle} - 乡村文化搜索`
   }
+}, { immediate: true })
 
-  const player = audioPlayers.value[id]
-  if (isPlaying.value[id]) {
-    player.pause()
-  } else {
-    player.play()
+onMounted(() => {
+  // 初始化页面标题
+  if (route.meta.title) {
+    document.title = `${route.meta.title} - 乡村文化搜索`
   }
-  isPlaying.value[id] = !isPlaying.value[id]
-}
-
-// 处理进度条点击事件，跳转到指定位置
-const handleProgressClick = (event, id) => {
-  if (!audioPlayers.value[id]) return
-
-  const progressBar = event.currentTarget
-  const rect = progressBar.getBoundingClientRect()
-  const clickX = event.clientX - rect.left
-  const percentage = clickX / rect.width
-  const newTime = percentage * (duration.value[id] || 0)
-
-  audioPlayers.value[id].currentTime = newTime
-  currentTime.value[id] = newTime
-}
-
-// 格式化时间为 MM:SS 格式
-const formatTime = (timeInSeconds) => {
-  if (!timeInSeconds || isNaN(timeInSeconds)) return '00:00'
-
-  const minutes = Math.floor(timeInSeconds / 60)
-  const seconds = Math.floor(timeInSeconds % 60)
-
-  return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
-}
-
-// 组件卸载时清理音频资源
-import { onUnmounted } from 'vue'
-onUnmounted(() => {
-  Object.values(audioPlayers.value).forEach(player => {
-    player.pause()
-    player.src = ''
-  })
 })
 </script>
 
@@ -325,96 +55,9 @@ onUnmounted(() => {
       </div>
     </div>
 
-    <!-- B区 - 内容展示区(时间轴+卡片) -->
+    <!-- B区 - 内容展示区 - 使用路由视图显示子组件 -->
     <div class="content-section">
-      <!-- 口述历史内容 -->
-      <div v-if="selectedCategory === 'history'" class="history-content category-content">
-        <div class="timeline-container">
-          <div class="timeline-axis"></div>
-          <div class="audio-cards">
-            <div v-for="item in currentContent" :key="item.id" class="audio-card">
-              <div class="audio-card-content">
-                <img :src="item.imageUrl" alt="" class="audio-placeholder audio-button">
-                <div class="audio-info">
-                  <!-- <div class="audio-title">老信纸样式音频卡片</div> -->
-                  <div class="audio-description">"{{ item.title }}"</div>
-                  <div class="audio-player">
-                    <button @click="toggleAudio(item.id, item.audioUrl)" class="play-button">
-                      {{ isPlaying[item.id] ? '⏸️' : '▶️' }}
-                    </button>
-                    <!-- 音频进度条 -->
-                    <div class="progress-container" @click="handleProgressClick($event, item.id)">
-                      <div class="progress-bar"
-                        :style="{ width: `${(currentTime[item.id] / (duration[item.id] || 1)) * 100}%` }"></div>
-                    </div>
-                    <!-- 时间显示 -->
-                    <div class="time-display">
-                      <span class="current-time">{{ formatTime(currentTime[item.id]) }}</span>
-                      <span class="separator">/</span>
-                      <span class="total-time">{{ formatTime(duration[item.id]) || item.duration }}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 老照片馆内容 -->
-      <div v-else-if="selectedCategory === 'photos'" class="photos-content category-content">
-        <div class="timeline-nav">
-          <button class="timeline-control" @click="toggleTimeline">
-            时间轴导航
-          </button>
-        </div>
-        <div class="timeline-container">
-          <div class="timeline-axis"></div>
-          <div class="photo-gallery">
-            <div v-for="item in filteredPhotos" :key="item.id" class="photo-card">
-              <div class="timeline-marker"></div>
-              <img :src="item.imageUrl" :alt="item.title" class="photo-image" />
-              <div class="photo-year">{{ item.year }}</div>
-              <div class="photo-title">{{ item.title }}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 风物志内容 -->
-      <div v-else-if="selectedCategory === 'scenery'" class="scenery-content category-content">
-        <div class="timeline-container">
-          <div class="timeline-axis"></div>
-          <div class="scenery-cards">
-            <div v-for="item in currentContent" :key="item.id" class="scenery-card">
-              <div class="scenery-card-content">
-                <h4>{{ item.title }}</h4>
-                <p>{{ item.description }}</p>
-                <img :src="item.imageUrl" width="300" height="200" :alt="item.title" class="scenery-image" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 村民日记内容 -->
-      <div v-else-if="selectedCategory === 'diary'" class="diary-content category-content">
-        <div class="timeline-container">
-          <div class="timeline-axis"></div>
-          <div class="diary-entries">
-            <div v-for="item in currentContent" :key="item.id" class="diary-entry">
-              <div class="timeline-marker"></div>
-              <div class="diary-entry-content">
-                <div class="diary-header">
-                  <h4>{{ item.title }}</h4>
-                  <div class="diary-meta">{{ item.date }} · {{ item.author }}</div>
-                </div>
-                <p>{{ item.content }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <router-view />
     </div>
   </div>
 </template>
@@ -772,22 +415,6 @@ onUnmounted(() => {
   box-shadow: 0 3px 8px rgba(45, 143, 64, 0.2);
 }
 
-.timeline-control {
-  padding: 0.5rem 1rem;
-  background-color: #f0f0f0;
-  border: 1px solid #ddd;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  margin-left: auto;
-  transition: all 0.3s ease;
-}
-
-.timeline-control:hover {
-  background-color: #e0e0e0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
 .timeline-container {
   position: relative;
   padding-left: 40px;
@@ -983,11 +610,6 @@ onUnmounted(() => {
 @media (max-width: 480px) {
   .photo-gallery {
     grid-template-columns: 1fr;
-  }
-
-  .timeline-nav {
-    flex-direction: column;
-    align-items: flex-start;
   }
 
   .audio-card-content {

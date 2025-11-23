@@ -1,5 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+// 导入SearchView的二级路由组件
+const HistoryView = () => import('../views/search/HistoryView.vue')
+const PhotosView = () => import('../views/search/PhotosView.vue')
+const SceneryView = () => import('../views/search/SceneryView.vue')
+const DiaryView = () => import('../views/search/DiaryView.vue')
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,6 +23,36 @@ const router = createRouter({
       path: '/search',
       name: 'search',
       component: () => import('../views/SearchView.vue'),
+      children: [
+        {
+          path: '',
+          redirect: 'history'
+        },
+        {
+          path: 'history',
+          name: 'search-history',
+          component: HistoryView,
+          meta: { title: '口述历史' }
+        },
+        {
+          path: 'photos',
+          name: 'search-photos',
+          component: PhotosView,
+          meta: { title: '老照片馆' }
+        },
+        {
+          path: 'scenery',
+          name: 'search-scenery',
+          component: SceneryView,
+          meta: { title: '风物志' }
+        },
+        {
+          path: 'diary',
+          name: 'search-diary',
+          component: DiaryView,
+          meta: { title: '村民日记' }
+        }
+      ]
     },
     {
       path: '/villages',
