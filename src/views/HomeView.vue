@@ -218,15 +218,15 @@ onUnmounted(() => {
           </div>
         </div>
 
-        <!-- <div class="slide-indicator">
+        <div class="slide-indicator">
           <div class="indicator-text">向下滚动探索更多</div>
           <div class="indicator-arrow"></div>
-        </div> -->
+        </div>
       </div>
     </section>
 
     <!-- 第二屏：多媒体展示（采用你提供的“大地色生态风格”样式） -->
-    <!-- <section class="slider-screen screen-2">
+    <section class="slider-screen screen-2">
       <div class="multi-container">
         <div class="multi-row">
           <div class="multi-label">360°</div>
@@ -266,7 +266,7 @@ onUnmounted(() => {
           </div>
         </div>
       </div>
-    </section> -->
+    </section>
   </div>
 </template>
 
