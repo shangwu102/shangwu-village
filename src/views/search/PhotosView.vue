@@ -164,7 +164,7 @@ const startAutoPlay = () => {
     autoPlay.value = true
     autoPlayInterval = setInterval(() => {
       nextImage()
-    }, 5000)
+    }, 2000)
   }
 }
 
