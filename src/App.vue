@@ -47,7 +47,7 @@ onUnmounted(() => {
         <RouterLink to="/culture" class="nav-link">乡忆好物</RouterLink>
         <!-- <RouterLink to="/villages" class="nav-link">乡野艺创</RouterLink>
         <RouterLink to="/academic" class="nav-link">乡村记忆</RouterLink> -->
-        <RouterLink to="/about" class="nav-link">关于我们</RouterLink>
+        <!-- <RouterLink to="/#screen-4" class="nav-link">关于我们</RouterLink> -->
       </nav>
       
       <!-- 右侧功能区 -->
@@ -130,6 +130,7 @@ html, body {
 }
 
 .header-content {
+  
   max-width: 1200px;
   margin: 0 auto;
   height: 60px;
