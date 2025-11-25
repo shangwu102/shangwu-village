@@ -730,9 +730,6 @@ const goals = [
     gap: 0.8rem;
   }
   
-  .goals-grid {
-    /* goals-grid样式已改为使用villages-grid-horizontal */
-  }
   
   .goal-card-3d {
     height: 150px;
