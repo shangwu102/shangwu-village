@@ -69,7 +69,7 @@ const goals = [
           </div>
         </div>
       </div>
-      
+
       <!-- 右侧：项目目标 -->
       <div class="right-section villages-section">
         <h3 class="column-title villages-title">项目目标</h3>
@@ -81,29 +81,30 @@ const goals = [
                   <!-- 根据不同目标显示不同图标 -->
                   <div v-if="goal.id === 1" class="goal-icon">
                     <svg width="60" height="60" viewBox="0 0 24 24" fill="none">
-                      <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#4a90e2" stroke-width="2"/>
-                      <path d="M2 17L12 22L22 17" stroke="#4a90e2" stroke-width="2"/>
-                      <path d="M2 12L12 17L22 12" stroke="#4a90e2" stroke-width="2"/>
+                      <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#4a90e2" stroke-width="2" />
+                      <path d="M2 17L12 22L22 17" stroke="#4a90e2" stroke-width="2" />
+                      <path d="M2 12L12 17L22 12" stroke="#4a90e2" stroke-width="2" />
                     </svg>
                   </div>
                   <div v-else-if="goal.id === 2" class="goal-icon">
                     <svg width="60" height="60" viewBox="0 0 24 24" fill="none">
-                      <rect x="4" y="4" width="16" height="16" rx="2" stroke="#4a90e2" stroke-width="2"/>
-                      <rect x="9" y="9" width="6" height="6" stroke="#4a90e2" stroke-width="2"/>
-                      <line x1="12" y1="1" x2="12" y2="3" stroke="#4a90e2" stroke-width="2"/>
-                      <line x1="12" y1="21" x2="12" y2="23" stroke="#4a90e2" stroke-width="2"/>
-                      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="#4a90e2" stroke-width="2"/>
-                      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="#4a90e2" stroke-width="2"/>
-                      <line x1="1" y1="12" x2="3" y2="12" stroke="#4a90e2" stroke-width="2"/>
-                      <line x1="21" y1="12" x2="23" y2="12" stroke="#4a90e2" stroke-width="2"/>
-                      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="#4a90e2" stroke-width="2"/>
-                      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="#4a90e2" stroke-width="2"/>
+                      <rect x="4" y="4" width="16" height="16" rx="2" stroke="#4a90e2" stroke-width="2" />
+                      <rect x="9" y="9" width="6" height="6" stroke="#4a90e2" stroke-width="2" />
+                      <line x1="12" y1="1" x2="12" y2="3" stroke="#4a90e2" stroke-width="2" />
+                      <line x1="12" y1="21" x2="12" y2="23" stroke="#4a90e2" stroke-width="2" />
+                      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="#4a90e2" stroke-width="2" />
+                      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="#4a90e2" stroke-width="2" />
+                      <line x1="1" y1="12" x2="3" y2="12" stroke="#4a90e2" stroke-width="2" />
+                      <line x1="21" y1="12" x2="23" y2="12" stroke="#4a90e2" stroke-width="2" />
+                      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="#4a90e2" stroke-width="2" />
+                      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="#4a90e2" stroke-width="2" />
                     </svg>
                   </div>
                   <div v-else class="goal-icon">
                     <svg width="60" height="60" viewBox="0 0 24 24" fill="none">
-                      <path d="M18 13L12 19L6 13" stroke="#4a90e2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      <circle cx="12" cy="12" r="9" stroke="#4a90e2" stroke-width="2"/>
+                      <path d="M18 13L12 19L6 13" stroke="#4a90e2" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                      <circle cx="12" cy="12" r="9" stroke="#4a90e2" stroke-width="2" />
                     </svg>
                   </div>
                 </div>
@@ -152,18 +153,53 @@ const goals = [
       <!-- 右侧：分享按钮 -->
       <div class="footer-column share-column">
         <h3 class="column-title">分享我们</h3>
-        <div class="share-buttons-large">
-          <div class="share-btn">🔔</div>
-          <div class="share-btn">🔴</div>
-          <div class="share-btn">💚</div>
-          <div class="share-btn">🔵</div>
-          <div class="share-btn">🐦</div>
-          <div class="share-btn">⭕</div>
-          <div class="share-btn">P</div>
+        <!-- 重新设计的分享布局 -->
+        <div class="share-section">
+          <!-- 分享按钮网格布局 -->
+          <div class="share-grid">
+            <div class="share-item">
+              <div class="share-icon">🔔</div>
+              <span class="share-name">通知</span>
+            </div>
+            <div class="share-item">
+              <div class="share-icon">🔴</div>
+              <span class="share-name">微信</span>
+            </div>
+            <div class="share-item">
+              <div class="share-icon">💚</div>
+              <span class="share-name">小红书</span>
+            </div>
+            <div class="share-item">
+              <div class="share-icon">🔵</div>
+              <span class="share-name">QQ</span>
+            </div>
+            <div class="share-item">
+              <div class="share-icon">🐦</div>
+              <span class="share-name">微博</span>
+            </div>
+            <div class="share-item">
+              <div class="share-icon">⭕</div>
+              <span class="share-name">抖音</span>
+            </div>
+          </div>
         </div>
+
+        <!-- 访问量统计组件 - 与新布局协调 -->
+        <div class="page-views-counter">
+          <div class="views-content">
+            <div class="views-header">
+              <el-icon class="view-icon">
+                <View />  
+              </el-icon>
+              <span class="views-label">访问量 : {{ isLoading ? '...' : currentPageViews.toLocaleString() }}</span>
+            </div>
+          </div>
+        </div>
+
       </div>
+
     </div>
-    
+
     <!-- 底部版权信息 -->
     <div class="footer-bottom">
       <p>网站地图 相关链接 隐私政策 版权声明 留言联系</p>
@@ -186,7 +222,7 @@ const goals = [
   margin: 0 auto;
   padding: 0 2rem;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1.2fr 1fr 1fr;
   gap: 2rem;
 }
 
@@ -594,10 +630,14 @@ const goals = [
 }
 
 @keyframes blink {
-  0%, 50% {
+
+  0%,
+  50% {
     opacity: 0.5;
   }
-  51%, 100% {
+
+  51%,
+  100% {
     opacity: 1;
   }
 }
@@ -611,33 +651,163 @@ const goals = [
   justify-content: flex-start;
 }
 
-.share-buttons-large {
+/* 重新设计的分享区域样式 */
+.share-section {
+  width: 100%;
   display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 0.5rem;
-  flex-grow: 1;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
 }
 
-.share-btn {
-  width: 30px;
-  height: 30px;
+/* 分享按钮网格布局 */
+.share-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  width: 100%;
+  max-width: 240px;
+  margin-bottom: 1.5rem;
+}
+
+/* 分享项样式 */
+.share-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.share-item:hover {
+  transform: translateY(-5px);
+}
+
+/* 分享图标样式 */
+.share-icon {
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background-color: #333;
+  background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid rgba(74, 144, 226, 0.3);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
 }
 
-.share-btn:hover {
-  background-color: #4a90e2;
+.share-item:hover .share-icon {
+  background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+  box-shadow: 0 6px 12px rgba(74, 144, 226, 0.3);
+  transform: scale(1.1);
+}
+
+/* 分享名称样式 */
+.share-name {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+}
+
+/* 分享提示文字 */
+.share-tip {
+  text-align: center;
+  padding: 0.8rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border-left: 3px solid #4a90e2;
+  width: 100%;
+  max-width: 240px;
+}
+
+.share-tip p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.4;
+}
+
+/* 访问量统计样式 - 与新布局协调 */
+.page-views-counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(74, 144, 226, 0.15) 0%, rgba(74, 144, 226, 0.08) 100%);
+  border: 1px solid rgba(74, 144, 226, 0.25);
+  border-radius: 16px;
+  padding: 0 1rem;
+  width: 100%;
+  height: 50px;
+  max-width: 240px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.page-views-counter:hover {
+  background: linear-gradient(135deg, rgba(74, 144, 226, 0.2) 0%, rgba(74, 144, 226, 0.12) 100%);
+  box-shadow: 0 6px 16px rgba(74, 144, 226, 0.2);
   transform: translateY(-3px);
 }
+
+.views-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
+.views-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.view-icon {
+  color: #4a90e2;
+  font-size: 1.1rem;
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+}
+
+.views-label {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.views-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.view-count {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #ffffff;
+  line-height: 1.1;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.3rem;
+}
+
+.view-text {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+
 
 /* 底部版权信息 */
 .footer-bottom {
@@ -664,17 +834,17 @@ const goals = [
     padding: 0 1.5rem;
     flex-wrap: wrap;
   }
-  
+
   .left-section,
   .right-section {
     flex: 1;
     width: 100%;
   }
-  
+
   .villages-grid-horizontal {
     justify-content: center;
   }
-  
+
 }
 
 /* 小屏幕响应式设计 */
@@ -686,61 +856,61 @@ const goals = [
     gap: 1rem;
     flex-wrap: wrap;
   }
-  
+
   .footer-container {
     grid-template-columns: 1fr;
     gap: 2rem;
     padding: 0 1rem;
   }
-  
+
   .villages-grid-horizontal {
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
     gap: 1rem;
   }
-  
+
   .village-card-3d {
     width: 120px;
     height: 110px;
   }
-  
+
   .column-title {
     font-size: 1.3rem;
   }
-  
+
   .contact-info p {
     font-size: 0.85rem;
   }
-  
+
   .village-name-3d,
   .village-name-back {
     font-size: 1.1rem;
   }
-  
+
   .village-description-back {
     font-size: 0.8rem;
   }
-  
+
   .visitors-number {
     font-size: 1.3rem;
   }
-  
+
   .share-buttons-large {
     gap: 0.8rem;
   }
-  
-  
+
+
   .goal-card-3d {
     height: 150px;
     width: 150px;
   }
-  
+
   .goal-name-3d,
   .goal-name-back {
     font-size: 0.9rem;
   }
-  
+
   .goal-description-back {
     font-size: 0.8rem;
   }
@@ -750,52 +920,52 @@ const goals = [
   .footer-screen {
     padding: 1.5rem 0;
   }
-  
+
   .footer-container {
     padding: 0 1rem;
   }
-  
+
   .column-title {
     font-size: 1.2rem;
   }
-  
+
   .contact-info p {
     font-size: 0.8rem;
     line-height: 1.4;
   }
-  
+
   .logo {
     font-size: 1.8rem;
   }
-  
+
   .logo-text {
     font-size: 0.8rem;
   }
-  
+
   .qrcode {
     width: 80px;
     height: 80px;
   }
-  
+
   .faq-question {
     font-size: 0.9rem;
   }
-  
+
   .faq-answer {
     font-size: 0.85rem;
     padding-left: 1.2rem;
   }
-  
+
   .share-buttons {
     gap: 0.4rem;
   }
-  
+
   .share-btn {
     width: 28px;
     height: 28px;
     font-size: 0.8rem;
   }
-  
+
   .footer-bottom p {
     font-size: 0.75rem;
   }
