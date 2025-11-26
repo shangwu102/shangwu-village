@@ -189,7 +189,7 @@ const goals = [
           <div class="views-content">
             <div class="views-header">
               <el-icon class="view-icon">
-                <View />  
+                <View />
               </el-icon>
               <span class="views-label">访问量 : {{ isLoading ? '...' : currentPageViews.toLocaleString() }}</span>
             </div>
@@ -202,7 +202,12 @@ const goals = [
 
     <!-- 底部版权信息 -->
     <div class="footer-bottom">
-      <p>网站地图 相关链接 隐私政策 版权声明 留言联系</p>
+      <img src="https://beian.mps.gov.cn/img/logo01.dd7ff50e.png" alt="公安备案" width="16" height="16">
+
+      <a href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37028102001616"
+        target="_blank">鲁公网安备37028102001616号</a>
+      <a href="https://beian.miit.gov.cn/" target="_blank">鲁ICP备2024091574号-1</a>
+
     </div>
   </div>
 </template>
@@ -219,6 +224,7 @@ const goals = [
 .footer-container {
   width: 100%;
   max-width: 1200px;
+  height: 300px;
   margin: 0 auto;
   padding: 0 2rem;
   display: grid;
@@ -813,16 +819,29 @@ const goals = [
 .footer-bottom {
   width: 100%;
   max-width: 1200px;
-  margin: 2rem auto 0;
+  margin: 1.5rem auto 0;
   padding: 1rem 2rem;
   text-align: center;
   border-top: 1px solid #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
-
-.footer-bottom p {
+.footer-bottom img {
+  margin-top: -5px;
+}
+.footer-bottom a {
   font-size: 0.8rem;
   color: #999;
-  margin: 0;
+  margin-left:0;
+  margin-right: 10px;
+  margin-top: -5px;
+}
+
+.footer-bottom img {
+  vertical-align: middle;
+  margin-right: 6px;
 }
 
 /* 中等屏幕响应式设计 */
