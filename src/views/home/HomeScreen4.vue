@@ -1,6 +1,314 @@
 <script setup>
 import { ref } from 'vue'
 import { usePageView } from '@/composables/usePageView'
+import { ElMessage } from 'element-plus'
+
+// 分享功能相关函数
+const shareTitle = '数字乡建 - 让每一份乡土记忆都被温柔托举'
+const shareDesc = '以青年之智、数字之力，助力乡村走向可持续未来。'
+const shareUrl = window.location.href
+
+// 平台名称映射，用于提示信息
+const platformNames = {
+  wechat: '微信',
+  qq: 'QQ',
+  weibo: '微博',
+  douyin: '抖音',
+  kuaishou: '快手',
+  xiaohongshu: '小红书'
+}
+
+// 防重复点击状态管理
+const isSharing = ref(false)
+const lastShareTime = ref(0)
+const SHARE_DELAY = 1500 // 分享操作的最小间隔时间（毫秒）
+
+// 检测是否在微信浏览器中（兼容各种微信版本和代理环境）
+const isWechatBrowser = () => {
+  const ua = navigator.userAgent.toLowerCase()
+  return ua.includes('micromessenger') || 
+         ua.includes('wechat') || 
+         ua.includes('wxwork') // 企业微信
+}
+
+// 检测是否在移动设备上
+const isMobileDevice = () => {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+}
+
+// 防抖函数 - 用于限制分享按钮的点击频率
+const debounce = (func, delay) => {
+  let timeoutId
+  return function (...args) {
+    clearTimeout(timeoutId)
+    timeoutId = setTimeout(() => func.apply(this, args), delay)
+  }
+}
+
+// 分享到不同平台的通用函数
+const shareToPlatform = (platform) => {
+  // 防重复点击检查
+  const now = Date.now()
+  if (isSharing.value || (now - lastShareTime.value) < SHARE_DELAY) {
+    ElMessage.info('请稍等片刻后重试分享')
+    return
+  }
+  
+  // 设置分享状态和时间
+  isSharing.value = true
+  lastShareTime.value = now
+  
+  try {
+    // 显示分享开始提示
+    // 开始分享
+    
+    let shareLink = ''
+    
+    switch(platform) {
+      case 'wechat':
+        // 微信分享改为复制链接方式
+        if (isWechatBrowser()) {
+          // 在微信内置浏览器中，仍然显示引导信息
+          showWechatShareGuide()
+        } else {
+          // 复制分享链接
+          copyToClipboard(shareUrl, platform)
+        }
+        break
+      case 'qq':
+        // QQ分享链接增强版，添加图片和更多参数
+        try {
+          // 添加默认分享图片（如果项目中有合适的图片，可以替换这个占位符）
+          const shareImg = encodeURIComponent('https://example.com/share-image.jpg')
+          
+          shareLink = `https://connect.qq.com/widget/shareqq/index.html?
+            url=${encodeURIComponent(shareUrl)}&
+            title=${encodeURIComponent(shareTitle)}&
+            desc=${encodeURIComponent(shareDesc)}&
+            pics=${shareImg}&
+            width=32&height=32`
+            
+          // 移除URL中的换行符
+          shareLink = shareLink.replace(/\n\s*/g, '')
+          
+          // 打开分享窗口
+          const qqShareWindow = window.open(shareLink, '_blank', 'width=700,height=500,top=100,left=100')
+          
+          if (qqShareWindow) {
+            // 检查弹窗是否被阻止
+            setTimeout(() => {
+              if (qqShareWindow && !qqShareWindow.closed) {
+                // QQ分享窗口打开
+              } else {
+                // QQ分享窗口可能被阻止
+                copyToClipboard(shareUrl, platform)
+              }
+            }, 300)
+          } else {
+            // 如果弹窗被浏览器阻止，提供备用方案
+            // QQ分享窗口被阻止
+            copyToClipboard(shareUrl, platform)
+          }
+        } catch (error) {
+          console.error('QQ分享出错:', error)
+          ElMessage.error('QQ分享失败，请稍后重试')
+        }
+        break
+      case 'weibo':
+        // 微博分享链接增强版，添加图片和更多参数
+        try {
+          // 添加默认分享图片
+          const shareImg = encodeURIComponent('https://example.com/share-image.jpg')
+          
+          // 组合微博分享文本，限制在140字以内
+          let weiboText = `${shareTitle} ${shareDesc}`
+          if (weiboText.length > 140) {
+            weiboText = weiboText.substring(0, 137) + '...'
+          }
+          
+          shareLink = `http://service.weibo.com/share/share.php?
+            url=${encodeURIComponent(shareUrl)}&
+            title=${encodeURIComponent(weiboText)}&
+            pic=${shareImg}&
+            appkey=&
+            ralateUid=&
+            language=zh_cn`
+            
+          // 移除URL中的换行符
+          shareLink = shareLink.replace(/\n\s*/g, '')
+          
+          // 打开分享窗口
+          const weiboShareWindow = window.open(shareLink, '_blank', 'width=600,height=400,top=100,left=100')
+          
+          if (weiboShareWindow) {
+            // 检查弹窗是否被阻止
+            setTimeout(() => {
+              if (weiboShareWindow && !weiboShareWindow.closed) {
+                // 微博分享窗口打开
+              } else {
+                // 微博分享窗口可能被阻止
+                copyToClipboard(shareUrl, platform)
+              }
+            }, 300)
+          } else {
+            // 如果弹窗被浏览器阻止，提供备用方案
+            // 微博分享窗口被阻止
+            copyToClipboard(shareUrl, platform)
+          }
+        } catch (error) {
+          console.error('微博分享出错:', error)
+          ElMessage.error('微博分享失败，请稍后重试')
+        }
+        break
+      case 'douyin':
+        // 抖音分享改为复制链接方式
+        copyToClipboard(shareUrl, platform)
+        break
+      case 'kuaishou':
+        // 快手分享改为复制链接方式
+        copyToClipboard(shareUrl, platform)
+        break
+      case 'xiaohongshu':
+        // 小红书分享改为复制链接方式
+        copyToClipboard(shareUrl, platform)
+        break
+      default:
+        // 暂不支持该平台
+    }
+  } catch (error) {
+    console.error('分享失败:', error)
+    // 分享出错
+  } finally {
+    // 确保在任何情况下都能重置分享状态
+    setTimeout(() => {
+      isSharing.value = false
+    }, SHARE_DELAY)
+    }
+  }
+  // 复制文本到剪贴板（添加跨浏览器兼容性）
+const copyToClipboard = (text, platform = null) => {
+  // 现代浏览器使用 Clipboard API
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(() => {
+      showCopySuccessFeedback(platform)
+    }).catch(err => {
+      console.error('Clipboard API 复制失败:', err)
+      // 降级到传统方法
+      fallbackCopyTextToClipboard(text, platform)
+    })
+  } else {
+    // 降级到传统方法
+    fallbackCopyTextToClipboard(text, platform)
+  }
+}
+
+// 降级复制方法，兼容旧浏览器
+const fallbackCopyTextToClipboard = (text, platform = null) => {
+  try {
+    // 创建临时文本区域
+    const textArea = document.createElement('textarea')
+    textArea.value = text
+    
+    // 设置样式使其不可见
+    textArea.style.position = 'fixed'
+    textArea.style.left = '-999999px'
+    textArea.style.top = '-999999px'
+    textArea.setAttribute('readonly', '')
+    
+    // 添加到DOM
+    document.body.appendChild(textArea)
+    textArea.focus()
+    textArea.select()
+    
+    // 执行复制命令
+    const successful = document.execCommand('copy')
+    
+    // 清理 - 使用try-finally确保无论如何都会清理
+      try {
+        if (successful) {
+          showCopySuccessFeedback(platform)
+        } else {
+          showCopyErrorFeedback(platform)
+        }
+      } finally {
+        // 确保即使在显示反馈时出现错误，也会移除临时元素
+        if (document.body.contains(textArea)) {
+          document.body.removeChild(textArea)
+        }
+      }
+  } catch (err) {
+    console.error('传统复制方法失败:', err)
+    showCopyErrorFeedback(platform)
+  }
+}
+
+// 分享反馈辅助函数
+// 使用debounce避免短时间内多次显示提示
+const debouncedShowInfo = debounce((message) => {
+  ElMessage.info(message)
+}, 500)
+
+const showCopySuccessFeedback = (platform = null) => {
+  if (platform) {
+    const platformName = platformNames[platform] || '平台'
+    ElMessage({
+      message: `链接已复制，请在${platformName}中粘贴分享`,
+      type: 'success',
+      duration: 4000,
+      showClose: true
+    })
+  } else {
+    ElMessage({
+      message: '链接已复制，请粘贴到相应平台分享',
+      type: 'success',
+      duration: 4000,
+      showClose: true
+    })
+  }
+}
+
+const showCopyErrorFeedback = (platform = null) => {
+  if (platform) {
+    const platformName = platformNames[platform] || '平台'
+    ElMessage({
+      message: `复制失败，请手动复制链接到${platformName}分享`,
+      type: 'error',
+      duration: 4000,
+      showClose: true
+    })
+  } else {
+    ElMessage({
+      message: '复制失败，请手动复制链接',
+      type: 'error',
+      duration: 4000,
+      showClose: true
+    })
+  }
+}
+
+const showWechatShareGuide = () => {
+  ElMessage({
+    message: '请点击右上角「···」按钮，选择「发送给朋友」或「分享到朋友圈」',
+    type: 'info',
+    duration: 5000,
+    showClose: true
+  })
+}
+
+// 微信分享对话框状态
+const showWechatDialog = ref(false)
+
+// 显示微信分享对话框
+const showWechatShareDialog = () => {
+  showWechatDialog.value = true
+}
+
+// 关闭微信分享对话框
+const closeWechatShareDialog = () => {
+  showWechatDialog.value = false
+}
+
+// 检查是否在微信内置浏览器中 (已在前面声明)
 
 // 使用页面访问量追踪
 const { currentPageViews, isLoading } = usePageView('about')
@@ -155,27 +463,27 @@ const goals = [
         <div class="share-section">
           <!-- 分享按钮网格布局 -->
           <div class="share-grid">
-            <div class="share-item">
+            <div class="share-item" @click="shareToPlatform('kuaishou')">
               <div class="share-icon">🔔</div>
-              <span class="share-name">通知</span>
+              <span class="share-name">快手</span>
             </div>
-            <div class="share-item">
+            <div class="share-item" @click="shareToPlatform('wechat')">
               <div class="share-icon">🔴</div>
               <span class="share-name">微信</span>
             </div>
-            <div class="share-item">
+            <div class="share-item" @click="shareToPlatform('xiaohongshu')">
               <div class="share-icon">💚</div>
               <span class="share-name">小红书</span>
             </div>
-            <div class="share-item">
+            <div class="share-item" @click="shareToPlatform('qq')">
               <div class="share-icon">🔵</div>
               <span class="share-name">QQ</span>
             </div>
-            <div class="share-item">
+            <div class="share-item" @click="shareToPlatform('weibo')">
               <div class="share-icon">🐦</div>
               <span class="share-name">微博</span>
             </div>
-            <div class="share-item">
+            <div class="share-item" @click="shareToPlatform('douyin')">
               <div class="share-icon">⭕</div>
               <span class="share-name">抖音</span>
             </div>
@@ -196,6 +504,80 @@ const goals = [
 
       </div>
 
+    </div>
+
+    <!-- 微信分享对话框 -->
+    <div v-if="showWechatDialog" class="wechat-share-dialog-overlay" @click="closeWechatShareDialog">
+      <div class="wechat-share-dialog" @click.stop>
+        <div class="wechat-dialog-header">
+          <h3>微信分享</h3>
+          <div class="close-btn" @click="closeWechatShareDialog">×</div>
+        </div>
+        <div class="wechat-dialog-content">
+          <div class="wechat-share-qrcode">
+            <!-- 这里使用一个占位符，实际项目中应该生成真实的分享二维码 -->
+            <div class="qrcode-placeholder">
+              <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- 二维码背景 -->
+                <rect width="200" height="200" fill="white"/>
+                <!-- 二维码定位图案 -->
+                <rect x="20" y="20" width="40" height="40" fill="black"/>
+                <rect x="140" y="20" width="40" height="40" fill="black"/>
+                <rect x="20" y="140" width="40" height="40" fill="black"/>
+                <rect x="30" y="30" width="20" height="20" fill="white"/>
+                <rect x="150" y="30" width="20" height="20" fill="white"/>
+                <rect x="30" y="150" width="20" height="20" fill="white"/>
+                <!-- 模拟二维码内容 -->
+                <rect x="20" y="70" width="10" height="10" fill="black"/>
+                <rect x="40" y="70" width="10" height="10" fill="black"/>
+                <rect x="70" y="70" width="10" height="10" fill="black"/>
+                <rect x="90" y="70" width="10" height="10" fill="black"/>
+                <rect x="120" y="70" width="10" height="10" fill="black"/>
+                <rect x="140" y="70" width="10" height="10" fill="black"/>
+                <rect x="160" y="70" width="10" height="10" fill="black"/>
+                <rect x="20" y="90" width="10" height="10" fill="black"/>
+                <rect x="50" y="90" width="10" height="10" fill="black"/>
+                <rect x="80" y="90" width="10" height="10" fill="black"/>
+                <rect x="100" y="90" width="10" height="10" fill="black"/>
+                <rect x="130" y="90" width="10" height="10" fill="black"/>
+                <rect x="160" y="90" width="10" height="10" fill="black"/>
+                <rect x="30" y="110" width="10" height="10" fill="black"/>
+                <rect x="60" y="110" width="10" height="10" fill="black"/>
+                <rect x="90" y="110" width="10" height="10" fill="black"/>
+                <rect x="110" y="110" width="10" height="10" fill="black"/>
+                <rect x="140" y="110" width="10" height="10" fill="black"/>
+                <rect x="160" y="110" width="10" height="10" fill="black"/>
+                <rect x="20" y="130" width="10" height="10" fill="black"/>
+                <rect x="40" y="130" width="10" height="10" fill="black"/>
+                <rect x="70" y="130" width="10" height="10" fill="black"/>
+                <rect x="90" y="130" width="10" height="10" fill="black"/>
+                <rect x="120" y="130" width="10" height="10" fill="black"/>
+              </svg>
+              <p>扫码分享</p>
+            </div>
+          </div>
+          <div class="wechat-share-info">
+            <h4>分享步骤：</h4>
+            <ul>
+              <li v-if="isWechatBrowser()">
+                1. 点击右上角<span class="share-tip-icon">···</span>
+              </li>
+              <li v-if="isWechatBrowser()">
+                2. 选择「发送给朋友」或「分享到朋友圈」
+              </li>
+              <li v-else>
+                1. 使用微信扫描左侧二维码
+              </li>
+              <li>
+                2. 在微信内点击右上角<span class="share-tip-icon">···</span>进行分享
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="wechat-dialog-footer">
+          <button class="copy-link-btn" @click="copyToClipboard(shareUrl)">复制链接</button>
+        </div>
+      </div>
     </div>
 
     <!-- 底部版权信息 -->
@@ -673,7 +1055,7 @@ const goals = [
   align-items: center;
 }
 
-/* 分享按钮网格布局 */
+/* 分享按钮网格布局 - 添加响应式设计 */
 .share-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -681,6 +1063,7 @@ const goals = [
   width: 100%;
   max-width: 240px;
   margin-bottom: 1.5rem;
+  box-sizing: border-box;
 }
 
 /* 分享项样式 */
@@ -689,11 +1072,13 @@ const goals = [
   flex-direction: column;
   align-items: center;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  padding: 5px;
 }
 
 .share-item:hover {
-  transform: translateY(-5px);
+  transform: translateY(-3px);
+  opacity: 0.9;
 }
 
 /* 分享图标样式 */
@@ -710,6 +1095,41 @@ const goals = [
   border: 1px solid rgba(74, 144, 226, 0.3);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
+}
+
+/* 响应式分享按钮调整 */
+@media (max-width: 768px) {
+  .share-grid {
+    gap: 0.8rem;
+    max-width: 200px;
+  }
+  
+  .share-icon {
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
+  }
+  
+  .share-name {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .share-grid {
+    gap: 0.6rem;
+    max-width: 180px;
+  }
+  
+  .share-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+  }
+  
+  .share-name {
+    font-size: 0.7rem;
+  }
 }
 
 .share-item:hover .share-icon {
@@ -850,6 +1270,176 @@ const goals = [
 .footer-bottom img {
   vertical-align: middle;
   margin-right: 6px;
+}
+
+/* 微信分享对话框样式 */
+.wechat-share-dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.wechat-share-dialog {
+  background-color: #ffffff;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  animation: dialogFadeIn 0.3s ease;
+}
+
+@keyframes dialogFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.wechat-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #eee;
+  background-color: #f8f8f8;
+}
+
+.wechat-dialog-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.close-btn {
+  font-size: 1.5rem;
+  color: #999;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.close-btn:hover {
+  color: #333;
+  background-color: #eee;
+}
+
+.wechat-dialog-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wechat-share-qrcode {
+  margin-bottom: 1.5rem;
+}
+
+.qrcode-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.qrcode-placeholder p {
+  margin-top: 0.5rem;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.wechat-share-info {
+  width: 100%;
+}
+
+.wechat-share-info h4 {
+  margin: 0 0 1rem 0;
+  color: #333;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.wechat-share-info ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.wechat-share-info li {
+  margin-bottom: 0.5rem;
+  color: #666;
+  line-height: 1.4;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.wechat-share-info li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: #4a90e2;
+}
+
+.share-tip-icon {
+  background-color: #f0f0f0;
+  padding: 0 0.5rem;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  margin: 0 0.2rem;
+}
+
+.wechat-dialog-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: center;
+}
+
+.copy-link-btn {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.copy-link-btn:hover {
+  background-color: #357abd;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .wechat-share-dialog {
+    width: 95%;
+    margin: 1rem;
+  }
+  
+  .qrcode-placeholder svg {
+    width: 160px;
+    height: 160px;
+  }
 }
 
 /* 中等屏幕响应式设计 */
