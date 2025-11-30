@@ -558,6 +558,7 @@ const goals = [
   color: #ffffff;
   padding: 2rem 0;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  position: relative;
 }
 
 .footer-container {
@@ -911,24 +912,27 @@ const goals = [
 
 /* 访问量统计样式 - 与新布局协调 */
 .page-views-counter {
+  position: absolute;
+  bottom: 3rem;
+  right: 1.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, rgba(74, 144, 226, 0.15) 0%, rgba(74, 144, 226, 0.08) 100%);
-  border: 1px solid rgba(74, 144, 226, 0.25);
+  background: linear-gradient(135deg, rgba(74, 144, 226, 0.2) 0%, rgba(74, 144, 226, 0.1) 100%);
+  border: 1px solid rgba(74, 144, 226, 0.3);
   border-radius: 16px;
-  padding: 0 1rem;
-  width: 100%;
-  height: 50px;
-  max-width: 240px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 1rem;
+  width: auto;
+  height: 45px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
+  z-index: 10;
 }
 
 .page-views-counter:hover {
-  background: linear-gradient(135deg, rgba(74, 144, 226, 0.2) 0%, rgba(74, 144, 226, 0.12) 100%);
-  box-shadow: 0 6px 16px rgba(74, 144, 226, 0.2);
-  transform: translateY(-3px);
+  background: linear-gradient(135deg, rgba(74, 144, 226, 0.25) 0%, rgba(74, 144, 226, 0.15) 100%);
+  box-shadow: 0 6px 20px rgba(74, 144, 226, 0.25);
+  transform: translateY(-2px);
 }
 
 .views-content {
@@ -946,6 +950,27 @@ const goals = [
   align-items: center;
   justify-content: center;
   width: 100%;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .page-views-counter {
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.4rem 0.8rem;
+    height: 40px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-views-counter {
+    bottom: 0.8rem;
+    right: 0.8rem;
+    padding: 0.3rem 0.7rem;
+    height: 35px;
+    font-size: 0.8rem;
+  }
 }
 
 .view-icon {
