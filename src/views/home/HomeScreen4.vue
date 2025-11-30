@@ -5,6 +5,14 @@ import { ElMessage } from 'element-plus'
 import VillageCard from '@/components/HomeScreen4Com/VillageCard.vue'
 import GoalCard from '@/components/HomeScreen4Com/GoalCard.vue'
 
+// FAQ展开状态管理
+const faqExpanded = ref(true)
+
+// 切换FAQ展开/收缩状态
+const toggleFaq = () => {
+  faqExpanded.value = !faqExpanded.value
+}
+
 // 分享功能相关函数
 const shareTitle = '数字乡建 - 让每一份乡土记忆都被温柔托举'
 const shareDesc = '以青年之智、数字之力，助力乡村走向可持续未来。'
@@ -397,11 +405,11 @@ const goals = [
         <h3 class="column-title">问题解答</h3>
         <div class="faq-content">
           <div class="faq-item">
-            <div class="faq-question">
-              <span class="faq-toggle">-</span>
+            <div class="faq-question" @click="toggleFaq">
+              <span class="faq-toggle">{{ faqExpanded ? '-' : '+' }}</span>
               我们是谁？团队介绍？
             </div>
-            <div class="faq-answer">
+            <div class="faq-answer" v-show="faqExpanded">
               答：我们是山东商务职业学院“云行阡陌”团队，致力于让每一份乡土记忆都被数字技术温柔托举，让每一个传统村落都在时代浪潮中找回自己的声音与价值。以青年之智、数字之力，踏云而行，重走阡陌，助力乡村走向一个更可持续、更美好的未来。
             </div>
           </div>
