@@ -996,9 +996,8 @@ const goals = [
   margin: 1.5rem auto 0;
   padding: 1rem 2rem;
   text-align: center;
-  border-top: 1px solid #333;
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
   flex-wrap: wrap;
 }
