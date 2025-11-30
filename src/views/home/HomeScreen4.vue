@@ -2,6 +2,8 @@
 import { ref } from 'vue'
 import { usePageView } from '@/composables/usePageView'
 import { ElMessage } from 'element-plus'
+import VillageCard from '@/components/HomeScreen4Com/VillageCard.vue'
+import GoalCard from '@/components/HomeScreen4Com/GoalCard.vue'
 
 // 分享功能相关函数
 const shareTitle = '数字乡建 - 让每一份乡土记忆都被温柔托举'
@@ -360,20 +362,7 @@ const goals = [
       <div class="left-section villages-section">
         <h3 class="column-title villages-title">乡村推荐</h3>
         <div class="villages-grid-horizontal">
-          <div v-for="village in villages" :key="village.id" class="village-card-3d">
-            <div class="village-card-inner">
-              <div class="village-card-front">
-                <div class="village-image-container">
-                  <img src="@/assets/search/3/1.jpg" alt="乡村风光" class="village-image">
-                </div>
-                <h3 class="village-name-3d">{{ village.name }}</h3>
-                <div class="flip-hint">翻转查看详情</div>
-              </div>
-              <div class="village-card-back">
-                <p class="village-description-back">{{ village.description }}</p>
-              </div>
-            </div>
-          </div>
+          <VillageCard v-for="village in villages" :key="village.id" :village="village" />
         </div>
       </div>
 
@@ -381,48 +370,7 @@ const goals = [
       <div class="right-section villages-section">
         <h3 class="column-title villages-title">项目目标</h3>
         <div class="villages-grid-horizontal">
-          <div v-for="goal in goals" :key="goal.id" class="goal-card-3d">
-            <div class="goal-card-inner">
-              <div class="goal-card-front">
-                <div class="goal-icon-container">
-                  <!-- 根据不同目标显示不同图标 -->
-                  <div v-if="goal.id === 1" class="goal-icon">
-                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none">
-                      <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#4a90e2" stroke-width="2" />
-                      <path d="M2 17L12 22L22 17" stroke="#4a90e2" stroke-width="2" />
-                      <path d="M2 12L12 17L22 12" stroke="#4a90e2" stroke-width="2" />
-                    </svg>
-                  </div>
-                  <div v-else-if="goal.id === 2" class="goal-icon">
-                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none">
-                      <rect x="4" y="4" width="16" height="16" rx="2" stroke="#4a90e2" stroke-width="2" />
-                      <rect x="9" y="9" width="6" height="6" stroke="#4a90e2" stroke-width="2" />
-                      <line x1="12" y1="1" x2="12" y2="3" stroke="#4a90e2" stroke-width="2" />
-                      <line x1="12" y1="21" x2="12" y2="23" stroke="#4a90e2" stroke-width="2" />
-                      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="#4a90e2" stroke-width="2" />
-                      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="#4a90e2" stroke-width="2" />
-                      <line x1="1" y1="12" x2="3" y2="12" stroke="#4a90e2" stroke-width="2" />
-                      <line x1="21" y1="12" x2="23" y2="12" stroke="#4a90e2" stroke-width="2" />
-                      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="#4a90e2" stroke-width="2" />
-                      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="#4a90e2" stroke-width="2" />
-                    </svg>
-                  </div>
-                  <div v-else class="goal-icon">
-                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none">
-                      <path d="M18 13L12 19L6 13" stroke="#4a90e2" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                      <circle cx="12" cy="12" r="9" stroke="#4a90e2" stroke-width="2" />
-                    </svg>
-                  </div>
-                </div>
-                <h3 class="goal-name-3d">{{ goal.title }}</h3>
-                <div class="flip-hint">翻转查看详情</div>
-              </div>
-              <div class="goal-card-back">
-                <p class="goal-description-back">{{ goal.description }}</p>
-              </div>
-            </div>
-          </div>
+          <GoalCard v-for="goal in goals" :key="goal.id" :goal="goal" />
         </div>
       </div>
     </div>
@@ -800,95 +748,7 @@ const goals = [
   flex-wrap: wrap;
 }
 
-/* 项目目标3D卡片样式 */
-.goal-card-3d {
-  /* 使用相对宽度以适应横向排列，最小宽度确保卡片不会太小 */
-  width: calc(33.333% - 20px);
-  min-width: 160px;
-  height: 170px;
-  perspective: 800px;
-}
-
-.goal-card-inner {
-  position: relative;
-  width: 100%;
-  height: 90%;
-  text-align: center;
-  transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
-  transform-style: preserve-3d;
-  cursor: pointer;
-}
-
-/* 3D翻转效果 */
-.goal-card-3d:hover .goal-card-inner {
-  transform: rotateY(180deg);
-}
-
-.goal-card-front,
-.goal-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  text-align: center;
-  box-sizing: border-box;
-}
-
-.goal-card-front {
-  background-color: #2a2a2a;
-  border: 1px solid rgba(95, 140, 207, 0.3);
-}
-
-.goal-card-back {
-  background-color: #4a90e2;
-  color: white;
-  transform: rotateY(180deg);
-  text-orientation: mixed;
-  writing-mode: horizontal-tb;
-  border: 1px solid rgba(132, 184, 84, 0.3);
-}
-
-/* 图标容器样式 */
-.goal-icon-container {
-  margin-bottom: 5px;
-}
-
-.goal-name-3d {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 2px;
-}
-
-.goal-name-back {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 5px;
-}
-
-.goal-description-back {
-  font-size: 0.85rem;
-  line-height: 1.3;
-  color: #ffffff;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  -webkit-box-orient: vertical;
-  box-orient: vertical;
-  text-align: center;
-  width: 100%;
-}
-
+/* 保持网格布局样式 */
 .villages-section {
   width: 100%;
   margin: 0;
@@ -909,133 +769,8 @@ const goals = [
   display: flex;
   gap: 1rem;
   justify-content: flex-start;
-  /* flex-wrap: wrap; */
   /* 确保在任何父容器设置下都保持横向排列 */
   flex-direction: row !important;
-}
-
-/* 3D卡片样式 */
-.village-card-3d {
-  width: 180px;
-  height: 150px;
-  perspective: 800px;
-  flex-shrink: 0;
-}
-
-.village-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
-  transform-style: preserve-3d;
-  cursor: pointer;
-}
-
-/* 3D翻转效果 */
-.village-card-3d:hover .village-card-inner {
-  transform: rotateY(180deg);
-}
-
-.village-card-front,
-.village-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  text-align: center;
-  box-sizing: border-box;
-}
-
-.village-card-front {
-  background-color: #2a2a2a;
-  border: 1px solid rgba(95, 140, 207, 0.3);
-}
-
-.village-card-back {
-  background-color: #4a90e2;
-  color: white;
-  transform: rotateY(180deg);
-  border: 1px solid rgba(132, 184, 84, 0.3);
-  text-orientation: mixed;
-  writing-mode: horizontal-tb;
-}
-
-.village-image-container {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-bottom: 4px;
-  border: 1px solid #4a90e2;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-}
-
-.village-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.village-card-3d:hover .village-image {
-  transform: scale(1.1);
-}
-
-.village-name-3d {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 2px;
-}
-
-.village-name-back {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 8px;
-}
-
-.village-description-back {
-  font-size: 0.75rem;
-  line-height: 1.3;
-  color: #ffffff;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  -webkit-box-orient: vertical;
-  box-orient: vertical;
-  text-align: center;
-  width: 100%;
-}
-
-.flip-hint {
-  font-size: 8px;
-  color: #999;
-  margin-top: 4px;
-  animation: blink 2s ease-in-out infinite;
-}
-
-@keyframes blink {
-
-  0%,
-  50% {
-    opacity: 0.5;
-  }
-
-  51%,
-  100% {
-    opacity: 1;
-  }
 }
 
 /* 右侧：分享按钮样式 */
