@@ -62,7 +62,6 @@ const goals = [
                 <div class="flip-hint">翻转查看详情</div>
               </div>
               <div class="village-card-back">
-                <h3 class="village-name-back">{{ village.name }}</h3>
                 <p class="village-description-back">{{ village.description }}</p>
               </div>
             </div>
@@ -112,7 +111,6 @@ const goals = [
                 <div class="flip-hint">翻转查看详情</div>
               </div>
               <div class="goal-card-back">
-                <h3 class="goal-name-back">{{ goal.title }}</h3>
                 <p class="goal-description-back">{{ goal.description }}</p>
               </div>
             </div>
@@ -471,6 +469,8 @@ const goals = [
   background-color: #4a90e2;
   color: white;
   transform: rotateY(180deg);
+  text-orientation: mixed;
+  writing-mode: horizontal-tb;
   border: 1px solid rgba(132, 184, 84, 0.3);
 }
 
@@ -499,9 +499,12 @@ const goals = [
   color: #ffffff;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
+  box-orient: vertical;
+  text-align: center;
+  width: 100%;
 }
 
 .villages-section {
@@ -580,6 +583,8 @@ const goals = [
   color: white;
   transform: rotateY(180deg);
   border: 1px solid rgba(132, 184, 84, 0.3);
+  text-orientation: mixed;
+  writing-mode: horizontal-tb;
 }
 
 .village-image-container {
@@ -623,9 +628,12 @@ const goals = [
   color: #ffffff;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
+  box-orient: vertical;
+  text-align: center;
+  width: 100%;
 }
 
 .flip-hint {
