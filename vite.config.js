@@ -38,4 +38,8 @@ export default defineConfig({
     ],
     exclude: ['three/addons']
   },
+  server: {
+    port: 8081,
+    open: true,
+  }
 })
